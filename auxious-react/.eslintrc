@@ -17,5 +17,6 @@
     "no-control-regex": 0,
     "no-inner-declarations": 1,
     "valid-typeof": 1
-  }
+  },
+  "sourceType": "module"
 }
