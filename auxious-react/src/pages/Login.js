@@ -11,11 +11,13 @@ function Login() {
 
   useEffect(() => {
     const handleCallbackResponse = async (googleResponse) => {
-      const isLoggedIn = await askServerToken(googleResponse.credential);
+      const { clientId, credential } = googleResponse;
+      const hasServerToken = await askServerToken(clientId, credential);
 
-      if (isLoggedIn.ok) {
-        const userInfo = decode(document.cookie.split('server_cookie=')[1]);
-        dispatch(saveUserInfo(userInfo));
+      if (hasServerToken.ok) {
+        const tokenCookie = document.cookie.split('server_token=')[1];
+        const decodedInformation = decode(tokenCookie);
+        dispatch(saveUserInfo(decodedInformation));
         navigate('/');
       }
     };
@@ -31,7 +33,12 @@ function Login() {
     });
   }, []);
 
-  return <div id='signInDiv'></div>;
+  return (
+    <div>
+      <div>Auxios</div>
+      <div id='signInDiv'></div>
+    </div>
+  );
 }
 
 export default Login;
