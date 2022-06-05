@@ -58,15 +58,13 @@
 }
 
 .accordion {
-  padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
+  padding: 10px;
 }
 .accordion h4 {
   text-transform: none;
-  line-height: 1.5;
 }
 .accordion p {
-  background-color: #a8a8a8;
+  background: #a8a8a8;
   margin-bottom: 0;
 }
 .accordion header {
@@ -84,7 +82,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-left: 1rem;
   align-self: center;
   min-width: 2rem;
 }
