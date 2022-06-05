@@ -1,10 +1,27 @@
-import { LongButton, ShortButton } from './common/Button';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
+import { saveUserInfo } from './store/userSlice';
+import Authorized from './routes/Authorized';
+import Unauthorized from './routes/Unauthorized';
 
 function App() {
+  const dispatch = useDispatch();
+  const userInformation = useSelector((state) => state.user.userInformation);
+  const hasCookie = document.cookie.includes('server_token=');
+
+  useEffect(() => {
+    if (!userInformation && hasCookie) {
+      const tokenCookie = document.cookie.split('server_token=')[1];
+      const decodedInformation = decode(tokenCookie);
+      dispatch(saveUserInfo(decodedInformation));
+    }
+  }, [userInformation]);
+
   return (
-    <div className='App'>
-      <LongButton className='blue-colored'>긴 버튼입니다.</LongButton>
-      <ShortButton className='gray-colored'>짧은 버튼입니다.</ShortButton>
+    <div>
+      {hasCookie && <Authorized />}
+      {!hasCookie && <Unauthorized />}
     </div>
   );
 }
