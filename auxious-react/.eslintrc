@@ -1,8 +1,10 @@
 {
   "plugins": ["prettier"],
   "extends": "eslint:recommended",
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2016,
+    "sourceType": "module"
   },
   "env": {
     "browser": true,
@@ -17,6 +19,5 @@
     "no-control-regex": 0,
     "no-inner-declarations": 1,
     "valid-typeof": 1
-  },
-  "sourceType": "module"
+  }
 }
