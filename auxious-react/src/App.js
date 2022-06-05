@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import Login from './pages/Login';
 import { saveUserInfo } from './store/userSlice';
+import Authorized from './routes/Authorized';
+import Unauthorized from './routes/Unauthorized';
 
 function App() {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.user.userInformation);
-  const hasCookie = document.cookie.includes('server_token=') !== -1;
+  const hasCookie = document.cookie.includes('server_token=');
 
   useEffect(() => {
     if (!userInformation && hasCookie) {
@@ -17,7 +18,12 @@ function App() {
     }
   }, [userInformation]);
 
-  return <div></div>;
+  return (
+    <div>
+      {hasCookie && <Authorized />}
+      {!hasCookie && <Unauthorized />}
+    </div>
+  );
 }
 
 export default App;
