@@ -1,9 +1,8 @@
 {
-  "plugins": ["prettier"],
-  "extends": "eslint:recommended",
+  "plugins": ["prettier", "react"],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+    "ecmaVersion": 2020
   },
   "env": {
     "browser": true,

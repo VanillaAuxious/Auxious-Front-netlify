@@ -23,6 +23,7 @@ function Login() {
     };
 
     /* global google */
+    console.log(google);
     google.accounts.id.initialize({
       client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
       callback: handleCallbackResponse,
