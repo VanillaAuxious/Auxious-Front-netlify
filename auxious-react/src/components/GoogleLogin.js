@@ -22,7 +22,8 @@ function Login() {
       }
     };
 
-    /* global google */
+    const google = window.google;
+
     google.accounts.id.initialize({
       client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
       callback: handleCallbackResponse,
