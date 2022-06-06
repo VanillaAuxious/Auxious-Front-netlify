@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import decode from 'jwt-decode';
-import { askServerToken } from '../utils/api';
 import { saveUserInfo } from '../store/userSlice';
+import useAxios from '../hooks/useAxios';
 
 function Login() {
   const navigate = useNavigate();
@@ -12,12 +11,13 @@ function Login() {
   useEffect(() => {
     const handleCallbackResponse = async (googleResponse) => {
       const { clientId, credential } = googleResponse;
-      const hasServerToken = await askServerToken(clientId, credential);
+      const userInformation = await useAxios('users/login', 'post', {
+        clientId,
+        token: `Bearer ${credential}`,
+      });
 
-      if (hasServerToken.ok) {
-        const tokenCookie = document.cookie.split('server_token=')[1];
-        const decodedInformation = decode(tokenCookie);
-        dispatch(saveUserInfo(decodedInformation));
+      if (userInformation.ok) {
+        dispatch(saveUserInfo(userInformation.userInfo));
         navigate('/');
       }
     };
@@ -34,10 +34,10 @@ function Login() {
   }, []);
 
   return (
-    <div>
+    <>
       <div>Auxios</div>
       <div id='signInDiv'></div>
-    </div>
+    </>
   );
 }
 
