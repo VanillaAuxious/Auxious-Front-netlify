@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import { askServerToken } from '../utils/api';
+import useAxios from '../hooks/useAxios';
 import { saveUserInfo } from '../store/userSlice';
 
 function Login() {
@@ -12,7 +13,15 @@ function Login() {
   useEffect(() => {
     const handleCallbackResponse = async (googleResponse) => {
       const { clientId, credential } = googleResponse;
-      const hasServerToken = await askServerToken(clientId, credential);
+
+      const hasServerToken = await useAxios(
+        'users/login',
+        'post',
+        { clientId, token: `Bearer ${credential}` },
+        {
+          withCredentials: true,
+        },
+      );
 
       if (hasServerToken.ok) {
         const tokenCookie = document.cookie.split('server_token=')[1];
@@ -23,7 +32,6 @@ function Login() {
     };
 
     /* global google */
-    console.log(google);
     google.accounts.id.initialize({
       client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
       callback: handleCallbackResponse,
@@ -31,6 +39,7 @@ function Login() {
 
     google.accounts.id.renderButton(document.getElementById('signInDiv'), {
       theme: 'outline',
+
     });
   }, []);
 
