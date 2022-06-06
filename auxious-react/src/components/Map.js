@@ -18,7 +18,7 @@ function Map({ searchPlace }) {
 
   useEffect(() => {
     const searchScript = new_script(
-      'https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=30cc1c964fcfcdf1e9ed6ab223dc6995',
+      `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.REACT_APP_KAKAO_API_JAVASCRIPT_KEY}`,
     );
 
     searchScript.then(() => {
@@ -42,7 +42,7 @@ function Map({ searchPlace }) {
         marker.setMap(map);
       });
     });
-  }, []);
+  }, [searchPlace]);
 
   return (
     <div>
