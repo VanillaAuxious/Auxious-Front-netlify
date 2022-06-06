@@ -1,5 +1,4 @@
 import React from 'react';
-import { SearchButton } from './Button';
 import './style.css';
 
 export function SearchInput() {
