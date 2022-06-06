@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import decode from 'jwt-decode';
 import { saveUserInfo } from './store/userSlice';
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
+import BottomSheet from './components/BottomSheet';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ function App() {
     <div>
       {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
+      <BottomSheet />
     </div>
   );
 }
