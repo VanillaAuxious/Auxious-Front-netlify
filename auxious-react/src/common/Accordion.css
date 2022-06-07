@@ -1,0 +1,28 @@
+.accordion {
+  padding: 10px;
+}
+.accordion h4 {
+  text-transform: none;
+}
+.accordion p {
+  background: #a8a8a8;
+  margin-bottom: 0;
+}
+.accordion header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion header h4 {
+  margin-bottom: 0;
+}
+.btn {
+  background: transparent;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  align-self: center;
+  min-width: 2rem;
+}

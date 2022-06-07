@@ -1,0 +1,11 @@
+.cardBox {
+  width: 100px;
+  height: 100px;
+  border: none;
+  border-radius: 5px;
+}
+
+.cardBox:hover {
+  background-color: #a8a8a8;
+  border: none;
+}

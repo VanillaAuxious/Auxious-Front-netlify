@@ -10,6 +10,13 @@
       content="Web site created using create-react-app" />
     <title>Auxios</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta http-equiv="Content-Security-Policy" script-src="unsafe-inline" />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net; script-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net; img-src 'self' 'unsafe-inline' https://dapi.kakao.com http://*.daumcdn.net;" />
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%REACT_APP_KAKAO_API_JAVASCRIPT_KEY%&libraries=services,clusterer,drawing"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
