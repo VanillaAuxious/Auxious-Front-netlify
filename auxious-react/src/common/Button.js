@@ -1,5 +1,4 @@
-import React from 'react';
-import './style.css';
+import './Button.css';
 
 export function LongButton({ className, children }) {
   const classes = `long ${className}`;

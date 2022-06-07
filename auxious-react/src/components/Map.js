@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+
 import './style.css';
 
 function Map() {
-  async function newScript(src) {
-    return await new Promise((resolve, reject) => {
+  function newScript(src) {
+    return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.addEventListener('load', () => {

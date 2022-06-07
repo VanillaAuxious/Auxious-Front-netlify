@@ -1,0 +1,46 @@
+.real-blue-colored {
+  background-color: #2d3d72;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.middle-blue-colored {
+  background-color: #5274c5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.real-gray-colored {
+  background-color: #a8a8a8;
+  color: black;
+  border: none;
+  border-radius: 5px;
+}
+
+.middle-gray-colored {
+  background-color: #efefef;
+  color: black;
+  border: none;
+  border-radius: 5px;
+}
+
+.searchBox {
+  height: 24px;
+}
+
+.long {
+  width: 80%;
+  height: 30px;
+}
+
+.short {
+  width: 30%;
+  height: 30px;
+}
+
+.search {
+  width: 5%;
+  height: 30px;
+}

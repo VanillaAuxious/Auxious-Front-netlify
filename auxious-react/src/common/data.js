@@ -15,4 +15,5 @@ const questions = [
     info: '서울특별시 강남구 테헤란로',
   },
 ];
+
 export default questions;

@@ -1,7 +1,6 @@
-import React from 'react';
-import './style.css';
+import { SearchButton } from './Button';
 
-export function SearchInput() {
+function SearchInput() {
   return (
     <div>
       <input className='searchBox' placeholder='검색어를 입력하세요.' />
@@ -9,3 +8,5 @@ export function SearchInput() {
     </div>
   );
 }
+
+export default SearchInput;

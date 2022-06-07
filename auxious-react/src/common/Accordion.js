@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import './style.css';
+import './Accordion.css';
 
-export function Accordion({ title, info }) {
+function Accordion({ title, info }) {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
@@ -17,3 +17,5 @@ export function Accordion({ title, info }) {
     </article>
   );
 }
+
+export default Accordion;
