@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import './style.css';
+import './Map.css';
 
 function Map() {
   function newScript(src) {
