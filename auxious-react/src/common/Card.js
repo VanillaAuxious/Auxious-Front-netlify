@@ -1,7 +1,5 @@
 import React from 'react';
 
-export function Card({ className, children }) {
-  const classes = `search ${className}`;
-
-  return <button className={classes}>{children}</button>;
+export default function Card({ children }) {
+  return <button className='cardBox'>{children}</button>;
 }

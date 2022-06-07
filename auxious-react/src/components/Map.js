@@ -1,9 +1,9 @@
+import React, { useEffect } from 'react';
 import './style.css';
-import { useEffect } from 'react';
 
-function Map({ searchPlace }) {
-  const new_script = (src) => {
-    return new Promise((resolve, reject) => {
+function Map() {
+  async function newScript(src) {
+    return await new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.addEventListener('load', () => {
@@ -14,14 +14,14 @@ function Map({ searchPlace }) {
       });
       document.head.appendChild(script);
     });
-  };
+  }
 
   useEffect(() => {
-    const searchScript = new_script(
-      `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.REACT_APP_KAKAO_API_JAVASCRIPT_KEY}`,
-    );
+    const scripting = async () => {
+      await newScript(
+        `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.REACT_APP_KAKAO_API_JAVASCRIPT_KEY}`,
+      );
 
-    searchScript.then(() => {
       const kakao = window['kakao'];
 
       kakao.maps.load(() => {
@@ -41,8 +41,10 @@ function Map({ searchPlace }) {
 
         marker.setMap(map);
       });
-    });
-  }, [searchPlace]);
+    };
+
+    scripting();
+  }, []);
 
   return (
     <div>

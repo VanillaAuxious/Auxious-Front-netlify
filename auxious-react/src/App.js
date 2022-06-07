@@ -4,7 +4,6 @@ import decode from 'jwt-decode';
 import { saveUserInfo } from './store/userSlice';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
-import SearchPlace from './pages/SearchPlace';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function App() {
     <div>
       {hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
-      <SearchPlace />
     </div>
   );
 }

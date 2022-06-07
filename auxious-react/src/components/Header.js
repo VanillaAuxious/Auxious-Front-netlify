@@ -7,9 +7,7 @@ export function Header() {
       <div className='gnb-wrap'>
         <h1 className='logo'>
           <div>
-          {/* <Link to='/'> */}
-            <img src={Logo} alt="Logo" />
-          {/* </Link> */}
+            <img src={Logo} alt='Logo' />
           </div>
         </h1>
       </div>
