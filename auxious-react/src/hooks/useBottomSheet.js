@@ -51,6 +51,9 @@ function useBottomSheet() {
     const handleTouchMove = (event) => {
       event.preventDefault();
 
+      const target = event.target.closest('ul');
+      if (target) return;
+
       const { touchStart, touchMove } = metrics.current;
       const currentTouch = event.touches[0];
 
@@ -81,8 +84,6 @@ function useBottomSheet() {
         sheetArea.current.style.transform = `translateY(${
           nextSheetY - MAX_BACKGROUND_Y
         }px)`;
-      } else {
-        document.body.style.overflowY = 'hidden';
       }
     };
 
@@ -130,14 +131,20 @@ function useBottomSheet() {
   }, []);
 
   useEffect(() => {
-    const handleTouchStart = () => {
+    const handleTouchStart = (event) => {
+      event.preventDefault();
       metrics.current.isContentAreaTouched = true;
     };
 
-    contentArea.current.addEventListener('touchstart', handleTouchStart);
+    const handleTouchMove = (event) => {};
 
-    return () =>
+    contentArea.current.addEventListener('touchstart', handleTouchStart);
+    contentArea.current.addEventListener('touchmove', handleTouchMove);
+
+    return () => {
       contentArea.current.removeEventListener('touchstart', handleTouchStart);
+      contentArea.current.removeEventListener('touchmove', handleTouchMove);
+    };
   }, []);
 
   return {

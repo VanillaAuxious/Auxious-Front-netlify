@@ -1,7 +1,7 @@
 .bottomsheet {
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   bottom: -90vh;
   left: 0;
   right: 0;
@@ -28,5 +28,6 @@
 }
 
 .bottomsheet-content {
-  overflow: auto;
+  height: 90%;
+  overflow-y: scroll;
 }
