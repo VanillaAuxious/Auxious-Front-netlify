@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API = axios.create({ baseURL: process.env.REACT_APP_API_URL });
-API.defaults.withCredentials = true;
 
 export async function askServerToken(clientId, token) {
   const response = await API.post(
@@ -17,3 +16,4 @@ export async function askServerToken(clientId, token) {
 
   return response.data;
 }
+

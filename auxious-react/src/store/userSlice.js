@@ -8,7 +8,6 @@ const userSlice = createSlice({
   reducers: {
     saveUserInfo(state, action) {
       state.userInformation = action.payload;
-      delete state.userInformation.iat;
     },
   },
 });

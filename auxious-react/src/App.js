@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import { saveUserInfo } from './store/userSlice';
+import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 
@@ -11,16 +12,19 @@ function App() {
   const hasCookie = document.cookie.includes('server_token=');
 
   useEffect(() => {
+    const setUserInformation = async () => {
+      const response = await useAxios(`users/user`);
+      dispatch(saveUserInfo(response.userInfo));
+    };
+
     if (!userInformation && hasCookie) {
-      const tokenCookie = document.cookie.split('server_token=')[1];
-      const decodedInformation = decode(tokenCookie);
-      dispatch(saveUserInfo(decodedInformation));
+      setUserInformation();
     }
   }, [userInformation]);
 
   return (
     <div>
-      {hasCookie && <Authorized />}
+      {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
     </div>
   );
