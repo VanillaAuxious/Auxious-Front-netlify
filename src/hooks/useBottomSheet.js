@@ -88,8 +88,6 @@ function useBottomSheet() {
     };
 
     const handleTouchEnd = () => {
-      document.body.style.overflowY = 'auto';
-
       const { touchMove } = metrics.current;
 
       const currentSheetY = sheetArea.current.getBoundingClientRect().y;
@@ -101,7 +99,7 @@ function useBottomSheet() {
 
         if (touchMove.movingDirection === 'up') {
           sheetArea.current.style.transform = `translateY(${
-            MIN_BACKGROUND_Y - MAX_BACKGROUND_Y
+            MIN_BACKGROUND_Y - innerHeight
           }px)`;
         }
       }
@@ -136,14 +134,10 @@ function useBottomSheet() {
       metrics.current.isContentAreaTouched = true;
     };
 
-    const handleTouchMove = (event) => {};
-
     contentArea.current.addEventListener('touchstart', handleTouchStart);
-    contentArea.current.addEventListener('touchmove', handleTouchMove);
 
     return () => {
       contentArea.current.removeEventListener('touchstart', handleTouchStart);
-      contentArea.current.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 
