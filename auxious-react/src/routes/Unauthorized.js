@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+
 import Login from '../pages/Login';
 
-function Unauthorized() {
+export default function Unauthorized() {
   return (
     <Routes>
       <Route path='/' element={<Navigate replace to='/login' />} />
@@ -9,5 +10,3 @@ function Unauthorized() {
     </Routes>
   );
 }
-
-export default Unauthorized;
