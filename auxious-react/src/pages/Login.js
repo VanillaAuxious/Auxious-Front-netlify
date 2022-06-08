@@ -1,11 +1,10 @@
 import GoogleLogin from '../components/GoogleLogin';
 
-function Login() {
+export default function Login() {
+  const place = '37.508673975249614, 127.05974650150894';
   return (
     <div>
       <GoogleLogin />
     </div>
   );
 }
-
-export default Login;
