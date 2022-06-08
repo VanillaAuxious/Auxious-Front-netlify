@@ -16,4 +16,3 @@ export async function askServerToken(clientId, token) {
 
   return response.data;
 }
-

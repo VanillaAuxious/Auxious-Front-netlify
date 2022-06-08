@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Map from '../components/Map';
 
-function SearchPlace() {
+export default function SearchPlace() {
   const [inputText, setInputText] = useState('');
   const [place, setPlace] = useState('');
 
@@ -25,9 +25,7 @@ function SearchPlace() {
         />
         <button type='submit'>검색</button>
       </form>
-      <Map searchPlace={place} />
+      <Map />
     </div>
   );
 }
-
-export default SearchPlace;
