@@ -5,7 +5,6 @@ import { saveUserInfo } from './store/userSlice';
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
-import Details from './pages/Details';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +26,10 @@ function App() {
     <div
       style={{
         width: '360px',
-        height: '760px',
+        height: '740px',
       }}>
       {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
-      <Details />
     </div>
   );
 }

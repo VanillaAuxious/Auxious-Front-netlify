@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import useAxios from './useAxios';
 
 export default function useMap(place, type) {
-  const [map, setMap] = useState();
   const [auctions, setAuctions] = useState([]);
   const [forSales, setforSales] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -27,7 +26,6 @@ export default function useMap(place, type) {
 
     const map = new kakao.maps.Map(mapContainer, mapOptions);
     const geocoder = new kakao.maps.services.Geocoder();
-    setMap(map);
 
     setAuctionsMarker(map);
     setForSalesMarker(map);
