@@ -4,7 +4,6 @@ import { saveUserInfo } from './store/userSlice';
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
-import BottomSheet from './components/BottomSheet';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +22,11 @@ function App() {
   }, [userInformation]);
 
   return (
-    <div>
+    <div
+      style={{
+        width: '360px',
+        height: '720px',
+      }}>
       {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
     </div>

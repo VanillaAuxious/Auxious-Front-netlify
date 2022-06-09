@@ -1,12 +1,9 @@
 {
-  "plugins": ["prettier", "react"],
-  "extends": "eslint:recommended",
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
     "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "sourceType": "module"
   },
   "env": {
     "browser": true,
@@ -21,6 +18,8 @@
     "no-control-regex": 0,
     "no-inner-declarations": 1,
     "no-undef": 0,
-    "valid-typeof": 1
+    "valid-typeof": 1,
+    "react/react-in-jsx-scope": 0,
+    "react/prop-types": 0
   }
 }
