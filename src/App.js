@@ -1,15 +1,17 @@
 import 'normalize.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUserInfo } from './store/userSlice';
+
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 
+import { saveUserInfo } from './store/userSlice';
+
 function App() {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.user.userInformation);
-  const hasCookie = document.cookie.includes('server_token=');
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   useEffect(() => {
     const setUserInformation = async () => {
@@ -17,7 +19,7 @@ function App() {
       dispatch(saveUserInfo(response.userInfo));
     };
 
-    if (!userInformation && hasCookie) {
+    if (!userInformation && isLoggedIn) {
       setUserInformation();
     }
   }, [userInformation]);
@@ -28,8 +30,8 @@ function App() {
         width: '360px',
         height: '740px',
       }}>
-      {userInformation && hasCookie && <Authorized />}
-      {!hasCookie && <Unauthorized />}
+      {userInformation && isLoggedIn && <Authorized />}
+      {!isLoggedIn && <Unauthorized />}
     </div>
   );
 }
