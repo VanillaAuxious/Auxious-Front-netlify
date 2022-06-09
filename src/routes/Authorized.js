@@ -8,7 +8,6 @@ export default function Authorized() {
   return (
     <Routes>
       <Route path='/login' element={<Navigate replace to='/' />} />
-
       <Route path='/detail/:buildingId' element={<Detail />} />
       <Route path='/' element={<Main />} />
       <Route path='/search/:place' element={<SearchPlace />} />
