@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { saveUserInfo } from '../store/userSlice';
+
 import useAxios from '../hooks/useAxios';
+
+import { saveUserInfo, login } from '../store/userSlice';
 
 function Login() {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ function Login() {
 
       if (userInformation.ok) {
         dispatch(saveUserInfo(userInformation.userInfo));
+        dispatch(login());
         navigate('/');
       }
     };
