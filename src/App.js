@@ -1,3 +1,4 @@
+import 'normalize.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveUserInfo } from './store/userSlice';
@@ -25,7 +26,7 @@ function App() {
     <div
       style={{
         width: '360px',
-        height: '720px',
+        height: '740px',
       }}>
       {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}

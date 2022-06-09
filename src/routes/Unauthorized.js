@@ -5,9 +5,12 @@ import NavBar from '../components/NavBar';
 
 export default function Unauthorized() {
   return (
-    <Routes>
-      <Route path='/' element={<Navigate replace to='/login' />} />
-      <Route path='/login' element={<Login />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path='/' element={<Navigate replace to='/login' />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+      <NavBar />
+    </>
   );
 }

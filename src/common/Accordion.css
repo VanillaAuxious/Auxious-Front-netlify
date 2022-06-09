@@ -1,21 +1,25 @@
 .accordion {
-  padding: 10px;
+  margin-bottom: 10px;
 }
+
 .accordion h4 {
   text-transform: none;
 }
-.accordion p {
-  background: #a8a8a8;
-  margin-bottom: 0;
-}
-.accordion header {
+
+.accordion .accordion-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
 }
-.accordion header h4 {
-  margin-bottom: 0;
+
+.accordion .accordion-heading h4 {
+  margin: 0;
 }
+
 .btn {
   background: transparent;
   border-color: transparent;
@@ -24,5 +28,6 @@
   justify-content: center;
   cursor: pointer;
   align-self: center;
+  outline: none;
   min-width: 2rem;
 }
