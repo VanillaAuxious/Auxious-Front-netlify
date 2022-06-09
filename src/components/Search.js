@@ -20,7 +20,7 @@ function Search() {
     let query = decodeURI(window.location.search).split('=')[1];
     if (window.location.href.includes('search')) {
       if (query.includes(event.target.innerText)) {
-        const newQuery = newQuery.replace(event.target.innerText, '');
+        const newQuery = query.replace(event.target.innerText, '');
 
         navigate(`/search/${place}?type=${newQuery}`);
       } else {

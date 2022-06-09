@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useAxios from './useAxios';
 
-export default function useMap(place, type) {
+export default function useMap(place, type, mapElement) {
   const [auctions, setAuctions] = useState([]);
   const [forSales, setforSales] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -15,7 +15,7 @@ export default function useMap(place, type) {
   const kakao = window.kakao;
 
   useEffect(() => {
-    const mapContainer = document.getElementById('map');
+    const mapContainer = mapElement.current;
 
     const mapOptions = {
       center: new kakao.maps.LatLng(37.51431716812058, 127.06282762463266),
@@ -66,8 +66,12 @@ export default function useMap(place, type) {
         'get',
       );
 
-      const newBuildings = auctionsFilter(buildings);
-      setAuctions(newBuildings.auction);
+      if (type) {
+        const newBuildings = auctionsFilter(buildings);
+        newBuildings ? setAuctions(newBuildings.auction) : null;
+      }
+
+      setAuctions(buildings.auction);
       setforSales(buildings.forSale);
     };
   };
@@ -155,7 +159,7 @@ export default function useMap(place, type) {
   };
 
   const auctionsFilter = (buildings) => {
-    if (buildings) {
+    if (buildings.length) {
       const newBuildings = [...buildings];
 
       if (type) {

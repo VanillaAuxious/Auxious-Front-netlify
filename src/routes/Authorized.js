@@ -4,6 +4,9 @@ import NavBar from '../components/NavBar';
 import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import SearchPlace from '../pages/SearchPlace';
+import Alarm from '../pages/Alarm';
+import MyPage from '../pages/MyPage';
+import MyFavoriteRegion from '../pages/FavoriteRegion';
 
 export default function Authorized() {
   return (
@@ -15,6 +18,10 @@ export default function Authorized() {
         <Route path='/' element={<Main />} />
         <Route path='/search/:place' element={<SearchPlace />} />
         <Route path='/search' element={<SearchPlace />} />
+        <Route path='/alarm' element={<Alarm />} />
+        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/favoriteregion' element={<MyFavoriteRegion />} />
+        <Route path='/setregion' element={<MyFavoriteRegion />} />
       </Routes>
       <NavBar />
     </div>

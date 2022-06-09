@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = { userInformation: null, isLoggedIn: false };
 
@@ -8,6 +8,11 @@ const userSlice = createSlice({
   reducers: {
     saveUserInfo(state, action) {
       state.userInformation = action.payload;
+      console.log(state.userInformation, action.payload);
+    },
+    patchUserData(state, action) {
+      const { fieldName, data } = action.payload;
+      state.userInformation[fieldName] = [...data];
     },
     deleteUserInfo(state) {
       state.userInformation = null;
@@ -21,6 +26,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { saveUserInfo, deleteUserInfo, login, logout } =
+export const { saveUserInfo, deleteUserInfo, login, logout, patchUserData } =
   userSlice.actions;
 export default userSlice.reducer;
