@@ -3,16 +3,6 @@ import Accordion from '../common/Accordion';
 
 import './Detail.css';
 
-const MOCK_DATA = {
-  id: 0,
-  address: '서울특별시 강남구 삼성동 240-1',
-  connoisseur: '11,561,216,600원',
-  lowestPrice: '3,561,243,500원',
-  deposit: '10,000,000,000원',
-  squareMeter: '244.628 ㎡ ( 74.00 평 )	',
-  picture: [0, 1, 2, 3, 4],
-};
-
 export default function Detail() {
   return (
     <section>
