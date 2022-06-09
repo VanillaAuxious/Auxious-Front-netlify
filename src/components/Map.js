@@ -4,10 +4,10 @@ import useMap from '../hooks/useMap';
 
 import './Map.css';
 
-export default function Map(data) {
+export default function Map() {
   const { place } = useParams();
   const newQuery = decodeURI(window.location.search).split('=')[1];
-  const [setShowAll, showAll] = useMap(data, place, newQuery);
+  const [setShowAll, showAll] = useMap(place, newQuery);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);

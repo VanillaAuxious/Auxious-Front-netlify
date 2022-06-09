@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import useAxios from './useAxios';
 import { useNavigate } from 'react-router-dom';
 
-export default function useMap(data, place, type) {
+import useAxios from './useAxios';
+
+export default function useMap(place, type) {
   const [map, setMap] = useState();
   const [auctions, setAuctions] = useState([]);
   const [forSales, setforSales] = useState([]);
@@ -176,5 +177,5 @@ export default function useMap(data, place, type) {
     }
   };
 
-  return [setShowAll, showAll];
+  return [showAll, setShowAll];
 }
