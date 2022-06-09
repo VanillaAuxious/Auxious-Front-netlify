@@ -4,7 +4,6 @@ import { saveUserInfo } from './store/userSlice';
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
-import NavBar from './components/NavBar';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +26,9 @@ function App() {
       style={{
         width: '360px',
         height: '720px',
-        overflow: 'hidden',
       }}>
       {userInformation && hasCookie && <Authorized />}
       {!hasCookie && <Unauthorized />}
-      <NavBar />
     </div>
   );
 }
