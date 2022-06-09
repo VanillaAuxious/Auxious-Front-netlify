@@ -9,7 +9,6 @@ export default function Unauthorized() {
         <Route path='/' element={<Navigate replace to='/login' />} />
         <Route path='/login' element={<Login />} />
       </Routes>
-      <NavBar />
     </>
   );
 }
