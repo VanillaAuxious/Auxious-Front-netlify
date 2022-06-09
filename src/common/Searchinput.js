@@ -1,12 +1,11 @@
-import { SearchButton } from './Button';
-
-function SearchInput() {
+export default function SearchInput({ onChange }) {
   return (
     <div>
-      <input className='searchBox' placeholder='검색어를 입력하세요.' />
-      <SearchButton>검색</SearchButton>
+      <input
+        className='searchBox'
+        placeholder='지역명을 입력하세요.'
+        onChange={onChange}
+      />
     </div>
   );
 }
-
-export default SearchInput;

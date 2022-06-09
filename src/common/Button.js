@@ -12,8 +12,12 @@ export function ShortButton({ className, children }) {
   return <button className={classes}>{children}</button>;
 }
 
-export function SearchButton({ className, children }) {
+export function SearchButton({ className, children, onClick }) {
   const classes = `search ${className}`;
 
-  return <button className={classes}>{children}</button>;
+  return (
+    <button onClick={onClick} className={classes}>
+      {children}
+    </button>
+  );
 }
