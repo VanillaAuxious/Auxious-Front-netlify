@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import useAxios from './useAxios';
 import { useNavigate } from 'react-router-dom';
 
-export default function useMap(data, place) {
+export default function useMap(data, place, type) {
   const [map, setMap] = useState();
   const [auctions, setAuctions] = useState([]);
   const [forSales, setforSales] = useState([]);
   const [showAll, setShowAll] = useState(false);
+
   const forSalesMarkers = [];
   const infoWindowArray = [];
 
@@ -24,8 +25,8 @@ export default function useMap(data, place) {
     };
 
     const map = new kakao.maps.Map(mapContainer, mapOptions);
-    setMap(map);
     const geocoder = new kakao.maps.services.Geocoder();
+    setMap(map);
 
     setAuctionsMarker(map);
     setForSalesMarker(map);
@@ -35,6 +36,7 @@ export default function useMap(data, place) {
         const searchCoords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
         map.setCenter(searchCoords);
+
         getMaxDistance(map);
       }
     });
@@ -46,7 +48,7 @@ export default function useMap(data, place) {
     }
 
     kakao.maps.event.addListener(map, 'center_changed', getMaxDistance(map));
-  }, [place, auctions, forSales, showAll]);
+  }, [place, auctions, forSales, showAll, type]);
 
   const getMaxDistance = (map) => {
     return async function () {
@@ -65,7 +67,8 @@ export default function useMap(data, place) {
         'get',
       );
 
-      setAuctions(buildings.auction);
+      const newBuildings = auctionsFilter(buildings);
+      setAuctions(newBuildings.auction);
       setforSales(buildings.forSale);
     };
   };
@@ -113,6 +116,7 @@ export default function useMap(data, place) {
             forSales[i].name + forSales[i].squareMeters + forSales[i].Price,
           removable: true,
         });
+
         infoWindowArray.push(infoWindow);
 
         const forSalesMarker = new kakao.maps.Marker({
@@ -144,9 +148,31 @@ export default function useMap(data, place) {
       }
     }
   };
+
   const closeInfoWindow = () => {
     for (let i = 0; i < infoWindowArray.length; i++) {
       infoWindowArray[i].close();
+    }
+  };
+
+  const auctionsFilter = (buildings) => {
+    if (buildings) {
+      const newBuildings = [...buildings];
+
+      if (type) {
+        const typeArray = type.split[','];
+        const newAuctionsArray = [];
+
+        for (let i = 0; i < newBuildings.length; ) {
+          if (typeArray.includes(newBuildings[i].buildingType)) {
+            newAuctionsArray.push(newBuildings[i]);
+          }
+        }
+
+        return newAuctionsArray;
+      }
+
+      return newBuildings;
     }
   };
 

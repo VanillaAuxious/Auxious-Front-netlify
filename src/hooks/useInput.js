@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 
 export default function useInput(initialPlace) {
-  const [place, setplace] = useState(initialPlace);
+  const [input, setInput] = useState(initialPlace);
 
-  const onChange = useCallback((e) => {
-    setplace(e.target.value);
+  const onChange = useCallback((event) => {
+    setInput(event.target.value);
   }, []);
 
-  return [place, onChange];
+  return [input, onChange];
 }
