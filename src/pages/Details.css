@@ -1,0 +1,48 @@
+.img-logo {
+  margin-bottom: 10px;
+}
+
+.details-heading {
+  display: flex;
+  gap: 10px;
+}
+
+.details-heading div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  background-color: #eee;
+}
+
+.details-icon {
+  width: 60px;
+}
+
+.details-auction-number {
+  width: 150px;
+}
+
+.details-slides {
+}
+
+.details-slide {
+}
+
+.details-slide-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 1000px;
+  padding: 0;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .details-slide-btn:hover {
+    background-color: black;
+  }
+}
