@@ -30,8 +30,8 @@ function App() {
         width: '360px',
         height: '740px',
       }}>
-      {userInformation && isLoggedIn && <Authorized />}
-      {!isLoggedIn && <Unauthorized />}
+      {<Authorized />}
+      {<Unauthorized />}
     </div>
   );
 }
