@@ -2,8 +2,10 @@ import { SearchButton } from '../common/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-import SearchInput from '../common/Searchinput';
+import SearchInput from '../common/SearchInput';
 import useInput from '../hooks/useInput';
+
+import './Search.css';
 
 function Search() {
   const [input, onChange] = useInput('');
@@ -49,14 +51,31 @@ function Search() {
   };
 
   return (
-    <div className=''>
-      <SearchInput onChange={onChange}></SearchInput>
-      <SearchButton onClick={serachRegion}></SearchButton>
-      <button onClick={addFilterType}>아파트</button>
-      <button onClick={addFilterType}>주택</button>
-      <button onClick={addFilterType}>오피스텔/원룸</button>
-      <button onClick={addFilterType}>다세대/다가구</button>
-    </div>
+    <>
+      <div className='main-search-container'>
+        <img className='img-logo' src='/img/logo.png' alt='logo' />
+        <div className='main-search-types'>
+          <button className='main-search-type' onClick={addFilterType}>
+            아파트
+          </button>
+          <button className='main-search-type' onClick={addFilterType}>
+            주택
+          </button>
+          <button className='main-search-type' onClick={addFilterType}>
+            오피스텔 원룸
+          </button>
+          <button className='main-search-type' onClick={addFilterType}>
+            다세대 다가구
+          </button>
+        </div>
+        <div className='main-search-input'>
+          <SearchInput onChange={onChange} />
+          <SearchButton onClick={serachRegion} className='real-blue-colored'>
+            검색
+          </SearchButton>
+        </div>
+      </div>
+    </>
   );
 }
 

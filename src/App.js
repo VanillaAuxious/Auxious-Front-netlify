@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div>
-      {isLoggedIn && userInformation && <Authorized />}
+      {isLoggedIn && <Authorized />}
       {!isLoggedIn && <Unauthorized />}
     </div>
   );
