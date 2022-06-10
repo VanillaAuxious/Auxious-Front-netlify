@@ -1,12 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from '../components/NavBar';
 
+import NavBar from '../components/NavBar';
 import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import SearchPlace from '../pages/SearchPlace';
 import Alarm from '../pages/Alarm';
 import MyPage from '../pages/MyPage';
 import MyFavoriteRegion from '../pages/FavoriteRegion';
+import SetRegion from '../pages/SetRegion';
 
 export default function Authorized() {
   return (
@@ -21,7 +22,7 @@ export default function Authorized() {
         <Route path='/alarm' element={<Alarm />} />
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/favoriteregion' element={<MyFavoriteRegion />} />
-        <Route path='/setregion' element={<MyFavoriteRegion />} />
+        <Route path='/setregion' element={<SetRegion />} />
       </Routes>
       <NavBar />
     </div>

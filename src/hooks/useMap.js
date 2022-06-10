@@ -25,6 +25,7 @@ export default function useMap(place, type, mapElement) {
     };
 
     const map = new kakao.maps.Map(mapContainer, mapOptions);
+
     const geocoder = new kakao.maps.services.Geocoder();
 
     setAuctionsMarker(map);
@@ -46,7 +47,7 @@ export default function useMap(place, type, mapElement) {
       deleteForSaleMarkers(map);
     }
 
-    kakao.maps.event.addListener(map, 'center_changed', getMaxDistance(map));
+    kakao.maps.event.addListener(map, 'tilesloaded', getMaxDistance(map));
   }, [place, auctions, forSales, showAll, type]);
 
   const getMaxDistance = (map) => {

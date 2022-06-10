@@ -7,19 +7,19 @@ import useAxios from '../hooks/useAxios';
 export default function FavoriteBuildings() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.userInformation);
 
   const showBuildingDetailPage = (event) => {
-    navigate(`details/${event.target.id}`);
+    navigate(`detail/${event.target.id}`);
   };
 
   const deleteFavoriteBuilding = async (event) => {
     const id = event.target.id;
     const newBuildingsArray = [];
 
-    for (let i = 0; i < user.userInformation.favoriteBuildings.length; i++) {
-      if (user.userInformation.favoriteBuildings[i]._id !== id) {
-        newBuildingsArray.push(user.userInformation.favoriteBuildings[i]);
+    for (let i = 0; i < user.favoriteBuildings.length; i++) {
+      if (user.favoriteBuildings[i]._id !== id) {
+        newBuildingsArray.push(user.favoriteBuildings[i]);
       }
     }
 
@@ -34,7 +34,7 @@ export default function FavoriteBuildings() {
   return (
     <div>
       <div>찜한매물</div>
-      {user.userInformation.favoriteBuildings.map((building, index) => {
+      {user.favoriteBuildings.map((building, index) => {
         return (
           <>
             <div key={index} onClick={showBuildingDetailPage} id={building._id}>
