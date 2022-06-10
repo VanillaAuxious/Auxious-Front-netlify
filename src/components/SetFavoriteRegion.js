@@ -1,26 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { addUserFavoriteRegion } from '../store/userSlice';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import useAxios from '../hooks/useAxios';
 import useInput from '../hooks/useInput';
 
-const regionArray = [
-  '신사동',
-  '압구정동',
-  '논현동',
-  '청담동',
-  '삼성동',
-  '대치동',
-  '역삼동',
-  '도곡동',
-  '개포동',
-  '일원동',
-  '수서동',
-  '세곡동',
-  '자곡동',
-  '율현동',
-];
+import { Regions } from '../utils/constants';
+import { addUserFavoriteRegion } from '../store/userSlice';
 
 export default function SetFavoriteRegion() {
   const [message, setMessage] = useState(null);
@@ -29,21 +14,21 @@ export default function SetFavoriteRegion() {
   const user = useSelector((state) => state.user.userInformation);
 
   const addRegionHandler = async () => {
-    if (!regionArray.includes(inputValue)) {
-      setMessage('서울의 동이 아닙니다. 동명으로 검색해주세요');
+    const enteredRegion = inputValue;
 
+    if (!Regions.includes(enteredRegion)) {
+      setMessage(
+        '서울시의 행정동이 아닙니다. 동명으로 검색해주세요. Ex. 삼성동',
+      );
       return;
-    } else if (user.favoriteRegions.includes(inputValue)) {
-      setMessage('이미 관심지역입니다.');
-
+    } else if (user.favoriteRegions.includes(enteredRegion)) {
+      setMessage('이미 선택된 관심지역입니다.');
       return;
     }
 
     await useAxios('/users/user/favorites/regions', 'post', {
-      region: inputValue,
+      region: enteredRegion,
     });
-
-    const data = inputValue;
 
     dispatch(addUserFavoriteRegion(data));
   };
@@ -60,7 +45,7 @@ export default function SetFavoriteRegion() {
     <div>
       <input placeholder='동명으로 검색' onChange={onChange}></input>
       {inputValue &&
-        regionArray.filter((region, index) => {
+        Regions.filter((region, index) => {
           return region.includes(inputValue) ? (
             <div key={index} onClick={autoInputValueHandler}>
               {region}
@@ -68,7 +53,7 @@ export default function SetFavoriteRegion() {
           ) : null;
         })}
       {message && <div>{message}</div>}
-      <button onClick={addRegionHandler}>검색</button>
+      <button onClick={addRegionHandler}>+</button>
     </div>
   );
 }

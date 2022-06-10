@@ -1,16 +1,10 @@
 import useAxios from '../hooks/useAxios';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
 
 export default function FavoriteRegionList() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
-  const showSetRegionPage = () => {
-    navigate('/setregion');
-  };
 
   const deleteFavoriteRegion = async (event) => {
     const region = event.target.id;
@@ -39,7 +33,6 @@ export default function FavoriteRegionList() {
           </div>
         );
       })}
-      <button onClick={showSetRegionPage}>+</button>
     </div>
   );
 }
