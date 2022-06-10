@@ -6,12 +6,12 @@ import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 
-import { saveUserInfo } from './store/userSlice';
+import { saveUserInfo, login } from './store/userSlice';
 
 function App() {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.user.userInformation);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   useEffect(() => {
     const setUserInformation = async () => {
@@ -26,8 +26,8 @@ function App() {
 
   return (
     <div>
-      {<Authorized />}
-      {/* {<Unauthorized />} */}
+      {isLoggedIn && userInformation && <Authorized />}
+      {!isLoggedIn && <Unauthorized />}
     </div>
   );
 }

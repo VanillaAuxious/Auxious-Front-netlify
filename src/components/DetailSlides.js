@@ -42,6 +42,10 @@ export default function DetailSlides({ images }) {
                   <div
                     key={index}
                     className='dot'
+                    style={{
+                      backgroundColor:
+                        index === slideNumber ? 'black' : 'transparent',
+                    }}
                     onClick={handleSlideMoveByDot.bind(null, index)}
                   />
                 ))}

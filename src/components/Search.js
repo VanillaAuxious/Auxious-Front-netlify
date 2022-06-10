@@ -18,15 +18,14 @@ function Search() {
 
   const addFilterType = (event) => {
     let query = decodeURI(window.location.search).split('=')[1];
+
     if (window.location.href.includes('search')) {
       if (query.includes(event.target.innerText)) {
         const newQuery = query.replace(event.target.innerText, '');
-
         navigate(`/search/${place}?type=${newQuery}`);
       } else {
         const newFilterType = [...query];
         newFilterType.push(event.target.innerText);
-
         navigate(`/search/${place}?type=${newFilterType.join('')}`);
       }
     } else {
@@ -50,7 +49,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <div className=''>
       <SearchInput onChange={onChange}></SearchInput>
       <SearchButton onClick={serachRegion}></SearchButton>
       <button onClick={addFilterType}>아파트</button>
