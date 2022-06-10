@@ -25,13 +25,9 @@ function App() {
   }, [userInformation]);
 
   return (
-    <div
-      style={{
-        width: '360px',
-        height: '740px',
-      }}>
+    <div>
       {<Authorized />}
-      {<Unauthorized />}
+      {/* {<Unauthorized />} */}
     </div>
   );
 }
