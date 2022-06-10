@@ -7,6 +7,7 @@ export default function useMap(place, type, mapElement) {
   const [auctions, setAuctions] = useState([]);
   const [forSales, setforSales] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [currentAddress, setCurrentAddress] = useState('');
 
   const forSalesMarkers = [];
   const infoWindowArray = [];
@@ -31,21 +32,51 @@ export default function useMap(place, type, mapElement) {
     setAuctionsMarker(map);
     setForSalesMarker(map);
 
-    geocoder.addressSearch(place, (result, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const searchCoords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    if (Array.isArray(place)) {
+      const coord = new kakao.maps.LatLng(place[0], place[1]);
 
-        map.setCenter(searchCoords);
+      geocoder.coord2Address(
+        coord.getLng(),
+        coord.getLat(),
+        (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const newCenter = result[0].address_name;
 
-        getMaxDistance(map);
-      }
-    });
+            map.setCenter(newCenter);
+
+            getMaxDistance(map);
+          }
+        },
+      );
+    } else {
+      geocoder.addressSearch(place, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const searchCoords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+          map.setCenter(searchCoords);
+
+          getMaxDistance(map);
+        }
+      });
+    }
 
     if (showAll) {
       ShowForSaleMarkers(map);
     } else {
       deleteForSaleMarkers(map);
     }
+
+    const currentCenter = map.getCenter();
+
+    geocoder.coord2RegionCode(
+      currentCenter.getLng(),
+      currentCenter.getLat(),
+      (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          setCurrentAddress(result[0].address_name);
+        }
+      },
+    );
 
     kakao.maps.event.addListener(map, 'tilesloaded', getMaxDistance(map));
   }, [place, auctions, forSales, showAll, type]);
@@ -180,5 +211,5 @@ export default function useMap(place, type, mapElement) {
     }
   };
 
-  return [showAll, setShowAll];
+  return [showAll, setShowAll, currentAddress];
 }
