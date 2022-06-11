@@ -1,27 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { deleteUserInfo, logout } from '../store/userSlice';
+import { deleteUserInfo } from '../store/userSlice';
 
-import './NavBar.css';
+import './NavBar.scss';
 
 function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const serverToken = document.cookie.split('server_token=')[1];
-    document.cookie = `server_token=${serverToken};expires=Thu, 01 Jan 1970 00:00:01 GMT';`;
+    document.cookie = `server_token=${serverToken};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
 
     dispatch(deleteUserInfo());
-    dispatch(logout());
+    localStorage.removeItem('isLoggedIn');
 
     navigate('/login');
   };
 
   return (
     <div className='nav-bar-container'>
-      <ul className='nav-bars'>
+      <ul>
         <li onClick={() => navigate('/')}>
           <img src='/img/icons/home.svg' alt='home' />
           <span>Home</span>

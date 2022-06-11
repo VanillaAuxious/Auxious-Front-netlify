@@ -11,7 +11,7 @@ import { saveUserInfo } from './store/userSlice';
 function App() {
   const dispatch = useDispatch();
   const userInformation = useSelector((state) => state.user.userInformation);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   useEffect(() => {
     const setUserInformation = async () => {
@@ -25,14 +25,10 @@ function App() {
   }, [userInformation]);
 
   return (
-    <div
-      style={{
-        width: '360px',
-        height: '740px',
-      }}>
-      {<Authorized />}
-      {<Unauthorized />}
-    </div>
+    <>
+      {isLoggedIn && userInformation && <Authorized />}
+      {!isLoggedIn && <Unauthorized />}
+    </>
   );
 }
 

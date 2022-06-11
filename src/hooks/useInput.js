@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export default function useInput(initialPlace) {
   const [inputValue, setInputValue] = useState(initialPlace);

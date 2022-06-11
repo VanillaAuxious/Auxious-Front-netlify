@@ -1,6 +1,6 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { userInformation: null, isLoggedIn: false };
+const initialState = { userInformation: null };
 
 const userSlice = createSlice({
   name: 'user',
@@ -19,20 +19,12 @@ const userSlice = createSlice({
     deleteUserInfo(state) {
       state.userInformation = null;
     },
-    login(state) {
-      state.isLoggedIn = true;
-    },
-    logout(state) {
-      state.isLoggedIn = false;
-    },
   },
 });
 
 export const {
   saveUserInfo,
   deleteUserInfo,
-  login,
-  logout,
   patchUserData,
   addUserFavoriteRegion,
 } = userSlice.actions;
