@@ -1,9 +1,14 @@
 import axios from 'axios';
 
 async function useAxios(url, method = 'get', body = null, headers = null) {
+  const API_URL =
+    process.env.REACT_APP_ENV === 'development'
+      ? process.env.REACT_APP_API_URL
+      : process.env.REACT_APP_API_URL_PROD;
+
   try {
     const API = axios.create({
-      baseURL: process.env.REACT_APP_API_URL,
+      baseURL: API_URL,
       withCredentials: true,
     });
 
