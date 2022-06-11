@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-import SearchInput from '../common/SearchInput';
 import useInput from '../hooks/useInput';
 
 import { SearchButton } from '../common/Button';
@@ -62,7 +61,11 @@ function Search() {
           <button onClick={addFilterType}>다세대 다가구</button>
         </div>
         <div className='main-search-input'>
-          <SearchInput onChange={onChange} value={input} />
+          <input
+            placeholder='지역명을 입력하세요.'
+            onChange={onChange}
+            value={input}
+          />
           <SearchButton onClick={searchRegion} className='real-blue-colored'>
             검색
           </SearchButton>
