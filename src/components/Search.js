@@ -61,7 +61,7 @@ function Search() {
           <button onClick={addFilterType}>다세대 다가구</button>
         </div>
         <div className='main-search-input'>
-          <SearchInput onChange={onChange} />
+          <SearchInput onChange={onChange} value={input} />
           <SearchButton onClick={serachRegion} className='real-blue-colored'>
             검색
           </SearchButton>
