@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
 
 import useAxios from '../hooks/useAxios';
+import './FavoriteBuildings.scss';
 
 export default function FavoriteBuildings() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function FavoriteBuildings() {
 
   return (
     <div>
-      <div>찜한 매물</div>
+      <div className='select-real-estate'>찜한 매물</div>
       {user.favoriteBuildings.map((building, index) => {
         return (
           <>

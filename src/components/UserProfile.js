@@ -47,12 +47,12 @@ export default function UserProfile() {
             type='text'
             onChange={onChange}
             value={inputValue}
-            placeholder={description.join('')}
+            placeholder={description}
             onBlur={updateUserDescription}
           />
         </div>
       </div>
-      <div onClick={navigateSetFavoriteRegionPage}>관심지역설정</div>
+      <div onClick={navigateSetFavoriteRegionPage}>관심지역 설정</div>
     </>
   );
 }
