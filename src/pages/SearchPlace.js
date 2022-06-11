@@ -4,7 +4,7 @@ import Search from '../components/Search';
 export default function SearchPlace() {
   return (
     <div>
-      <Search />
+      {/* <Search></Search> */}
       <Map />
     </div>
   );
