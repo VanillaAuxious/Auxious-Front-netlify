@@ -18,7 +18,7 @@ export default function UserProfile() {
   );
 
   const updateUserDescription = async () => {
-    const newDescription = inputValue;
+    const newDescription = inputValue.join('');
     const fieldName = 'description';
 
     await useAxios('/users/user', 'patch', {
