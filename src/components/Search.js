@@ -66,6 +66,7 @@ function Search() {
             onChange={onChange}
             value={input}
           />
+
           <SearchButton onClick={searchRegion} className='real-blue-colored'>
             검색
           </SearchButton>
