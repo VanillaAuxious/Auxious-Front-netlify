@@ -3,8 +3,6 @@ import { useState } from 'react';
 
 import useInput from '../hooks/useInput';
 
-import { SearchButton } from '../common/Button';
-
 import './Search.scss';
 
 function Search() {
@@ -54,6 +52,8 @@ function Search() {
     <>
       <div className='main-search-container'>
         <img src='/img/logo.png' alt='logo' />
+        <h4>Please select an auction area.</h4>
+        <h4>Enter the administrative district of Seoul.</h4>
         <div className='main-search-types'>
           <button onClick={addFilterType}>아파트</button>
           <button onClick={addFilterType}>주택</button>
@@ -62,14 +62,11 @@ function Search() {
         </div>
         <div className='main-search-input'>
           <input
-            placeholder='지역명을 입력하세요.'
+            placeholder=' 지역명을 입력하세요.'
             onChange={onChange}
             value={input}
           />
-
-          <SearchButton onClick={searchRegion} className='real-blue-colored'>
-            검색
-          </SearchButton>
+          <button onClick={searchRegion}>검색</button>
         </div>
       </div>
     </>

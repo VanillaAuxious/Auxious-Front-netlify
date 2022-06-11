@@ -1,0 +1,32 @@
+.search-types {
+  gap: 5px;
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+
+  & button {
+    padding: 5px;
+    height: 30px;
+    background-color: #d8d8d8;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+  }
+
+  & button:active {
+    background-color: #9c9c9c;
+  }
+}
+
+.map {
+  margin-top: 13px;
+  width: 100%;
+  height: 690px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-width: medium;
+  border-color: #d8ecff;
+}
