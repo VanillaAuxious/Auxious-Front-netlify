@@ -3,14 +3,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   width: 100vw;
   height: 100vh;
 
   & img {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 4px;
+    left: 4px;
+  }
+
+  & h4 {
+    margin: 5px;
+    text-align: left;
   }
 }
 
@@ -18,27 +23,43 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 5px;
-  width: 40vw;
-  height: 20vh;
+  margin-top: 40px;
+  gap: 10px;
+  height: 25vh;
 
   & button {
-    width: 20vw;
-    height: 10vh;
-    background-color: #2d3d72;
-    border: 1px solid #2d3d72;
-    color: #fbfcfe;
-    border-radius: 3px;
+    width: 150px;
+    height: 120px;
+    background-color: #9eb4fd;
+    border: 5px solid #9eb4fd;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
     transition: all 0.3s;
   }
 
   & button:active {
-    border: 1px solid #1947ec;
-    background-color: #1947ec;
+    background-color: #345ee7;
+    border: 5px solid #345ee7;
   }
 }
 
 .main-search-input {
+  margin-top: 100px;
   display: flex;
-  gap: 10px;
+  gap: 5px;
+
+  & input {
+    width: 220px;
+    border-radius: 5px;
+  }
+
+  & button {
+    background-color: #2d3d72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 50px;
+  }
 }

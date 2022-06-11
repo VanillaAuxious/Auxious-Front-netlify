@@ -7,7 +7,7 @@ import { getLocation } from '../utils/location';
 
 import useMap from '../hooks/useMap';
 
-import './Map.css';
+import './Map.scss';
 
 export default function Map() {
   const { place } = useParams();
@@ -39,11 +39,13 @@ export default function Map() {
 
   return (
     <div>
-      <button onClick={handleUserFavorites}>
-        지도 위치 관심 지역으로 추가하기
-      </button>
-      <button onClick={handleCurrentPositions}>현재 위치로 가기</button>
-      <button onClick={toggleShowAll}>asd</button>
+      <div className='search-types'>
+        <button onClick={handleUserFavorites}>
+          마커 위치 관심 지역으로 추가하기
+        </button>
+        <button onClick={handleCurrentPositions}>현재 위치로 가기</button>
+        <button onClick={toggleShowAll}>asd</button>
+      </div>
       <div id='map' className='map' ref={mapElement} />
     </div>
   );
