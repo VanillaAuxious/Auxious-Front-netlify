@@ -15,8 +15,8 @@ const MOCK_DATA = {
 
 export default function Detail() {
   return (
-    <section>
-      <div className='img-logo'>
+    <div className='detail-container'>
+      <div className='detail-img-logo'>
         <img src='/img/logo.png' alt='logo' />
       </div>
       <div className='detail-heading'>
@@ -28,42 +28,44 @@ export default function Detail() {
         </div>
       </div>
       <DetailSlides images={MOCK_DATA.picture} />
-      <Accordion title='기본정보'>
-        <ul className='detail-list detail-basics'>
-          <li>
-            <h5>도로명 주소</h5>
-            <span>{MOCK_DATA.address}</span>
-          </li>
-          <li>
-            <h5>감정평가액</h5>
-            <span>{MOCK_DATA.connoisseur}</span>
-          </li>
-          <li>
-            <h5>최저매각 가격</h5>
-            <span>{MOCK_DATA.lowestPrice}</span>
-          </li>
-          <li>
-            <h5>보증금</h5>
-            <span>{MOCK_DATA.deposit}</span>
-          </li>
-          <li>
-            <h5>면적</h5>
-            <span>{MOCK_DATA.squareMeter}</span>
-          </li>
-        </ul>
-      </Accordion>
-      <Accordion title='경매 부동산 정보'>
-        <ul className='detail-list'></ul>
-      </Accordion>
-      <Accordion title='등기현황'>
-        <ul className='detail-list'></ul>
-      </Accordion>
-      <Accordion title='주의사항'>
-        <ul className='detail-list'></ul>
-      </Accordion>
-      <Accordion title='감정평가서'>
-        <ul className='detail-list'></ul>
-      </Accordion>
-    </section>
+      <div className='detail-accordions'>
+        <Accordion title='기본정보'>
+          <ul className='detail-list detail-basics'>
+            <li>
+              <h5>도로명 주소</h5>
+              <span>{MOCK_DATA.address}</span>
+            </li>
+            <li>
+              <h5>감정평가액</h5>
+              <span>{MOCK_DATA.connoisseur}</span>
+            </li>
+            <li>
+              <h5>최저매각 가격</h5>
+              <span>{MOCK_DATA.lowestPrice}</span>
+            </li>
+            <li>
+              <h5>보증금</h5>
+              <span>{MOCK_DATA.deposit}</span>
+            </li>
+            <li>
+              <h5>면적</h5>
+              <span>{MOCK_DATA.squareMeter}</span>
+            </li>
+          </ul>
+        </Accordion>
+        <Accordion title='경매 부동산 정보'>
+          <ul className='detail-list'></ul>
+        </Accordion>
+        <Accordion title='등기현황'>
+          <ul className='detail-list'></ul>
+        </Accordion>
+        <Accordion title='주의사항'>
+          <ul className='detail-list'></ul>
+        </Accordion>
+        <Accordion title='감정평가서'>
+          <ul className='detail-list'></ul>
+        </Accordion>
+      </div>
+    </div>
   );
 }

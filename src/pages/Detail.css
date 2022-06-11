@@ -1,4 +1,10 @@
-.img-logo {
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10vh;
+}
+
+.detail-img-logo {
   margin-bottom: 10px;
 }
 
@@ -23,6 +29,9 @@
 
 .detail-auction-number {
   width: 150px;
+}
+
+.detail-accordions {
 }
 
 .detail-list {

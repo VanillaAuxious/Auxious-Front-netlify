@@ -6,7 +6,7 @@ import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 
-import { saveUserInfo, login } from './store/userSlice';
+import { saveUserInfo } from './store/userSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ function App() {
   }, [userInformation]);
 
   return (
-    <div>
-      {isLoggedIn && <Authorized />}
+    <>
+      {isLoggedIn && userInformation && <Authorized />}
       {!isLoggedIn && <Unauthorized />}
-    </div>
+    </>
   );
 }
 

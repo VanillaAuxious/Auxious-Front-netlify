@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { deleteUserInfo, logout } from '../store/userSlice';
+import { deleteUserInfo } from '../store/userSlice';
 
-import './NavBar.css';
+import './NavBar.scss';
 
 function NavBar() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function NavBar() {
 
   return (
     <div className='nav-bar-container'>
-      <ul className='nav-bars'>
+      <ul>
         <li onClick={() => navigate('/')}>
           <img src='/img/icons/home.svg' alt='home' />
           <span>Home</span>
