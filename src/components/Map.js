@@ -6,6 +6,7 @@ import { getLocation } from '../utils/location';
 
 import useMap from '../hooks/useMap';
 import useAxios from '../hooks/useAxios';
+import PriceGraph from '../components/PriceGraph';
 
 import './Map.css';
 
@@ -14,7 +15,7 @@ export default function Map() {
   const newQuery = decodeURI(window.location.search).split('=')[1];
   const mapElement = useRef(null);
   const dispatch = useDispatch();
-  const [showAll, setShowAll, currentAddress] = useMap(
+  const [showAll, setShowAll, currentAddress, graphData] = useMap(
     position,
     newQuery,
     mapElement,
@@ -44,6 +45,8 @@ export default function Map() {
       <button onClick={handleCurrentPositions}>현재 위치로 가기</button>
       <button onClick={toggleShowAll}>asd</button>
       <div id='map' className='map' ref={mapElement} />
+      <div>지역 가격 그래프</div>
+      <PriceGraph data={graphData}></PriceGraph>
     </div>
   );
 }

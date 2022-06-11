@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import './DetailSlides.css';
+import './DetailSlides.scss';
 
 export default function DetailSlides({ images }) {
   const [slideNumber, setSlideNumber] = useState(0);

@@ -52,7 +52,7 @@ export default function UserProfile() {
           />
         </div>
       </div>
-      <div onClick={navigateSetFavoriteRegionPage}>관심지역설정</div>
+      <div onClick={navigateSetFavoriteRegionPage}>관심지역 설정</div>
     </>
   );
 }

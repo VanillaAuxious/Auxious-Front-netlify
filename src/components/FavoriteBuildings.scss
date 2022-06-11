@@ -1,0 +1,20 @@
+// const DocsListView = styled.div`
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100%;
+// `;
+  .select-real-estate {
+    top: 50%;
+    left: 50%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(87, 252, 131);
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    width: 80%;
+  }

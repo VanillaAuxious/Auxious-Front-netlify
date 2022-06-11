@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getGraphData } from '../utils/graph';
 
 import useAxios from './useAxios';
 
@@ -8,6 +9,7 @@ export default function useMap(position, type, mapElement) {
   const [showAll, setShowAll] = useState(false);
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
+  const [graphData, setGraphData] = useState({});
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
@@ -63,11 +65,7 @@ export default function useMap(position, type, mapElement) {
       deleteForSaleMarkers(map);
     }
 
-    kakao.maps.event.addListener(
-      map,
-      'bounds_changed',
-      getMaxDistance(map, geocoder),
-    );
+    mapContainer.addEventListener('touchend', getMaxDistance(map, geocoder));
   }, [place, type, place, showAll]);
 
   const getMaxDistance = (map, geocoder) => {
@@ -96,6 +94,7 @@ export default function useMap(position, type, mapElement) {
         'get',
       );
 
+      setGraphData(getGraphData(buildings));
       setCurrentCenter(centerPoint);
       setAuctionsMarker(map, buildings.auctions);
       forSalesArray.push(...buildings.forSales);
@@ -223,5 +222,5 @@ export default function useMap(position, type, mapElement) {
     }
   };
 
-  return [showAll, setShowAll, currentAddress];
+  return [showAll, setShowAll, currentAddress, graphData];
 }
