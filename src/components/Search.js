@@ -1,9 +1,10 @@
-import { SearchButton } from '../common/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import SearchInput from '../common/SearchInput';
 import useInput from '../hooks/useInput';
+
+import { SearchButton } from '../common/Button';
 
 import './Search.scss';
 
@@ -14,7 +15,7 @@ function Search() {
 
   const navigate = useNavigate();
 
-  const serachRegion = () => {
+  const searchRegion = () => {
     navigate(`/search/${input}?type=${filterType}`);
   };
 
@@ -62,7 +63,7 @@ function Search() {
         </div>
         <div className='main-search-input'>
           <SearchInput onChange={onChange} value={input} />
-          <SearchButton onClick={serachRegion} className='real-blue-colored'>
+          <SearchButton onClick={searchRegion} className='real-blue-colored'>
             검색
           </SearchButton>
         </div>
