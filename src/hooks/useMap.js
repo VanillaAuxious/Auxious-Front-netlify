@@ -1,39 +1,35 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import useAxios from './useAxios';
 
-export default function useMap(place, type, mapElement) {
-  const [auctions, setAuctions] = useState([]);
-  const [forSales, setforSales] = useState([]);
+export default function useMap(position, type, mapElement) {
+  const { place } = useParams();
   const [showAll, setShowAll] = useState(false);
   const [currentAddress, setCurrentAddress] = useState('');
-
-  const forSalesMarkers = [];
+  const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
   const infoWindowArray = [];
-
-  const navigate = useNavigate();
+  const auctionMarkers = [];
+  const forSalesArray = [];
+  const forSalesMarkersArray = [];
   const kakao = window.kakao;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const mapContainer = mapElement.current;
-
     const mapOptions = {
-      center: new kakao.maps.LatLng(37.51431716812058, 127.06282762463266),
-      level: 3,
+      center: new kakao.maps.LatLng(currentCenter[0], currentCenter[1]),
+      level: 2,
       draggable: true,
       scrollwheel: true,
     };
 
     const map = new kakao.maps.Map(mapContainer, mapOptions);
-
     const geocoder = new kakao.maps.services.Geocoder();
+    const ps = new kakao.maps.services.Places();
 
-    setAuctionsMarker(map);
-    setForSalesMarker(map);
-
-    if (Array.isArray(place)) {
-      const coord = new kakao.maps.LatLng(place[0], place[1]);
+    if (position) {
+      const coord = new kakao.maps.LatLng(position);
 
       geocoder.coord2Address(
         coord.getLng(),
@@ -41,7 +37,6 @@ export default function useMap(place, type, mapElement) {
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
             const newCenter = result[0].address_name;
-
             map.setCenter(newCenter);
 
             getMaxDistance(map);
@@ -49,13 +44,15 @@ export default function useMap(place, type, mapElement) {
         },
       );
     } else {
-      geocoder.addressSearch(place, (result, status) => {
+      ps.keywordSearch(decodeURI(place), (data, status) => {
         if (status === kakao.maps.services.Status.OK) {
-          const searchCoords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          const bounds = new kakao.maps.LatLngBounds();
 
-          map.setCenter(searchCoords);
+          for (let i = 0; i < data.length; i++) {
+            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          }
 
-          getMaxDistance(map);
+          map.setBounds(bounds);
         }
       });
     }
@@ -66,22 +63,14 @@ export default function useMap(place, type, mapElement) {
       deleteForSaleMarkers(map);
     }
 
-    const currentCenter = map.getCenter();
-
-    geocoder.coord2RegionCode(
-      currentCenter.getLng(),
-      currentCenter.getLat(),
-      (result, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          setCurrentAddress(result[0].address_name);
-        }
-      },
+    kakao.maps.event.addListener(
+      map,
+      'bounds_changed',
+      getMaxDistance(map, geocoder),
     );
+  }, [place, type, place, showAll]);
 
-    kakao.maps.event.addListener(map, 'tilesloaded', getMaxDistance(map));
-  }, [place, auctions, forSales, showAll, type]);
-
-  const getMaxDistance = (map) => {
+  const getMaxDistance = (map, geocoder) => {
     return async function () {
       const polyLine = new kakao.maps.Polyline({
         map: map,
@@ -89,99 +78,119 @@ export default function useMap(place, type, mapElement) {
         strokeOpacity: 0,
       });
 
+      geocoder.coord2RegionCode(
+        map.getCenter().getLng(),
+        map.getCenter().getLat(),
+        (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            setCurrentAddress(result[0].address_name);
+          }
+        },
+      );
+
       const length = polyLine.getLength();
       const center = map.getCenter();
       const centerPoint = [center.Ma, center.La];
-
       const buildings = await useAxios(
         `/buildings/?coords=${centerPoint}&max-distance=${length}`,
         'get',
       );
 
-      if (type) {
-        const newBuildings = auctionsFilter(buildings);
-        newBuildings ? setAuctions(newBuildings.auction) : null;
-      }
+      setCurrentCenter(centerPoint);
+      setAuctionsMarker(map, buildings.auctions);
+      forSalesArray.push(...buildings.forSales);
 
-      setAuctions(buildings.auction);
-      setforSales(buildings.forSale);
+      if (showAll) {
+        ShowForSaleMarkers(map);
+      } else {
+        deleteForSaleMarkers(map);
+      }
     };
   };
 
-  const showDetailPage = (buildingId) => {
-    return function () {
-      navigate(`/detail/${buildingId}`);
-    };
-  };
+  const setAuctionsMarker = (map, buildings) => {
+    if (!buildings) return;
+    if (type) buildings = auctionsFilter(buildings);
 
-  const setAuctionsMarker = (map) => {
-    if (auctions) {
-      for (let i = 0; i < auctions.length; i++) {
-        const markerPosition = new kakao.maps.LatLng(
-          auctions[i].coords[0],
-          auctions[i].coords[1],
-        );
+    const imageSrc =
+      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
+    const imageSize = new kakao.maps.Size(64, 69);
+    const imageOption = { offset: new kakao.maps.Point(27, 69) };
 
-        const auctionMarker = new kakao.maps.Marker({
-          position: markerPosition,
-        });
-
-        auctionMarker.setMap(map);
-
-        kakao.maps.event.addListener(
-          auctionMarker,
-          'click',
-          showDetailPage(auctions[i]._id),
-        );
-      }
+    for (let i = 0; i < auctionMarkers.length; i++) {
+      auctionMarkers[i].setMap(null);
     }
-  };
 
-  const setForSalesMarker = (map) => {
-    if (forSales) {
-      for (let i = 0; i < forSales.length; i++) {
-        const markerPosition = new kakao.maps.LatLng(
-          forSales[i].coords[0],
-          forSales[i].coords[1],
-        );
+    auctionMarkers.splice(0, auctionMarkers.length);
 
-        const infoWindow = new kakao.maps.InfoWindow({
-          position: markerPosition,
-          content:
-            forSales[i].name + forSales[i].squareMeters + forSales[i].Price,
-          removable: true,
-        });
+    for (let i = 0; i < buildings.length; i++) {
+      const markerImage = new kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imageOption,
+      );
 
-        infoWindowArray.push(infoWindow);
+      const markerPosition = new kakao.maps.LatLng(
+        buildings[i].coords.coordinates[1],
+        buildings[i].coords.coordinates[0],
+      );
 
-        const forSalesMarker = new kakao.maps.Marker({
-          position: markerPosition,
-        });
+      const auctionMarker = new kakao.maps.Marker({
+        position: markerPosition,
+        image: markerImage,
+      });
 
-        forSalesMarkers.push(forSalesMarker);
+      auctionMarkers.push(auctionMarker);
+      auctionMarker.setMap(map);
 
-        kakao.maps.event.addListener(forSalesMarker, 'click', () => {
-          closeInfoWindow();
-          infoWindow.open(map, forSalesMarker);
-        });
-      }
+      kakao.maps.event.addListener(
+        auctionMarker,
+        'click',
+        showDetailPage(buildings[i]._id),
+      );
     }
   };
 
   const ShowForSaleMarkers = (map) => {
-    if (forSalesMarkers) {
-      for (let i = 0; i < forSalesMarkers.length; i++) {
-        forSalesMarkers[i].setMap(map);
-      }
+    for (let i = 0; i < forSalesArray.length; i++) {
+      const markerPosition = new kakao.maps.LatLng(
+        forSalesArray[i].coords.coordinates[1],
+        forSalesArray[i].coords.coordinates[0],
+      );
+
+      const infoWindow = new kakao.maps.InfoWindow({
+        position: markerPosition,
+        content:
+          forSalesArray[i].name +
+          forSalesArray[i].squareMeters +
+          forSalesArray[i].Price,
+        removable: true,
+      });
+
+      const forSalesMarker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+
+      infoWindowArray.push(infoWindow);
+      forSalesMarkersArray.push(forSalesMarker);
+      forSalesMarker.setMap(map);
+
+      kakao.maps.event.addListener(forSalesMarker, 'click', () => {
+        closeInfoWindow();
+        infoWindow.open(map, forSalesMarker);
+      });
     }
+
+    forSalesArray.splice(0, forSalesArray.length);
   };
 
-  const deleteForSaleMarkers = () => {
-    if (forSalesMarkers) {
-      for (let i = 0; i < forSalesMarkers.length; i++) {
-        forSalesMarkers[i].setMap(null);
-      }
+  const deleteForSaleMarkers = (map) => {
+    for (let i = 0; i < forSalesMarkersArray.length; i++) {
+      forSalesMarkersArray[i].setMap(null);
     }
+
+    forSalesMarkersArray.splice(0, forSalesMarkersArray.length);
+    infoWindowArray.splice(0, infoWindowArray.length);
   };
 
   const closeInfoWindow = () => {
@@ -190,24 +199,27 @@ export default function useMap(place, type, mapElement) {
     }
   };
 
+  const showDetailPage = (buildingId) => {
+    return function () {
+      navigate(`/detail/${buildingId}`);
+    };
+  };
+
   const auctionsFilter = (buildings) => {
-    if (buildings.length) {
-      const newBuildings = [...buildings];
+    if (!buildings) return buildings;
 
-      if (type) {
-        const typeArray = type.split[','];
-        const newAuctionsArray = [];
+    if (type) {
+      const newAuctionsArray = [];
 
-        for (let i = 0; i < newBuildings.length; ) {
-          if (typeArray.includes(newBuildings[i].buildingType)) {
-            newAuctionsArray.push(newBuildings[i]);
-          }
+      for (let i = 0; i < buildings.length; ) {
+        if (type.includes(buildings[i].buildingType)) {
+          newAuctionsArray.push(buildings[i]);
         }
 
         return newAuctionsArray;
       }
 
-      return newBuildings;
+      return buildings;
     }
   };
 

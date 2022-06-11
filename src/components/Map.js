@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUserFavoriteRegion } from '../store/userSlice';
@@ -6,12 +5,12 @@ import { addUserFavoriteRegion } from '../store/userSlice';
 import { getLocation } from '../utils/location';
 
 import useMap from '../hooks/useMap';
+import useAxios from '../hooks/useAxios';
 
 import './Map.css';
 
 export default function Map() {
-  const { place } = useParams();
-  const [position, setPosition] = useState(place);
+  const [position, setPosition] = useState('');
   const newQuery = decodeURI(window.location.search).split('=')[1];
   const mapElement = useRef(null);
   const dispatch = useDispatch();

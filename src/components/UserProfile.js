@@ -18,7 +18,7 @@ export default function UserProfile() {
   );
 
   const updateUserDescription = async () => {
-    const newDescription = inputValue;
+    const newDescription = inputValue.join('');
     const fieldName = 'description';
 
     await useAxios('/users/user', 'patch', {
@@ -47,7 +47,7 @@ export default function UserProfile() {
             type='text'
             onChange={onChange}
             value={inputValue}
-            placeholder={description.join('')}
+            placeholder={description}
             onBlur={updateUserDescription}
           />
         </div>
