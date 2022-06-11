@@ -33,7 +33,7 @@ export default function FavoriteBuildings() {
 
   return (
     <div>
-      <div>찜한매물</div>
+      <div>찜한 매물</div>
       {user.favoriteBuildings.map((building, index) => {
         return (
           <>

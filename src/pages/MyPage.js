@@ -1,11 +1,11 @@
 import FavoriteBuildings from '../components/FavoriteBuildings';
-import UserBasicInfo from '../components/UserBasicInfo';
+import UserBasicInfo from '../components/UserProfile';
 
 export default function MyPage() {
   return (
     <div>
-      <UserBasicInfo></UserBasicInfo>
-      <FavoriteBuildings></FavoriteBuildings>
+      <UserBasicInfo />
+      <FavoriteBuildings />
     </div>
   );
 }

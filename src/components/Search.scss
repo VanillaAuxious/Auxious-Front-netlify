@@ -1,0 +1,44 @@
+.main-search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100vw;
+  height: 100vh;
+
+  & img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.main-search-types {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  width: 40vw;
+  height: 20vh;
+
+  & button {
+    width: 20vw;
+    height: 10vh;
+    background-color: #2d3d72;
+    border: 1px solid #2d3d72;
+    color: #fbfcfe;
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+
+  & button:active {
+    border: 1px solid #1947ec;
+    background-color: #1947ec;
+  }
+}
+
+.main-search-input {
+  display: flex;
+  gap: 10px;
+}
