@@ -35,7 +35,6 @@ export default function UserProfile() {
 
   return (
     <>
-      <img className='img-logo' src='/img/logo.png' alt='logo' />
       <div className='user-profile'>
         <div className='user-profile-img'>
           {profileImage && <img src={profileImage} />}
