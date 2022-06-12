@@ -10,22 +10,23 @@ import {
 import './GithubLogin.scss';
 
 let clientId = null;
+console.log(process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL);
+console.log(process.env.REACT_APP_OAUTH_CLIENT_ID_PROD);
+console.log(process.env.REACT_APP_OAUTH_CLIENT_ID_TEST);
 
-if (!clientId) {
-  if (process.env.REACT_APP_ENV === DEV) {
-    clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL;
-    console.log(clientId);
-  }
+if (process.env.REACT_APP_ENV === DEV) {
+  clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL;
+  console.log(clientId);
+}
 
-  if (process.env.REACT_APP_ENV === PROD) {
-    clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_PROD;
-    console.log(clientId);
-  }
+if (process.env.REACT_APP_ENV === PROD) {
+  clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_PROD;
+  console.log(clientId);
+}
 
-  if (process.env.REACT_APP_ENV === TEST) {
-    clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_TEST;
-    console.log(clientId);
-  }
+if (process.env.REACT_APP_ENV === TEST) {
+  clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_TEST;
+  console.log(clientId);
 }
 
 function Login() {
