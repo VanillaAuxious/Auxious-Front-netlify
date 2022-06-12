@@ -23,10 +23,14 @@ export default function SetFavoriteRegion() {
         '서울시의 행정동이 아닙니다. 동명으로 검색해주세요. Ex. 삼성동',
       );
       return;
-    } else if (user.favoriteRegions.includes(enteredRegion)) {
+    }
+
+    if (user.favoriteRegions.includes(enteredRegion)) {
       setMessage('이미 선택된 관심지역입니다.');
       return;
-    } else if (user.favoriteRegions.length === 3) {
+    }
+
+    if (user.favoriteRegions.length === 3) {
       setMessage('관심지역의 갯수를 초과하였습니다.');
       return;
     }
@@ -42,7 +46,14 @@ export default function SetFavoriteRegion() {
     if (user.favoriteRegions.includes(event.target.innerText)) {
       setMessage('이미 선택된 관심지역입니다.');
       return;
-    } else if (user.favoriteRegions.length === 3) {
+    }
+
+    if (user.favoriteRegions.length === 3) {
+      setMessage('관심지역의 갯수를 초과하였습니다.');
+      return;
+    }
+
+    if (user.favoriteRegions.length === 3) {
       setMessage('관심지역의 갯수를 초과하였습니다.');
       return;
     }
