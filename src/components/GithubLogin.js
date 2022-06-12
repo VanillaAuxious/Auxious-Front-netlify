@@ -10,7 +10,11 @@ import {
 import './GithubLogin.scss';
 
 function Login() {
-  let clientId = null;
+  let clientId;
+
+  console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_ENV === DEV);
+  console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_ENV === PROD);
+  console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_ENV === TEST);
 
   if (process.env.REACT_APP_ENV === DEV) {
     clientId = process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL;
