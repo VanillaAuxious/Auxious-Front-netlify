@@ -11,10 +11,10 @@ import PriceGraph from '../components/PriceGraph';
 import './Map.css';
 
 export default function Map() {
-  const [position, setPosition] = useState('');
   const newQuery = decodeURI(window.location.search).split('=')[1];
-  const mapElement = useRef(null);
   const dispatch = useDispatch();
+  const mapElement = useRef(null);
+  const [position, setPosition] = useState('');
   const [showAll, setShowAll, currentAddress, graphData] = useMap(
     position,
     newQuery,
