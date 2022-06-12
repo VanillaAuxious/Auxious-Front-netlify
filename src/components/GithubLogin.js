@@ -13,12 +13,7 @@ import './GithubLogin.scss';
 function Login() {
   const [clientId, setClientId] = useState('');
 
-  console.log(clientId);
-  console.log(`${GITHUB_OAUTH_API_URL_TEMPLATE}${clientId}`);
-  console.log(process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL);
-
   useEffect(() => {
-    console.log('working?');
     if (process.env.REACT_APP_ENV === DEV) {
       setClientId(() => process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL);
     }
@@ -30,14 +25,14 @@ function Login() {
     if (process.env.REACT_APP_ENV === TEST) {
       setClientId(() => process.env.REACT_APP_OAUTH_CLIENT_ID_TEST);
     }
-  }, []);
+  }, [clientId]);
 
   return (
     <div className='login-contianer'>
       <div className='login-image-container'>
         <img src='/img/logo.png' />
       </div>
-      <a href={`${GITHUB_OAUTH_API_URL_TEMPLATE}${clientId}`}>
+      <a className='test' href={`${GITHUB_OAUTH_API_URL_TEMPLATE}${clientId}`}>
         <AiFillGithub style={{ width: '30px', height: '30px' }} />
         <span>Sign in with GitHub</span>
       </a>
