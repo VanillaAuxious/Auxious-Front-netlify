@@ -34,7 +34,8 @@ export default function UserProfile() {
   };
 
   return (
-    <>
+    <div className='user-profile-container'>
+      <img className='img-logo' src='/img/logo.png' alt='logo' />
       <div className='user-profile'>
         <div className='user-profile-img'>
           {profileImage && <img src={profileImage} />}
@@ -51,7 +52,11 @@ export default function UserProfile() {
           />
         </div>
       </div>
-      <div onClick={navigateSetFavoriteRegionPage}>관심지역 설정</div>
-    </>
+      <div
+        className='forSale-Interest-Area'
+        onClick={navigateSetFavoriteRegionPage}>
+        관심지역 설정
+      </div>
+    </div>
   );
 }

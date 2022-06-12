@@ -7,7 +7,7 @@ export default function PriceGraph(data) {
   const svgRef = useRef(null);
 
   useEffect(() => {
-    const width = 400;
+    const width = 360;
     const height = 150;
     const barHeight = (height - 20) / 3;
     const [min, max] = getMinMaxData(data);
@@ -73,7 +73,7 @@ export default function PriceGraph(data) {
 
   return (
     <svg
-      style={{ margin: '30', width: '100%', height: '100%' }}
+      style={{ width: '100%', height: '100%' }}
       id='graph'
       ref={svgRef}></svg>
   );

@@ -1,7 +1,7 @@
 import DetailSlides from '../components/DetailSlides';
 import Accordion from '../common/Accordion';
 
-import './Detail.css';
+import './Detail.scss';
 
 const MOCK_DATA = {
   id: 0,

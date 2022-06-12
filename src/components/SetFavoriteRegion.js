@@ -6,6 +6,7 @@ import useInput from '../hooks/useInput';
 
 import { Regions } from '../utils/constants';
 import { addUserFavoriteRegion } from '../store/userSlice';
+import './SetFavoriteRegion.scss';
 
 export default function SetFavoriteRegion() {
   const [message, setMessage] = useState(null);
@@ -25,6 +26,9 @@ export default function SetFavoriteRegion() {
     } else if (user.favoriteRegions.includes(enteredRegion)) {
       setMessage('이미 선택된 관심지역입니다.');
       return;
+    } else if (user.favoriteRegions.length === 3) {
+      setMessage('관심지역의 갯수를 초과하였습니다.');
+      return;
     }
 
     await useAxios('/users/user/favorites/regions', 'post', {
@@ -38,6 +42,9 @@ export default function SetFavoriteRegion() {
     if (user.favoriteRegions.includes(event.target.innerText)) {
       setMessage('이미 선택된 관심지역입니다.');
       return;
+    } else if (user.favoriteRegions.length === 3) {
+      setMessage('관심지역의 갯수를 초과하였습니다.');
+      return;
     }
 
     await useAxios('/users/user/favorites/regions', 'post', {
@@ -48,8 +55,12 @@ export default function SetFavoriteRegion() {
   };
 
   return (
-    <div>
+    <div className='set-favorite-region-container'>
       <input placeholder='동명으로 검색' onChange={onChange}></input>
+      <button onClick={addRegionHandler}>추가</button>
+      {message && message && (
+        <div className='set-favorite-region-message'>{message}</div>
+      )}
       {inputValue &&
         newRegion.map((region, index) => {
           return (
@@ -58,8 +69,6 @@ export default function SetFavoriteRegion() {
             </div>
           );
         })}
-      {message && <div>{message}</div>}
-      <button onClick={addRegionHandler}>+</button>
     </div>
   );
 }
