@@ -183,7 +183,7 @@ export default function useMap(position, type, mapElement) {
     forSalesArray.splice(0, forSalesArray.length);
   };
 
-  const deleteForSaleMarkers = (map) => {
+  const deleteForSaleMarkers = () => {
     for (let i = 0; i < forSalesMarkersArray.length; i++) {
       forSalesMarkersArray[i].setMap(null);
     }

@@ -10,8 +10,7 @@ function NavBar() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    const serverToken = document.cookie.split('server_token=')[1];
-    document.cookie = `server_token=${serverToken};expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    document.cookie = `server_token=''; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 
     dispatch(deleteUserInfo());
     localStorage.removeItem('isLoggedIn');
