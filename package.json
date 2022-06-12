@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "d3": "^7.4.4",
     "dotenv": "^16.0.1",
     "jwt-decode": "^3.1.2",
     "normalize.css": "^8.0.1",
