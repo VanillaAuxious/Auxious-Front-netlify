@@ -8,7 +8,7 @@ import useMap from '../hooks/useMap';
 import useAxios from '../hooks/useAxios';
 import PriceGraph from '../components/PriceGraph';
 
-import './Map.css';
+import './Map.scss';
 
 export default function Map() {
   const newQuery = decodeURI(window.location.search).split('=')[1];
@@ -38,7 +38,7 @@ export default function Map() {
   };
 
   return (
-    <div>
+    <div className='search-types'>
       <button onClick={handleUserFavorites}>
         지도 위치 관심 지역으로 추가하기
       </button>

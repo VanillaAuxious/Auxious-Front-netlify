@@ -2,14 +2,17 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 10vh;
+
   &img {
     margin-bottom: 10px;
   }
+
   .detail-heading {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    gap: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
     & div {
       display: flex;
       justify-content: center;
@@ -17,14 +20,17 @@
       height: 40px;
       padding: 0 10px;
       background-color: #eee;
+
       .detail-icon {
         width: 60px;
       }
+
       .detail-auction-number {
         width: 150px;
       }
     }
   }
+
   .detail-list {
     display: flex;
     flex-direction: column;
@@ -32,17 +38,20 @@
     width: 100vw;
     height: 30vh;
     box-sizing: border-box;
-    background-color: rgb(233, 233, 233);
+    background-color: #eee;
     margin: 0 0 10px 0;
     list-style: none;
     padding: 20px;
+
     & li {
       display: flex;
       gap: 20px;
+
       & h5 {
         width: 30%;
         margin: 0;
       }
+
       & span {
         font-size: 14px;
       }
