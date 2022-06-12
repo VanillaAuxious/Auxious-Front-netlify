@@ -13,19 +13,20 @@ import './GithubLogin.scss';
 function Login() {
   const [clientId, setClientId] = useState('');
 
+  console.log(clientId);
+  console.log(`${GITHUB_OAUTH_API_URL_TEMPLATE}${clientId}`);
+
   useEffect(() => {
-    if (!clientId) {
-      if (process.env.REACT_APP_ENV === DEV) {
-        setClientId(process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL);
-      }
+    if (process.env.REACT_APP_ENV === DEV) {
+      setClientId(() => process.env.REACT_APP_OAUTH_CLIENT_ID_LOCAL);
+    }
 
-      if (process.env.REACT_APP_ENV === PROD) {
-        setClientId(process.env.REACT_APP_OAUTH_CLIENT_ID_PROD);
-      }
+    if (process.env.REACT_APP_ENV === PROD) {
+      setClientId(() => process.env.REACT_APP_OAUTH_CLIENT_ID_PROD);
+    }
 
-      if (process.env.REACT_APP_ENV === TEST) {
-        setClientId(process.env.REACT_APP_OAUTH_CLIENT_ID_TEST);
-      }
+    if (process.env.REACT_APP_ENV === TEST) {
+      setClientId(() => process.env.REACT_APP_OAUTH_CLIENT_ID_TEST);
     }
   }, []);
 
