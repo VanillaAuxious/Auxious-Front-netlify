@@ -2,64 +2,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useInput from '../hooks/useInput';
+import useSearchTypeFilter from '../hooks/useSearchTypeFilter';
+
 import NavBar from './NavBar';
 
 import './Search.scss';
 
-function Search() {
-  const [isChecked, setIsChecked] = useState({
-    apartment: false,
-    house: false,
-    studio: false,
-    multiUnit: false,
-  });
+export default function Search() {
   const [isHid, setIsHid] = useState(false);
   const [input, onChange] = useInput('');
-  const [filterType, setFilterType] = useState([]);
-
   const navigate = useNavigate();
+  const { filterType, isChecked, handleFilterType } = useSearchTypeFilter();
 
   const handleSearchRegion = () => {
     navigate(`/search/${input}?type=${filterType}`);
-  };
-
-  const handleAddFilterType = (event) => {
-    const targetDiv = event.target.closest(`div`);
-    const targetDivText = targetDiv.innerText;
-
-    if (filterType.includes(targetDivText)) {
-      const newFilterType = filterType.filter((type) => type !== targetDivText);
-      setFilterType(newFilterType);
-    } else {
-      setFilterType((prevState) => [...prevState, targetDivText]);
-    }
-
-    if (targetDivText === '아파트') {
-      setIsChecked(
-        (prevState) =>
-          (prevState = { ...prevState, apartment: !prevState.apartment }),
-      );
-    }
-
-    if (targetDivText === '주택') {
-      setIsChecked(
-        (prevState) => (prevState = { ...prevState, house: !prevState.house }),
-      );
-    }
-
-    if (targetDivText.includes('오피스텔')) {
-      setIsChecked(
-        (prevState) =>
-          (prevState = { ...prevState, studio: !prevState.studio }),
-      );
-    }
-
-    if (targetDivText.includes('다세대')) {
-      setIsChecked(
-        (prevState) =>
-          (prevState = { ...prevState, multiUnit: !prevState.multiUnit }),
-      );
-    }
   };
 
   const handleHideNavBar = () => {
@@ -76,7 +32,7 @@ function Search() {
         <img src='/img/logo.png' alt='logo' />
         <h4>Please select an auction area.</h4>
         <h4>Enter the administrative district of Seoul.</h4>
-        <div className='main-search-types' onClick={handleAddFilterType}>
+        <div className='main-search-types' onClick={handleFilterType}>
           <div
             style={{
               backgroundColor: isChecked.apartment && '#345ee7',
@@ -117,5 +73,3 @@ function Search() {
     </>
   );
 }
-
-export default Search;
