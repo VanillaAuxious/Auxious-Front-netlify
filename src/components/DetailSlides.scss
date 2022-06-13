@@ -9,6 +9,7 @@
 
   .detail-slide-btn {
     position: absolute;
+    top: 50%;
     z-index: 1;
     width: 30px;
     height: 30px;
@@ -26,22 +27,17 @@
   }
 
   .detail-slide-btn:active {
-    top: 50%;
-    left: 0;
-    transform: translateY(-70%);
     background-color: #bcc7eb;
   }
 
   .prev {
-    top: 50%;
     left: 0;
-    transform: translateY(-70%);
+    transform: translateY(-50%);
   }
 
   .next {
-    top: 50%;
     right: 0;
-    transform: translateY(-70%);
+    transform: translateY(-50%);
   }
 
   .detail-slides {

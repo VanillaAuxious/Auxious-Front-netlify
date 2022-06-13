@@ -1,4 +1,5 @@
 import FavoriteRegionList from '../components/FavoriteRegionList';
+import NavBar from '../components/NavBar';
 import SetFavoriteRegion from '../components/SetFavoriteRegion';
 
 import './FavoriteRegion.scss';
@@ -15,6 +16,7 @@ export default function FavoriteRegion() {
         <SetFavoriteRegion></SetFavoriteRegion>
         <FavoriteRegionList></FavoriteRegionList>
       </div>
+      <NavBar />
     </>
   );
 }
