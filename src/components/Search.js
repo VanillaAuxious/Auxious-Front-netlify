@@ -12,6 +12,7 @@ function Search({ onHideNavBar }) {
   const [checkMultiUnit, setCheckMultiUnit] = useState(false);
   const [input, onChange] = useInput('');
   const [filterType, setFilterType] = useState([]);
+  console.log(filterType);
 
   const navigate = useNavigate();
 
@@ -21,33 +22,28 @@ function Search({ onHideNavBar }) {
 
   const handleAddFilterType = (event) => {
     const targetDiv = event.target.closest(`div`);
+    const targetDivText = targetDiv.innerText;
 
-    if (filterType.includes(targetDiv.innerText)) {
-      const newFilterType = [...filterType];
-      const targetTypeIndex = filterType.findIndex(
-        (type) => type === targetDiv.innerText,
-      );
-
-      newFilterType.splice(targetTypeIndex, 1);
-
+    if (filterType.includes(targetDivText)) {
+      const newFilterType = filterType.filter((type) => type !== targetDivText);
       setFilterType(newFilterType);
     } else {
-      setFilterType((prevState) => [...prevState, targetDiv.innerText]);
+      setFilterType((prevState) => [...prevState, targetDivText]);
     }
 
-    if (targetDiv.innerText === '아파트') {
+    if (targetDivText === '아파트') {
       setCheckApartment((prevState) => !prevState);
     }
 
-    if (targetDiv.innerText === '주택') {
+    if (targetDivText === '주택') {
       setCheckHouse((prevState) => !prevState);
     }
 
-    if (targetDiv.innerText.includes('오피스텔')) {
+    if (targetDivText.includes('오피스텔')) {
       setCheckStudio((prevState) => !prevState);
     }
 
-    if (targetDiv.innerText.includes('다세대')) {
+    if (targetDivText.includes('다세대')) {
       setCheckMultiUnit((prevState) => !prevState);
     }
   };
@@ -68,28 +64,24 @@ function Search({ onHideNavBar }) {
         <h4>Enter the administrative district of Seoul.</h4>
         <div className='main-search-types' onClick={handleAddFilterType}>
           <div
-            className='apartment'
             style={{
               backgroundColor: checkApartment && '#345ee7',
             }}>
             아파트
           </div>
           <div
-            className='house'
             style={{
               backgroundColor: checkHouse && '#345ee7',
             }}>
             주택
           </div>
           <div
-            className='studio'
             style={{
               backgroundColor: checkStudio && '#345ee7',
             }}>
             오피스텔 원룸
           </div>
           <div
-            className='multi-unit'
             style={{
               backgroundColor: checkMultiUnit && '#345ee7',
             }}>
