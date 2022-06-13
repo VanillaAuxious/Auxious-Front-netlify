@@ -11,7 +11,7 @@ const userSlice = createSlice({
     },
     patchUserData(state, action) {
       const { fieldName, data } = action.payload;
-      state.userInformation[fieldName] = [...data];
+      state.userInformation[fieldName] = data;
     },
     addUserFavoriteRegion(state, action) {
       state.userInformation.favoriteRegions.push(action.payload);
