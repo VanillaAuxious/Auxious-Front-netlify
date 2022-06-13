@@ -35,7 +35,7 @@ export default function DetailSlides({ images }) {
             <div key={index} className='detail-slide'>
               <div className='slide-img-area'>
                 {index}
-                <img src='/img/logo.png' alt='logo' />
+                <img src={src} alt='logo' />
               </div>
               <div className='dots'>
                 {images.map((src, index) => (

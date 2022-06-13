@@ -3,29 +3,33 @@ import { useParams } from 'react-router-dom';
 
 import DetailSlides from '../components/DetailSlides';
 import Accordion from '../common/Accordion';
-
-import './Detail.scss';
+import useAxios from '../hooks/useAxios';
 import NavBar from '../components/NavBar';
 
-const MOCK_DATA = {
-  id: 0,
-  address: '서울특별시 강남구 삼성동 240-1',
-  connoisseur: '11,561,216,600원',
-  lowestPrice: '3,561,243,500원',
-  deposit: '10,000,000,000원',
-  squareMeter: '244.628 ㎡ ( 74.00 평 )	',
-  picture: [0, 1, 2, 3, 4],
-};
+import './Detail.scss';
 
 export default function Detail() {
   const { buildingId } = useParams();
-  const [detail, setDetail] = useState(null);
+  const [detail, setDetail] = useState({ buildingInfo: {} });
+  const {
+    buildingType,
+    auctionNumber,
+    address,
+    connoisseur,
+    lowestPrice,
+    picture,
+    deposit,
+    squareMeters,
+    process,
+    tenants,
+    caution,
+    appraisal,
+  } = detail.buildingInfo;
 
   useEffect(() => {
     const getBuildingDetail = async () => {
       const buildings = await useAxios(`buildings/${buildingId}`, 'get');
-      console.log(buildings);
-      setDetail(() => buildings);
+      setDetail(buildings);
     };
 
     getBuildingDetail();
@@ -39,49 +43,74 @@ export default function Detail() {
         </div>
         <div className='detail-heading'>
           <div className='detail-icon'>
-            <span>아이콘</span>
+            {detail && <span>{buildingType}</span>}
           </div>
           <div className='detail-auction-number'>
-            <span>경매번호</span>
+            {detail && <span>{auctionNumber}</span>}
           </div>
         </div>
-        <DetailSlides images={MOCK_DATA.picture} />
+        {picture && <DetailSlides images={picture} />}
         <div className='detail-accordions'>
           <Accordion title='기본정보'>
-            <ul className='detail-list detail-basics'>
-              <li>
-                <h5>도로명 주소</h5>
-                <span>{MOCK_DATA.address}</span>
-              </li>
-              <li>
-                <h5>감정평가액</h5>
-                <span>{MOCK_DATA.connoisseur}</span>
-              </li>
-              <li>
-                <h5>최저매각 가격</h5>
-                <span>{MOCK_DATA.lowestPrice}</span>
-              </li>
-              <li>
-                <h5>보증금</h5>
-                <span>{MOCK_DATA.deposit}</span>
-              </li>
-              <li>
-                <h5>면적</h5>
-                <span>{MOCK_DATA.squareMeter}</span>
-              </li>
-            </ul>
+            {detail && (
+              <ul className='detail-list detail-basics'>
+                <li>
+                  <h5>도로명 주소</h5>
+                  <span>{address}</span>
+                </li>
+                <li>
+                  <h5>감정평가액</h5>
+                  <span>{connoisseur}</span>
+                </li>
+                <li>
+                  <h5>최저매각 가격</h5>
+                  <span>{lowestPrice}</span>
+                </li>
+                <li>
+                  <h5>보증금</h5>
+                  <span>{deposit}</span>
+                </li>
+                <li>
+                  <h5>면적</h5>
+                  <span>{squareMeters} ㎡</span>
+                </li>
+              </ul>
+            )}
           </Accordion>
           <Accordion title='경매 부동산 정보'>
-            <ul className='detail-list'></ul>
+            <ul className='detail-list'>
+              {process &&
+                process.map((process, index) => {
+                  return (
+                    <li key={index}>
+                      <div>{process.dayProcess}</div>
+                      <div>{process.progress}</div>
+                      <div>{process.date}</div>
+                      <div>{process.dayProcess}</div>
+                    </li>
+                  );
+                })}
+            </ul>
           </Accordion>
           <Accordion title='등기현황'>
-            <ul className='detail-list'></ul>
+            <ul className='detail-list'>
+              {tenants &&
+                tenants.map((tenant, index) => {
+                  return (
+                    <li key={index}>
+                      <div>{tenant.tenantName}</div>
+                      <div>{tenant.location}</div>
+                      <div>{tenant.date}</div>
+                    </li>
+                  );
+                })}
+            </ul>
           </Accordion>
           <Accordion title='주의사항'>
-            <ul className='detail-list'></ul>
+            {process && <div className='detail-list'>{caution}</div>}
           </Accordion>
           <Accordion title='감정평가서'>
-            <ul className='detail-list'></ul>
+            {process && <div className='detail-list'>{appraisal}</div>}
           </Accordion>
         </div>
       </div>
