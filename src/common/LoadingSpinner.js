@@ -1,11 +1,9 @@
-import loadingImg from '../img/loading_blue_simple.gif';
+import './LoadingSpinner.scss';
 
-function Loading() {
+export default function Loading() {
   return (
     <div className='loading-box'>
-      <img src={loadingImg} alt='loading' />
+      <img src={'/img/loading_blue_simple.gif'} alt='loading' />
     </div>
   );
 }
-
-export default Loading;
