@@ -11,7 +11,6 @@ export default function InputModal({ onCancelModal, onUpdateData }) {
   const handleUpdateDescription = async (event) => {
     event.preventDefault();
     const updateData = await onUpdateData(inputValue);
-
     if (updateData.ok) {
       onCancelModal();
     }
@@ -25,10 +24,10 @@ export default function InputModal({ onCancelModal, onUpdateData }) {
       )}
       {createPortal(
         <form className='modal-container' onSubmit={handleUpdateDescription}>
-          <h5>변경할 자기소개 정보를 입력해 주세요 (최대 20자)</h5>
+          <span>변경할 정보를 입력해 주세요 (최대 15자)</span>
           <input
             type='text'
-            maxLength='20'
+            maxLength='15'
             value={inputValue}
             onChange={onChange}
           />

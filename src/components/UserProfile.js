@@ -23,11 +23,16 @@ export default function UserProfile() {
       newFieldData,
     });
 
-    if (!response.ok) return false;
+    if (!response.ok)
+      return {
+        ok: false,
+      };
 
     dispatch(patchUserData({ fieldName: 'description', data: newFieldData }));
 
-    return true;
+    return {
+      ok: true,
+    };
   };
 
   return (
@@ -40,9 +45,11 @@ export default function UserProfile() {
             {!profileImage && <BsPerson className='basic-profile-img' />}
           </div>
           <div className='user-profile-info'>
-            <span>{username}</span>
-            <span>{description}</span>
-            <div onClick={() => setShowModal(true)}>자기소개 변경하기</div>
+            <span className='username'>{username}</span>
+            <span className='description'>{description}</span>
+            <button onClick={() => setShowModal(true)}>
+              자기소개 변경하기
+            </button>
           </div>
         </div>
         <Link className='favorite-region-link' to='/favoriteregion'>

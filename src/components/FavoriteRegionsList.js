@@ -2,7 +2,7 @@ import useAxios from '../hooks/useAxios';
 import { useSelector, useDispatch } from 'react-redux';
 import { patchUserData } from '../store/userSlice';
 
-import './FavoriteRegionList.scss';
+import './FavoriteRegionsList.scss';
 
 export default function FavoriteRegionList() {
   const dispatch = useDispatch();

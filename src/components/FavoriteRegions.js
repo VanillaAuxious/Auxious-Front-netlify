@@ -6,16 +6,19 @@ import useInput from '../hooks/useInput';
 
 import { Regions } from '../utils/constants';
 import { addUserFavoriteRegion } from '../store/userSlice';
-import './SetFavoriteRegion.scss';
+import './FavoriteRegions.scss';
+import FavoriteRegionList from './FavoriteRegionsList';
 
 export default function SetFavoriteRegion() {
   const [message, setMessage] = useState(null);
   const [inputValue, onChange] = useInput('');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userInformation);
-  const newRegion = Regions.filter((region) => region.includes(inputValue));
+  const searchedRegions = Regions.filter((region) =>
+    region.includes(inputValue),
+  );
 
-  const addRegionHandler = async () => {
+  const handleAddRegion = async () => {
     const enteredRegion = inputValue;
 
     if (!Regions.includes(enteredRegion)) {
@@ -42,7 +45,7 @@ export default function SetFavoriteRegion() {
     dispatch(addUserFavoriteRegion(enteredRegion));
   };
 
-  const autoInputValueHandler = async (event) => {
+  const handleAutoInputValue = async (event) => {
     if (user.favoriteRegions.includes(event.target.innerText)) {
       setMessage('이미 선택된 관심지역입니다.');
       return;
@@ -66,20 +69,27 @@ export default function SetFavoriteRegion() {
   };
 
   return (
-    <div className='set-favorite-region-container'>
-      <input placeholder='동명으로 검색' onChange={onChange}></input>
-      <button onClick={addRegionHandler}>추가</button>
-      {message && message && (
-        <div className='set-favorite-region-message'>{message}</div>
+    <div className='favorite-region-container'>
+      <input
+        placeholder='동명으로 검색'
+        onChange={onChange}
+        onFocus={() => setMessage('')}
+        onBlur={() => setMessage('')}
+      />
+      <button onClick={handleAddRegion}>추가</button>
+      {message && <span className='favorite-region-message'>{message}</span>}
+      {inputValue && (
+        <ul>
+          {searchedRegions.map((region, index) => {
+            return (
+              <li key={index} onClick={handleAutoInputValue}>
+                {region}
+              </li>
+            );
+          })}
+        </ul>
       )}
-      {inputValue &&
-        newRegion.map((region, index) => {
-          return (
-            <div key={index} onClick={autoInputValueHandler}>
-              {region}
-            </div>
-          );
-        })}
+      <FavoriteRegionList />
     </div>
   );
 }

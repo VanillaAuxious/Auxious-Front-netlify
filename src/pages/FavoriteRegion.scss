@@ -5,13 +5,12 @@
 }
 
 .favorite-region-container {
-  width: 80%;
+  width: 80vw;
   margin: 0 auto;
 
-  .favorite-region-set {
+  .favorite-region-header {
+    color: #2d3d72;
     margin-top: 40px;
-    background-color: #2d3d72;
-    color: #eee;
     padding: 10px;
     border-radius: 5px;
     text-align: center;

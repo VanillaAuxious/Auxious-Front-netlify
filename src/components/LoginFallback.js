@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import useAxios from '../hooks/useAxios';
 
 import { saveUserInfo } from '../store/userSlice';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function LoginFallback() {
   const location = useLocation();
@@ -31,5 +32,5 @@ export default function LoginFallback() {
     getUserInformation();
   }, []);
 
-  return <div></div>;
+  return <LoadingSpinner />;
 }
