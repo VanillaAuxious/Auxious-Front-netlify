@@ -1,9 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
-import { BsPerson } from 'react-icons/bs';
 
-import useInput from '../hooks/useInput';
 import useAxios from '../hooks/useAxios';
 
 export default function PrifileImage() {
