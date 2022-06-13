@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import useAxios from '../hooks/useAxios';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 import { saveUserInfo } from '../store/userSlice';
 
@@ -31,5 +32,5 @@ export default function LoginFallback() {
     getUserInformation();
   }, []);
 
-  return <div></div>;
+  return <LoadingSpinner />;
 }

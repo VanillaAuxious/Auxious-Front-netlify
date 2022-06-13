@@ -1,0 +1,19 @@
+.favorite-regions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  margin: 0 auto;
+
+  & div {
+    margin-top: 30px;
+    background-color: #5b60fd;
+    padding: 10px;
+    border-radius: 10px;
+    height: 60px;
+    width: 70px;
+    line-height: 60px;
+    text-align: center;
+    justify-items: center;
+    color: #eee;
+  }
+}

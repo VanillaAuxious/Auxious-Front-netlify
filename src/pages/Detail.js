@@ -4,9 +4,6 @@ import { useParams } from 'react-router-dom';
 import DetailSlides from '../components/DetailSlides';
 import Accordion from '../common/Accordion';
 
-
-import useAxios from '../hooks/useAxios';
-
 import './Detail.scss';
 import NavBar from '../components/NavBar';
 
@@ -54,7 +51,7 @@ export default function Detail() {
             <ul className='detail-list detail-basics'>
               <li>
                 <h5>도로명 주소</h5>
-                <span>{detail.address}</span>
+                <span>{MOCK_DATA.address}</span>
               </li>
               <li>
                 <h5>감정평가액</h5>

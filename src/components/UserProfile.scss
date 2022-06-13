@@ -1,31 +1,96 @@
 .img-logo {
-  margin-bottom: 10px;
+  padding-top: 0.4rem;
+  padding-left: 0.4rem;
+  margin-bottom: 1.6rem;
 }
 
-.user-profile {
+.user-profile-container {
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+  margin-bottom: 1.6rem;
+  background-color: #eee;
 
-  .user-profile-img {
+  .user-profile {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.6rem;
 
-    & img {
-      width: 50px;
-      height: 50px;
-      border-radius: 100px;
+    .user-profile-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #5274c5;
+      border-radius: 500px;
+
+      & > img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 100px;
+      }
+
+      & .basic-profile-img {
+        width: 4rem;
+        height: 4rem;
+      }
     }
 
-    & .basic-profile-img {
-      width: 30px;
-      height: 30px;
+    .user-profile-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      width: 60vw;
+      height: 15vh;
+      color: #fff;
+
+      .username {
+        padding: 0.5rem 0.3rem;
+        background-color: #5274c5;
+        border-radius: 0.3rem;
+      }
+
+      .description {
+        padding: 0.5rem 0.3rem;
+        background-color: #5274c5;
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+      }
+
+      & button {
+        padding: 0.5rem;
+        color: #fff;
+        text-align: center;
+        background-color: #2d3d72;
+        border: none;
+        border-radius: 0.3rem;
+        transition: background-color 0.3s;
+      }
+
+      & button:active {
+        background-color: #345ee7;
+      }
     }
   }
 
-  .user-profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  .favorite-region-link {
+    width: 80vw;
+    text-decoration: none;
+    padding: 0.8rem;
+    margin: 0 auto;
+    background-color: #2d3d72;
+    border: none;
+    color: #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    transition: background-color 0.3s;
   }
+}
+
+.favorite-region-link:active {
+  background-color: #345ee7;
 }

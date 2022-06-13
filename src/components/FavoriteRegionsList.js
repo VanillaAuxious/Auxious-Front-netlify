@@ -2,6 +2,8 @@ import useAxios from '../hooks/useAxios';
 import { useSelector, useDispatch } from 'react-redux';
 import { patchUserData } from '../store/userSlice';
 
+import './FavoriteRegionsList.scss';
+
 export default function FavoriteRegionList() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -25,7 +27,7 @@ export default function FavoriteRegionList() {
   };
 
   return (
-    <div>
+    <div className='favorite-regions'>
       {user.userInformation.favoriteRegions.map((region, index) => {
         return (
           <div key={index} onClick={deleteFavoriteRegion} id={region}>

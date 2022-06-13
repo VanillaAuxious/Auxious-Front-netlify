@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
 
 import useAxios from '../hooks/useAxios';
+import './FavoriteBuildings.scss';
 
 export default function FavoriteBuildings() {
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ export default function FavoriteBuildings() {
   };
 
   return (
-    <div>
-      <div>찜한 매물</div>
+    <div className='select-real-estate-container'>
+      <div className='select-real-estate'>찜한 매물</div>
       {user.favoriteBuildings.map((building, index) => {
         return (
           <>
@@ -46,6 +47,12 @@ export default function FavoriteBuildings() {
           </>
         );
       })}
+      {/* 예시로 띄우는 것을 배치 해봤습니다. */}
+      {/* <div className="concon">dd</div>
+      <div className="concon">dd</div>
+      <div className="concon">dd</div>
+      <div className="concon">dd</div>
+      <div className="concon">dd</div> */}
     </div>
   );
 }
