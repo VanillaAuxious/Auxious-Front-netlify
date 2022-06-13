@@ -27,20 +27,21 @@
   gap: 10px;
   height: 25vh;
 
-  & button {
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 150px;
     height: 120px;
     background-color: #7ca4f4;
-    border: 5px solid #7ca4f4;
     color: #ffffff;
     font-weight: bold;
     border-radius: 10px;
     transition: all 0.3s;
   }
 
-  & button:active {
+  & div:active {
     background-color: #345ee7;
-    border: 5px solid #345ee7;
   }
 }
 
@@ -51,7 +52,11 @@
 
   & input {
     width: 220px;
+    border: 2px solid #2d3d72;
     border-radius: 5px;
+    padding: 3px 0 3px 7px;
+    box-sizing: border-box;
+    outline: none;
   }
 
   & button {

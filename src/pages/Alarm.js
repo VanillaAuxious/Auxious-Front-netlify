@@ -1,7 +1,10 @@
+import NavBar from '../components/NavBar';
+
 export default function Alarm() {
   return (
-    <div>
+    <>
       <button></button>
-    </div>
+      <NavBar />
+    </>
   );
 }

@@ -16,6 +16,12 @@ export default function LoginFallback() {
   useEffect(() => {
     const getUserInformation = async () => {
       const userData = await useAxios(`users/login`, 'post', { code });
+      if (!userData.ok) {
+        localStorage.removeItem('isLoggedIn');
+
+        // 에러 핸들링시 모달 처리 예정)
+        navigate('/login');
+      }
 
       dispatch(saveUserInfo(userData.userInfo));
       localStorage.setItem('isLoggedIn', 'true');
