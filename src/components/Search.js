@@ -12,7 +12,6 @@ function Search({ onHideNavBar }) {
   const [checkMultiUnit, setCheckMultiUnit] = useState(false);
   const [input, onChange] = useInput('');
   const [filterType, setFilterType] = useState([]);
-  console.log(filterType);
 
   const navigate = useNavigate();
 
