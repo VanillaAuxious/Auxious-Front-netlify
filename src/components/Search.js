@@ -49,13 +49,13 @@ export default function Search() {
             style={{
               backgroundColor: isChecked.studio && '#345ee7',
             }}>
-            오피스텔 원룸
+            오피스텔/원룸
           </div>
           <div
             style={{
               backgroundColor: isChecked.multiUnit && '#345ee7',
             }}>
-            다세대 다가구
+            다세대/다가구
           </div>
         </div>
         <div className='main-search-input'>

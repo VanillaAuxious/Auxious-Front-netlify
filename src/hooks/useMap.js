@@ -66,7 +66,7 @@ export default function useMap(position, type, mapElement) {
     }
 
     mapContainer.addEventListener('touchend', getMaxDistance(map, geocoder));
-  }, [place, type, place, showAll]);
+  }, [place, type, showAll]);
 
   const getMaxDistance = (map, geocoder) => {
     return async function () {
@@ -81,7 +81,7 @@ export default function useMap(position, type, mapElement) {
         map.getCenter().getLat(),
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            setCurrentAddress(result[0].address_name);
+            setCurrentAddress(result[0].address_name.split(' ')[2]);
           }
         },
       );
@@ -107,10 +107,10 @@ export default function useMap(position, type, mapElement) {
     };
   };
 
-  const setAuctionsMarker = (map, buildings) => {
-    if (!buildings) return;
-    if (type) buildings = auctionsFilter(buildings);
+  const setAuctionsMarker = (map, allBuildings) => {
+    if (!allBuildings) return;
 
+    const buildings = auctionsFilter(allBuildings);
     const imageSrc =
       'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
     const imageSize = new kakao.maps.Size(64, 69);
@@ -206,20 +206,17 @@ export default function useMap(position, type, mapElement) {
 
   const auctionsFilter = (buildings) => {
     if (!buildings) return buildings;
-
     if (type) {
       const newAuctionsArray = [];
 
-      for (let i = 0; i < buildings.length; ) {
+      for (let i = 0; i < buildings.length; i++) {
         if (type.includes(buildings[i].buildingType)) {
           newAuctionsArray.push(buildings[i]);
         }
-
-        return newAuctionsArray;
       }
-
-      return buildings;
+      return newAuctionsArray;
     }
+    return buildings;
   };
 
   return [showAll, setShowAll, currentAddress, graphData];
