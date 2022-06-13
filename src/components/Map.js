@@ -13,7 +13,9 @@ import PriceGraph from '../components/PriceGraph';
 import './Map.scss';
 
 export default function Map() {
-  const newQuery = decodeURI(window.location.search).split('=')[1];
+  const location = useLocation();
+  const newQuery = new URLSearchParams(location.search);
+  const type = newQuery.get('type');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [input, onChange] = useInput();
@@ -22,7 +24,7 @@ export default function Map() {
 
   const [showAll, setShowAll, currentAddress, graphData] = useMap(
     position,
-    newQuery,
+    type,
     mapElement,
   );
 
@@ -43,18 +45,18 @@ export default function Map() {
   };
 
   const handleFilter = (event) => {
-    if (newQuery.includes(event.target.innerText)) {
-      const query = newQuery.replace(event.target.innerText, '');
+    if (type.includes(event.target.innerText)) {
+      const query = type.replace(event.target.innerText, '');
       navigate(`/search/${currentAddress}?type=${query}`);
     } else {
-      const newFilterType = [...newQuery];
+      const newFilterType = [...type];
       newFilterType.push(event.target.innerText);
       navigate(`/search/${currentAddress}?type=${newFilterType.join('')}`);
     }
   };
 
   const handleSearchInput = () => {
-    navigate(`/search/${input}?type=${newQuery}`);
+    navigate(`/search/${input}?type=${type}`);
   };
 
   return (
