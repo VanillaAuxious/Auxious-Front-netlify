@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useInput from '../hooks/useInput';
+import NavBar from './NavBar';
 
 import './Search.scss';
 
-function Search({ onHideNavBar }) {
-  const [checkApartment, setCheckApartment] = useState(false);
-  const [checkHouse, setCheckHouse] = useState(false);
-  const [checkStudio, setCheckStudio] = useState(false);
-  const [checkMultiUnit, setCheckMultiUnit] = useState(false);
+function Search() {
+  const [isChecked, setIsChecked] = useState({
+    apartment: false,
+    house: false,
+    studio: false,
+    multiUnit: false,
+  });
+  const [isHid, setIsHid] = useState(false);
   const [input, onChange] = useInput('');
   const [filterType, setFilterType] = useState([]);
 
@@ -31,28 +35,39 @@ function Search({ onHideNavBar }) {
     }
 
     if (targetDivText === '아파트') {
-      setCheckApartment((prevState) => !prevState);
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, apartment: !prevState.apartment }),
+      );
     }
 
     if (targetDivText === '주택') {
-      setCheckHouse((prevState) => !prevState);
+      setIsChecked(
+        (prevState) => (prevState = { ...prevState, house: !prevState.house }),
+      );
     }
 
     if (targetDivText.includes('오피스텔')) {
-      setCheckStudio((prevState) => !prevState);
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, studio: !prevState.studio }),
+      );
     }
 
     if (targetDivText.includes('다세대')) {
-      setCheckMultiUnit((prevState) => !prevState);
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, multiUnit: !prevState.multiUnit }),
+      );
     }
   };
 
   const handleHideNavBar = () => {
-    onHideNavBar(true);
+    setIsHid(true);
   };
 
   const handleShowNavBar = () => {
-    onHideNavBar(false);
+    setIsHid(false);
   };
 
   return (
@@ -64,25 +79,25 @@ function Search({ onHideNavBar }) {
         <div className='main-search-types' onClick={handleAddFilterType}>
           <div
             style={{
-              backgroundColor: checkApartment && '#345ee7',
+              backgroundColor: isChecked.apartment && '#345ee7',
             }}>
             아파트
           </div>
           <div
             style={{
-              backgroundColor: checkHouse && '#345ee7',
+              backgroundColor: isChecked.house && '#345ee7',
             }}>
             주택
           </div>
           <div
             style={{
-              backgroundColor: checkStudio && '#345ee7',
+              backgroundColor: isChecked.studio && '#345ee7',
             }}>
             오피스텔 원룸
           </div>
           <div
             style={{
-              backgroundColor: checkMultiUnit && '#345ee7',
+              backgroundColor: isChecked.multiUnit && '#345ee7',
             }}>
             다세대 다가구
           </div>
@@ -98,6 +113,7 @@ function Search({ onHideNavBar }) {
           <button onClick={handleSearchRegion}>검색</button>
         </div>
       </div>
+      {!isHid && <NavBar />}
     </>
   );
 }
