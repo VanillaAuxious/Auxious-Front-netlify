@@ -1,77 +1,121 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import useInput from '../hooks/useInput';
+import NavBar from './NavBar';
 
 import { SearchButton } from '../common/Button';
 
 import './Search.scss';
 
 function Search() {
+  const [isChecked, setIsChecked] = useState({
+    apartment: false,
+    house: false,
+    studio: false,
+    multiUnit: false,
+  });
+  const [isHid, setIsHid] = useState(false);
   const [input, onChange] = useInput('');
   const [filterType, setFilterType] = useState([]);
-  const { place } = useParams();
 
   const navigate = useNavigate();
 
-  const searchRegion = () => {
+  const handleSearchRegion = () => {
     navigate(`/search/${input}?type=${filterType}`);
   };
 
-  const addFilterType = (event) => {
-    let query = decodeURI(window.location.search).split('=')[1];
+  const handleAddFilterType = (event) => {
+    const targetDiv = event.target.closest(`div`);
+    const targetDivText = targetDiv.innerText;
 
-    if (window.location.href.includes('search')) {
-      if (query.includes(event.target.innerText)) {
-        const newQuery = query.replace(event.target.innerText, '');
-        navigate(`/search/${place}?type=${newQuery}`);
-      } else {
-        const newFilterType = [...query];
-        newFilterType.push(event.target.innerText);
-        navigate(`/search/${place}?type=${newFilterType.join('')}`);
-      }
+    if (filterType.includes(targetDivText)) {
+      const newFilterType = filterType.filter((type) => type !== targetDivText);
+      setFilterType(newFilterType);
     } else {
-      if (filterType.includes(event.target.innerText)) {
-        const newFilterType = [...filterType];
-        for (let i = 0; i < newFilterType.length; i++) {
-          if (newFilterType[i] === event.target.innerText) {
-            newFilterType.splice(i, 1);
-            i--;
-          }
-        }
-
-        setFilterType([...newFilterType]);
-      } else {
-        const newFilterType = [...filterType];
-        newFilterType.push(event.target.innerText);
-
-        setFilterType([...newFilterType]);
-      }
+      setFilterType((prevState) => [...prevState, targetDivText]);
     }
+
+    if (targetDivText === '아파트') {
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, apartment: !prevState.apartment }),
+      );
+    }
+
+    if (targetDivText === '주택') {
+      setIsChecked(
+        (prevState) => (prevState = { ...prevState, house: !prevState.house }),
+      );
+    }
+
+    if (targetDivText.includes('오피스텔')) {
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, studio: !prevState.studio }),
+      );
+    }
+
+    if (targetDivText.includes('다세대')) {
+      setIsChecked(
+        (prevState) =>
+          (prevState = { ...prevState, multiUnit: !prevState.multiUnit }),
+      );
+    }
+  };
+
+  const handleHideNavBar = () => {
+    setIsHid(true);
+  };
+
+  const handleShowNavBar = () => {
+    setIsHid(false);
   };
 
   return (
     <>
       <div className='main-search-container'>
         <img src='/img/logo.png' alt='logo' />
-        <div className='main-search-types'>
-          <button onClick={addFilterType}>아파트</button>
-          <button onClick={addFilterType}>주택</button>
-          <button onClick={addFilterType}>오피스텔 원룸</button>
-          <button onClick={addFilterType}>다세대 다가구</button>
+        <h4>Please select an auction area.</h4>
+        <h4>Enter the administrative district of Seoul.</h4>
+        <div className='main-search-types' onClick={handleAddFilterType}>
+          <div
+            style={{
+              backgroundColor: isChecked.apartment && '#345ee7',
+            }}>
+            아파트
+          </div>
+          <div
+            style={{
+              backgroundColor: isChecked.house && '#345ee7',
+            }}>
+            주택
+          </div>
+          <div
+            style={{
+              backgroundColor: isChecked.studio && '#345ee7',
+            }}>
+            오피스텔 원룸
+          </div>
+          <div
+            style={{
+              backgroundColor: isChecked.multiUnit && '#345ee7',
+            }}>
+            다세대 다가구
+          </div>
         </div>
         <div className='main-search-input'>
           <input
             placeholder='지역명을 입력하세요.'
             onChange={onChange}
+            onFocus={handleHideNavBar}
+            onBlur={handleShowNavBar}
             value={input}
           />
-
-          <SearchButton onClick={searchRegion} className='real-blue-colored'>
-            검색
-          </SearchButton>
+          <button onClick={handleSearchRegion}>검색</button>
         </div>
       </div>
+      {!isHid && <NavBar />}
     </>
   );
 }

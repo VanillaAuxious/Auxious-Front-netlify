@@ -22,23 +22,43 @@
   width: 40vw;
   height: 20vh;
 
-  & button {
-    width: 20vw;
-    height: 10vh;
-    background-color: #2d3d72;
-    border: 1px solid #2d3d72;
-    color: #fbfcfe;
-    border-radius: 3px;
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 120px;
+    background-color: #7ca4f4;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
     transition: all 0.3s;
   }
 
-  & button:active {
-    border: 1px solid #1947ec;
-    background-color: #1947ec;
+  & div:active {
+    background-color: #345ee7;
   }
 }
 
 .main-search-input {
   display: flex;
-  gap: 10px;
+  gap: 5px;
+
+  & input {
+    width: 220px;
+    border: 2px solid #2d3d72;
+    border-radius: 5px;
+    padding: 3px 0 3px 7px;
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  & button {
+    background-color: #2d3d72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 50px;
+  }
 }

@@ -1,8 +1,10 @@
-import { LongButton } from '../common/Button';
+import NavBar from '../components/NavBar';
+
 export default function Alarm() {
   return (
-    <div>
-      <LongButton></LongButton>
-    </div>
+    <>
+      <button></button>
+      <NavBar />
+    </>
   );
 }

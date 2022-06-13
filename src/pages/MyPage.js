@@ -1,11 +1,15 @@
 import FavoriteBuildings from '../components/FavoriteBuildings';
-import UserBasicInfo from '../components/UserProfile';
+import UserProfile from '../components/UserProfile';
+import ProfileImage from '../components/ProfileImage';
+import NavBar from '../components/NavBar';
 
 export default function MyPage() {
   return (
-    <div>
-      <UserBasicInfo />
+    <>
+      <ProfileImage />
+      <UserProfile />
       <FavoriteBuildings />
-    </div>
+      <NavBar />
+    </>
   );
 }
