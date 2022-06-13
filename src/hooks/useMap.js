@@ -10,11 +10,13 @@ export default function useMap(position, type, mapElement) {
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
   const [graphData, setGraphData] = useState({});
+  const [a, setA] = useState('');
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
   const forSalesMarkersArray = [];
   const kakao = window.kakao;
+  let cluster;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +32,13 @@ export default function useMap(position, type, mapElement) {
     const geocoder = new kakao.maps.services.Geocoder();
     const ps = new kakao.maps.services.Places();
 
+    const clusterer = new kakao.maps.MarkerClusterer({
+      map: map,
+      averageCenter: true,
+      minLevel: 7,
+    });
+
+    cluster = clusterer;
     if (position) {
       const coord = new kakao.maps.LatLng(position);
 
@@ -141,6 +150,7 @@ export default function useMap(position, type, mapElement) {
 
       auctionMarkers.push(auctionMarker);
       auctionMarker.setMap(map);
+      cluster.addMarker(auctionMarker);
 
       kakao.maps.event.addListener(
         auctionMarker,
