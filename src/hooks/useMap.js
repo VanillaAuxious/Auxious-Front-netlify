@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getGraphData } from '../utils/graph';
-import { debounce } from 'lodash';
+import _ from 'lodash';
 
 import useAxios from './useAxios';
 
@@ -11,16 +11,19 @@ export default function useMap(position, type, mapElement) {
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
   const [graphData, setGraphData] = useState({});
+  const [isMap, setIsMap] = useState(false);
+  const [newType, setNewType] = useState();
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
   const forSalesMarkersArray = [];
   const kakao = window.kakao;
-  let cluster;
   const navigate = useNavigate();
+  let cluster;
 
   useEffect(() => {
     const mapContainer = mapElement.current;
+
     const mapOptions = {
       center: new kakao.maps.LatLng(currentCenter[0], currentCenter[1]),
       level: 2,
@@ -28,7 +31,7 @@ export default function useMap(position, type, mapElement) {
       scrollwheel: true,
     };
 
-    const map = new kakao.maps.Map(mapContainer, mapOptions);
+    const map = !isMap ? new kakao.maps.Map(mapContainer, mapOptions) : isMap;
     const geocoder = new kakao.maps.services.Geocoder();
     const ps = new kakao.maps.services.Places();
 
@@ -39,6 +42,7 @@ export default function useMap(position, type, mapElement) {
     });
 
     cluster = clusterer;
+
     if (position) {
       const coord = new kakao.maps.LatLng(position);
 
@@ -63,7 +67,10 @@ export default function useMap(position, type, mapElement) {
             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
           }
 
-          map.setBounds(bounds);
+          if (newType !== type) {
+            map.setBounds(bounds);
+            setNewType(type);
+          }
         }
       });
     }
@@ -74,8 +81,9 @@ export default function useMap(position, type, mapElement) {
       deleteForSaleMarkers(map);
     }
 
-    mapContainer.addEventListener('touchend', getMaxDistance(map, geocoder));
-  }, [place, type, showAll]);
+    setIsMap(map);
+    mapContainer.ontouchend = getMaxDistance(map, geocoder);
+  }, [place, showAll]);
 
   const getMaxDistance = (map, geocoder) => {
     kakao.maps.event.preventMap();
