@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getGraphData } from '../utils/graph';
+import { debounce } from 'lodash';
 
 import useAxios from './useAxios';
 
@@ -10,7 +11,6 @@ export default function useMap(position, type, mapElement) {
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
   const [graphData, setGraphData] = useState({});
-  const [a, setA] = useState('');
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
@@ -78,6 +78,7 @@ export default function useMap(position, type, mapElement) {
   }, [place, type, showAll]);
 
   const getMaxDistance = (map, geocoder) => {
+    kakao.maps.event.preventMap();
     return async function () {
       const polyLine = new kakao.maps.Polyline({
         map: map,
@@ -126,6 +127,7 @@ export default function useMap(position, type, mapElement) {
     const imageOption = { offset: new kakao.maps.Point(27, 69) };
 
     for (let i = 0; i < auctionMarkers.length; i++) {
+      cluster.removeMarker(auctionMarkers[i]);
       auctionMarkers[i].setMap(null);
     }
 
@@ -172,7 +174,7 @@ export default function useMap(position, type, mapElement) {
         content:
           forSalesArray[i].name +
           forSalesArray[i].squareMeters +
-          forSalesArray[i].Price,
+          forSalesArray[i].price,
         removable: true,
       });
 
@@ -216,6 +218,7 @@ export default function useMap(position, type, mapElement) {
 
   const auctionsFilter = (buildings) => {
     if (!buildings) return buildings;
+    console.log(type);
     if (type) {
       const newAuctionsArray = [];
 

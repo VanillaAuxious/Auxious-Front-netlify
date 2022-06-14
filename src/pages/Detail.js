@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+
+import {
+  addUserFavoriteBuilding,
+  deleteUserFavoriteBuilding,
+} from '../store/userSlice';
 
 import DetailSlides from '../components/DetailSlides';
 import Accordion from '../common/Accordion';
@@ -9,8 +16,18 @@ import NavBar from '../components/NavBar';
 import './Detail.scss';
 
 export default function Detail() {
+  const dispatch = useDispatch();
   const { buildingId } = useParams();
   const [detail, setDetail] = useState({ buildingInfo: {} });
+
+  const { favoriteBuildings } = useSelector(
+    (state) => state.user.userInformation,
+  );
+
+  const [userFavorite, setUserFavorite] = useState(
+    favoriteBuildings.includes(buildingId),
+  );
+
   const {
     buildingType,
     auctionNumber,
@@ -35,6 +52,22 @@ export default function Detail() {
     getBuildingDetail();
   }, []);
 
+  const handleUserFavoriteRegion = async () => {
+    if (userFavorite) {
+      await useAxios(`users/user/favorites/buildings/${buildingId}`, 'delete');
+
+      setUserFavorite(false);
+      dispatch(deleteUserFavoriteBuilding(buildingId));
+    } else {
+      await useAxios(`users/user/favorites/buildings`, 'post', {
+        buildingId: buildingId,
+      });
+
+      setUserFavorite(true);
+      dispatch(addUserFavoriteBuilding(buildingId));
+    }
+  };
+
   return (
     <>
       <div className='detail-container'>
@@ -42,6 +75,15 @@ export default function Detail() {
           <img src='/img/logo.png' alt='logo' />
         </div>
         <div className='detail-heading'>
+          {userFavorite ? (
+            <button onClick={handleUserFavoriteRegion}>
+              <BsHeartFill></BsHeartFill>
+            </button>
+          ) : (
+            <button onClick={handleUserFavoriteRegion}>
+              <BsHeart></BsHeart>
+            </button>
+          )}
           <div className='detail-icon'>
             {detail && <span>{buildingType}</span>}
           </div>

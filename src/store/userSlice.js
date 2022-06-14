@@ -13,6 +13,15 @@ const userSlice = createSlice({
       const { fieldName, data } = action.payload;
       state.userInformation[fieldName] = data;
     },
+    addUserFavoriteBuilding(state, action) {
+      state.userInformation.favoriteBuildings.push(action.payload);
+    },
+    deleteUserFavoriteBuilding(state, action) {
+      const newFavorites = state.userInformation.favoriteBuildings.filter(
+        (element) => element !== action.payload,
+      );
+      state.userInformation.favoriteBuildings = newFavorites;
+    },
     addUserFavoriteRegion(state, action) {
       state.userInformation.favoriteRegions.push(action.payload);
     },
@@ -23,6 +32,8 @@ const userSlice = createSlice({
 });
 
 export const {
+  addUserFavoriteBuilding,
+  deleteUserFavoriteBuilding,
   saveUserInfo,
   deleteUserInfo,
   patchUserData,

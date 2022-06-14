@@ -1,6 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
+import { useState, useLayoutEffect } from 'react';
 
 import useAxios from '../hooks/useAxios';
 import './FavoriteBuildings.scss';
@@ -8,51 +9,66 @@ import './FavoriteBuildings.scss';
 export default function FavoriteBuildings() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.userInformation);
+  const [favoriteBuildings, setFavoriteBuildings] = useState([]);
+
+  useLayoutEffect(() => {
+    (async () => {
+      const result = await useAxios('/users/user/favorites/buildings', 'get');
+      const buildingArray = result.favoriteBuildingsInfoArray;
+
+      setFavoriteBuildings(buildingArray);
+    })();
+  }, [favoriteBuildings]);
 
   const showBuildingDetailPage = (event) => {
-    navigate(`detail/${event.target.id}`);
+    navigate(`/detail/${event.target.id}`);
   };
 
   const deleteFavoriteBuilding = async (event) => {
     const id = event.target.id;
     const newBuildingsArray = [];
 
-    for (let i = 0; i < user.favoriteBuildings.length; i++) {
-      if (user.favoriteBuildings[i]._id !== id) {
-        newBuildingsArray.push(user.favoriteBuildings[i]);
+    for (let i = 0; i < favoriteBuildings.length; i++) {
+      if (favoriteBuildings[i]._id !== id) {
+        newBuildingsArray.push(favoriteBuildings[i]);
       }
     }
 
-    await useAxios(`/users/user/favorites/building/${id}`, 'delete');
+    const user = await useAxios(
+      `/users/user/favorites/buildings/${id}`,
+      'delete',
+    );
 
     const fieldName = 'favoriteBuildings';
     const data = newBuildingsArray;
 
     dispatch(patchUserData({ fieldName, data }));
+    setFavoriteBuildings(user.user.favoriteBuildings);
   };
 
   return (
     <div className='select-real-estate-container'>
       <div className='select-real-estate'>찜한 매물</div>
-      {user.favoriteBuildings.map((building, index) => {
+      {favoriteBuildings.map((building, index) => {
         return (
-          <>
-            <div key={index} onClick={showBuildingDetailPage} id={building._id}>
-              {building.name}
+          <div key={index}>
+            <div
+              className='concon'
+              onClick={showBuildingDetailPage}
+              id={building._id}>
+              경매번호: {building.auctionNumber}
+              <br />
+              주소: {building.address}
+              <br />
+              현재 감정가: {building.connoisseur}
+              <br />
             </div>
             <button id={building._id} onClick={deleteFavoriteBuilding}>
               X
             </button>
-          </>
+          </div>
         );
       })}
-      {/* 예시로 띄우는 것을 배치 해봤습니다. */}
-      {/* <div className="concon">dd</div>
-      <div className="concon">dd</div>
-      <div className="concon">dd</div>
-      <div className="concon">dd</div>
-      <div className="concon">dd</div> */}
     </div>
   );
 }
