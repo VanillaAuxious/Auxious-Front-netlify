@@ -3,6 +3,13 @@
   flex-direction: column;
   margin-bottom: 10vh;
 
+  & button {
+    margin-right: 10px;
+    background-color: #ffff;
+    border: 0px;
+    font-size: larger;
+  }
+
   & img {
     margin-bottom: 10px;
   }
