@@ -12,13 +12,14 @@ export default function useMap(position, type, mapElement) {
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
   const [graphData, setGraphData] = useState({});
   const [isMap, setIsMap] = useState(false);
+  const [newType, setNewType] = useState();
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
   const forSalesMarkersArray = [];
   const kakao = window.kakao;
-  let cluster;
   const navigate = useNavigate();
+  let cluster;
 
   useEffect(() => {
     const mapContainer = mapElement.current;
@@ -66,7 +67,10 @@ export default function useMap(position, type, mapElement) {
             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
           }
 
-          map.setBounds(bounds);
+          if (newType !== type) {
+            map.setBounds(bounds);
+            setNewType(type);
+          }
         }
       });
     }
@@ -79,7 +83,7 @@ export default function useMap(position, type, mapElement) {
 
     setIsMap(map);
     mapContainer.ontouchend = getMaxDistance(map, geocoder);
-  }, [place, type, showAll]);
+  }, [place, showAll]);
 
   const getMaxDistance = (map, geocoder) => {
     kakao.maps.event.preventMap();

@@ -5,7 +5,7 @@ import DetailSlides from '../components/DetailSlides';
 import Accordion from '../common/Accordion';
 import useAxios from '../hooks/useAxios';
 
-export default function Detail() {
+export default function DetailArcodian() {
   const { buildingId } = useParams();
   const [detail, setDetail] = useState({ buildingInfo: {} });
 
