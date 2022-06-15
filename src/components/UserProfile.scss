@@ -77,7 +77,7 @@
   }
 
   .favorite-region-link {
-    width: 80vw;
+    width: 81vw;
     text-decoration: none;
     padding: 0.8rem;
     margin: 0 auto;
@@ -93,4 +93,10 @@
 
 .favorite-region-link:active {
   background-color: #345ee7;
+}
+
+@media screen and (min-width: 412px) {
+  .favorite-region-link {
+    width: vw;
+  }
 }
