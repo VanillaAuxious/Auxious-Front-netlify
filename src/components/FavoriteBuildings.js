@@ -9,7 +9,7 @@ import './FavoriteBuildings.scss';
 export default function FavoriteBuildings() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [favoriteBuildings, setFavoriteBuildings] = useState([]);
+  const [favoriteBuildings, setFavoriteBuildings] = useState(false);
 
   useLayoutEffect(() => {
     (async () => {
@@ -18,7 +18,7 @@ export default function FavoriteBuildings() {
 
       setFavoriteBuildings(buildingArray);
     })();
-  }, [favoriteBuildings]);
+  }, []);
 
   const showBuildingDetailPage = (event) => {
     navigate(`/detail/${event.target.id}`);
@@ -26,13 +26,10 @@ export default function FavoriteBuildings() {
 
   const deleteFavoriteBuilding = async (event) => {
     const id = event.target.id;
-    const newBuildingsArray = [];
 
-    for (let i = 0; i < favoriteBuildings.length; i++) {
-      if (favoriteBuildings[i]._id !== id) {
-        newBuildingsArray.push(favoriteBuildings[i]);
-      }
-    }
+    const newBuildingsArray = favoriteBuildings.filter(
+      (building) => building._id !== id,
+    );
 
     const user = await useAxios(
       `/users/user/favorites/buildings/${id}`,
@@ -49,26 +46,27 @@ export default function FavoriteBuildings() {
   return (
     <div className='select-real-estate-container'>
       <div className='select-real-estate'>찜한 매물</div>
-      {favoriteBuildings.map((building, index) => {
-        return (
-          <div key={index}>
-            <div
-              className='concon'
-              onClick={showBuildingDetailPage}
-              id={building._id}>
-              경매번호: {building.auctionNumber}
-              <br />
-              주소: {building.address}
-              <br />
-              현재 감정가: {building.connoisseur}
-              <br />
+      {favoriteBuildings &&
+        favoriteBuildings.map((building, index) => {
+          return (
+            <div key={index}>
+              <div
+                className='concon'
+                onClick={showBuildingDetailPage}
+                id={building._id}>
+                경매번호: {building.auctionNumber}
+                <br />
+                주소: {building.address}
+                <br />
+                현재 감정가: {building.connoisseur}
+                <br />
+              </div>
+              <button id={building._id} onClick={deleteFavoriteBuilding}>
+                X
+              </button>
             </div>
-            <button id={building._id} onClick={deleteFavoriteBuilding}>
-              X
-            </button>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 }
