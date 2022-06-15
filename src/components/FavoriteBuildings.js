@@ -15,7 +15,6 @@ export default function FavoriteBuildings() {
     (async () => {
       const result = await useAxios('/users/user/favorites/buildings', 'get');
       const buildingArray = result.favoriteBuildingsInfoArray;
-
       setFavoriteBuildings(buildingArray);
     })();
   }, []);
@@ -31,7 +30,7 @@ export default function FavoriteBuildings() {
       (building) => building._id !== id,
     );
 
-    const user = await useAxios(
+    const newUser = await useAxios(
       `/users/user/favorites/buildings/${id}`,
       'delete',
     );
@@ -40,7 +39,7 @@ export default function FavoriteBuildings() {
     const data = newBuildingsArray;
 
     dispatch(patchUserData({ fieldName, data }));
-    setFavoriteBuildings(user.user.favoriteBuildings);
+    setFavoriteBuildings(newUser.user.favoriteBuildings);
   };
 
   return (

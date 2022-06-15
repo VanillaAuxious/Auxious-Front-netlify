@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import DetailSlides from '../components/DetailSlides';
@@ -22,15 +22,14 @@ export default function DetailArcodian() {
     appraisal,
   } = detail.buildingInfo;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getBuildingDetail = async () => {
-      const buildings = await useAxios(`buildings/${buildingId}`, 'get');
+      const buildings = await useAxios(`/buildings/${buildingId}`, 'get');
       setDetail(buildings);
     };
 
     getBuildingDetail();
   }, []);
-
   return (
     <>
       {picture && <DetailSlides images={picture} />}

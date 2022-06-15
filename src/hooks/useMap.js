@@ -226,7 +226,6 @@ export default function useMap(position, type, mapElement) {
 
   const auctionsFilter = (buildings) => {
     if (!buildings) return buildings;
-    console.log(type);
     if (type) {
       const newAuctionsArray = [];
 

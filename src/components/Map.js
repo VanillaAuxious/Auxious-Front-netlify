@@ -61,21 +61,31 @@ export default function Map() {
 
   return (
     <>
-      <input placeholder='지역을 입력하세요' onChange={onChange}></input>
-      <button onClick={handleSearchInput}>검색하기</button>
-      <div className='search-types'>
-        <button onClick={handleUserFavorites}>
-          지도 위치 관심 지역으로 추가하기
+      <img src='/img/logo.png' alt='logo' sizes='small' />
+      <div className='map-search-container'>
+        <input placeholder='지역을 입력하세요' onChange={onChange}></input>
+        <button id='search' onClick={handleSearchInput}>
+          검색
         </button>
-        <button onClick={handleFilter}>아파트</button>
-        <button onClick={handleFilter}>주택</button>
-        <button onClick={handleFilter}>다세대/다가구</button>
-        <button onClick={handleFilter}>오피스텔/원룸</button>
-        <button onClick={handleCurrentPositions}>현재 위치로 가기</button>
-        <button onClick={toggleShowAll}>일반매물 보이기</button>
+      </div>
+      <div className='search-types'>
+        <div onClick={handleFilter}>아파트</div>
+        <div onClick={handleFilter}>주택</div>
+        <div onClick={handleFilter}>다세대/다가구</div>
+        <div onClick={handleFilter}>오피스텔/원룸</div>
+        <div onClick={toggleShowAll}>일반매물</div>
+        <div className='search-addregion' onClick={handleUserFavorites}>
+          관심 지역+
+        </div>
+      </div>
+      <div className='map-container'>
         <div id='map' className='map' ref={mapElement} />
-        <div>지역 가격 그래프</div>
-        <PriceGraph data={graphData}></PriceGraph>
+      </div>
+      <div className='background-container'>
+        <div className='graph-container'>
+          <div>VP avg graph(1,000,000Won)</div>
+          <PriceGraph data={graphData}></PriceGraph>
+        </div>
       </div>
     </>
   );

@@ -25,10 +25,6 @@ function NavBar() {
           <img src='/img/icons/home.svg' alt='home' />
           <span>Home</span>
         </li>
-        <li onClick={() => navigate('/alarm')}>
-          <img src='/img/icons/notifications.svg' alt='notification' />
-          <span>Alarm</span>
-        </li>
         <li onClick={() => navigate('/mypage')}>
           <img src='/img/icons/mypage.svg' alt='mypage' />
           <span>My Page</span>

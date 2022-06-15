@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 import {
   addUserFavoriteBuilding,
@@ -25,9 +24,9 @@ export default function DetailHeader() {
 
   const { buildingType, auctionNumber } = detail.buildingInfo;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getBuildingDetail = async () => {
-      const buildings = await useAxios(`buildings/${buildingId}`, 'get');
+      const buildings = await useAxios(`/buildings/${buildingId}`, 'get');
       setDetail(buildings);
     };
 
@@ -57,15 +56,6 @@ export default function DetailHeader() {
           <img src='/img/logo.png' alt='logo' />
         </div>
         <div className='detail-heading'>
-          {userFavorite ? (
-            <button onClick={handleUserFavoriteRegion}>
-              <BsHeartFill></BsHeartFill>
-            </button>
-          ) : (
-            <button onClick={handleUserFavoriteRegion}>
-              <BsHeart></BsHeart>
-            </button>
-          )}
           <div className='detail-icon'>
             {detail && <span>{buildingType}</span>}
           </div>
