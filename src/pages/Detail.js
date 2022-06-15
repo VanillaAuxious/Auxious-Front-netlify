@@ -7,9 +7,9 @@ import './Detail.scss';
 export default function Detail() {
   return (
     <>
-      <DetailHeader></DetailHeader>
+      <DetailHeader />
       <div className='detail-container'>
-        <DetailArcodian></DetailArcodian>
+        <DetailArcodian />
       </div>
       <NavBar />
     </>

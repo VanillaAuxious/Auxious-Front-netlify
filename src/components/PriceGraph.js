@@ -11,15 +11,26 @@ export default function PriceGraph(data) {
     const height = 150;
     const barHeight = (height - 20) / 3;
     const [min, max] = getMinMaxData(data);
-    const scale = d3.scaleLinear().domain([min, max]).range([50, 300]);
+    const scale = d3.scaleLinear().domain([min, max]).range([50, 240]);
+    const color = [];
+
+    for (let i = 0; i < data.data.length; i++) {
+      if (parseInt(data.data[i].value) === max) {
+        color.push('#1864ab');
+      } else if (parseInt(data.data[i].value) === min) {
+        color.push('#4dabf7');
+      } else {
+        color.push('#a5d8ff');
+      }
+    }
 
     const graph = d3
       .select(svgRef.current)
       .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+      .attr('width', '100vw')
+      .attr('height', '30vh');
 
-    var bar = graph
+    const bar = graph
       .selectAll('g')
       .join('g')
       .data(data.data)
@@ -34,7 +45,9 @@ export default function PriceGraph(data) {
       .join('rect')
       .transition()
       .duration(100)
-      .attr('style', 'fill: skyblue;')
+      .attr('style', (d, i) => {
+        return `fill: ${color[i]};`;
+      })
       .attr('width', (d) => {
         if (isNaN(d.value)) return;
         return scale(parseInt(d.value));
@@ -51,6 +64,7 @@ export default function PriceGraph(data) {
       })
       .attr('y', barHeight / 2)
       .attr('dy', '.35em')
+      .attr('z-index', '100')
       .text((data) => {
         if (isNaN(data.value)) return;
         return parseInt(data.value);
@@ -71,10 +85,5 @@ export default function PriceGraph(data) {
     };
   }, [data]);
 
-  return (
-    <svg
-      style={{ width: '100%', height: '100%' }}
-      id='graph'
-      ref={svgRef}></svg>
-  );
+  return <svg id='graph' ref={svgRef}></svg>;
 }

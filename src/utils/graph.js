@@ -34,8 +34,10 @@ export function getGraphData(data) {
 export function getMinMaxData(data) {
   let max = 0;
   let min = 0;
+
   for (let i = 0; i < data.data.length; i++) {
     if (isNaN(data.data[i].value)) break;
+
     max = Math.max(parseInt(data.data[i].value), max);
     min = Math.min(parseInt(data.data[i].value), min);
   }
