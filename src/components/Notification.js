@@ -5,6 +5,7 @@ import { requestForToken, onMessageListener } from '../firebase';
 function Notification() {
   const [notification, setNotification] = useState({ title: '', body: '' });
   const notify = () => toast(<ToastDisplay />);
+
   function ToastDisplay() {
     return (
       <div>
