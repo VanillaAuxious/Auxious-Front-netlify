@@ -2,6 +2,7 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { requestForToken } from './firebase';
 
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
@@ -31,6 +32,10 @@ function App() {
       setUserInformation();
     }
   }, [userInformation]);
+
+  useEffect(() => {
+    requestForToken();
+  }, []);
 
   return (
     <>
