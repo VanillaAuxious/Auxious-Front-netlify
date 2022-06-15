@@ -1,9 +1,11 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import DetailSlides from '../components/DetailSlides';
+import DetailSlides from './DetailSlides';
 import Accordion from '../common/Accordion';
 import useAxios from '../hooks/useAxios';
+
+import './DetailAccordion.scss'
 
 export default function DetailArcodian() {
   const { buildingId } = useParams();
@@ -65,11 +67,11 @@ export default function DetailArcodian() {
             {process &&
               process.map((process, index) => {
                 return (
-                  <li key={index}>
-                    <div>{process.dayProcess}</div>
-                    <div>{process.progress}</div>
-                    <div>{process.date}</div>
-                    <div>{process.dayProcess}</div>
+                  <li className='process' key={index}>
+                    <h5>{process.dayProcess}</h5>
+                    <span className='process-item'>{process.progress}</span>
+                    <span className='process-item'>{process.date}</span>
+                    <span className='process-item'>{process.dayProcess}</span>
                   </li>
                 );
               })}
@@ -81,9 +83,9 @@ export default function DetailArcodian() {
               tenants.map((tenant, index) => {
                 return (
                   <li key={index}>
-                    <div>{tenant.tenantName}</div>
-                    <div>{tenant.location}</div>
-                    <div>{tenant.date}</div>
+                    <span>{tenant.tenantName}</span>
+                    <span>{tenant.location}</span>
+                    <span>{tenant.date}</span>
                   </li>
                 );
               })}

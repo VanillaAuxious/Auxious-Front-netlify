@@ -10,17 +10,18 @@
   list-style: none;
   padding: 20px;
 
-  & li {
+  & .process {
     display: flex;
-    gap: 20px;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid black;
 
     & h5 {
-      width: 30%;
+      width: 10vw;
       margin: 0;
     }
 
-    & span {
-      font-size: 14px;
+    & .process-item {
+      width: 30vw;
     }
   }
 }

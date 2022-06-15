@@ -1,6 +1,6 @@
 import NavBar from '../components/NavBar';
 import DetailHeader from '../components/DetailHeader';
-import DetailArcodian from '../components/DetailArcodian';
+import DetailAccordion from '../components/DetailAccordion';
 
 import './Detail.scss';
 
@@ -9,7 +9,7 @@ export default function Detail() {
     <>
       <DetailHeader />
       <div className='detail-container'>
-        <DetailArcodian />
+        <DetailAccordion />
       </div>
       <NavBar />
     </>
