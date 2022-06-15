@@ -1,0 +1,16 @@
+{
+  "short_name": "Auxios",
+  "name": "Auxios",
+  "icons": [
+    {
+      "src": "img/logo_size_invert.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
