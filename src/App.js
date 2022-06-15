@@ -2,14 +2,12 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from 'firebase/compat/app';
 
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 
 import { saveUserInfo } from './store/userSlice';
-import { getTokenFromFCM } from './firebaseInit';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,25 +31,6 @@ function App() {
       setUserInformation();
     }
   }, [userInformation]);
-
-  useEffect(() => {
-    getTokenFromFCM();
-  }, []);
-
-  const config = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_API_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_API_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_API_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_API_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_API_APP_ID,
-  };
-
-  if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-  } else {
-    firebase.app();
-  }
 
   return (
     <>
