@@ -1,7 +1,6 @@
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 import {
   addUserFavoriteBuilding,
