@@ -13,24 +13,6 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const messaging = getMessaging();
 
-// export const requestForToken = () => {
-//   return getToken(messaging, {
-//     vapidKey: process.env.REACT_APP_FIREBASE_API_VAPID_KEY_HERE,
-//   })
-//     .then((currentToken) => {
-//       if (currentToken) {
-//         console.log('current token for client: ', currentToken);
-//       } else {
-//         console.log(
-//           'No registration token available. Request permission to generate one.',
-//         );
-//       }
-//     })
-//     .catch((err) => {
-//       console.log('An error occurred while retrieving token. ', err);
-//     });
-// };
-
 export const requestForToken = async () => {
   try {
     const token = await getToken(messaging, {
