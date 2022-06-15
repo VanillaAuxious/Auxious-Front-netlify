@@ -33,7 +33,7 @@ function Notification() {
         body: payload?.notification?.body,
       });
     } catch (error) {
-      console.log('failed: ', err);
+      console.log('failed: ', error);
     }
   };
 
