@@ -5,6 +5,7 @@ import Main from '../pages/Main';
 import SearchPlace from '../pages/SearchPlace';
 import MyPage from '../pages/MyPage';
 import MyFavoriteRegion from '../pages/FavoriteRegion';
+import SigningDocument from '../pages/SigningDocument';
 
 export default function Authorized() {
   return (
@@ -16,6 +17,7 @@ export default function Authorized() {
       <Route path='/search/:place' element={<SearchPlace />} />
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/favoriteregion' element={<MyFavoriteRegion />} />
+      <Route path='/sign' element={<SigningDocument />} />
     </Routes>
   );
 }
