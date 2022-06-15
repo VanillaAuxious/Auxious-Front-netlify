@@ -34,7 +34,6 @@ export default function DetailSlides({ images }) {
           return (
             <div key={index} className='detail-slide'>
               <div className='slide-img-area'>
-                {index}
                 <img src={src} alt='logo' />
               </div>
               <div className='dots'>

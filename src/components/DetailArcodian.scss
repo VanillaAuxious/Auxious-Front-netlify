@@ -1,0 +1,26 @@
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100vw;
+  height: 30vh;
+  box-sizing: border-box;
+  background-color: #eee;
+  margin: 0 0 10px 0;
+  list-style: none;
+  padding: 20px;
+
+  & li {
+    display: flex;
+    gap: 20px;
+
+    & h5 {
+      width: 30%;
+      margin: 0;
+    }
+
+    & span {
+      font-size: 14px;
+    }
+  }
+}
