@@ -2,11 +2,11 @@ import 'normalize.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestForToken } from './firebase';
 
 import useAxios from './hooks/useAxios';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
+import Notification from './components/Notification';
 
 import { saveUserInfo } from './store/userSlice';
 
@@ -33,14 +33,11 @@ function App() {
     }
   }, [userInformation]);
 
-  useEffect(() => {
-    requestForToken();
-  }, []);
-
   return (
     <>
       {isLoggedIn && userInformation && <Authorized />}
       {!isLoggedIn && <Unauthorized />}
+      <Notification />
     </>
   );
 }
