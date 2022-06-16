@@ -18,11 +18,7 @@ export default function LoginFallback() {
   useEffect(() => {
     const getUserInformation = async () => {
       const deviceToken = await requestForToken();
-
-      const userData = await useAxios(`users/login`, 'post', {
-        code,
-        deviceToken,
-      });
+      const userData = await useAxios(`users/login`, 'post', { code, deviceToken });
 
       if (!userData.ok) {
         localStorage.removeItem('isLoggedIn');
