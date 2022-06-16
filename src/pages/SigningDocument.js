@@ -1,14 +1,17 @@
 import { useRef, useEffect, useState } from 'react';
-
 import { jsPDF } from 'jspdf';
+import { useNavigate } from 'react-router-dom';
+
 import SubmitModal from '../components/SubmitModal';
+import useAxios from '../hooks/useAxios';
 
 export default function SigningDocument() {
-  const ref = useRef();
   const image = new Image();
   image.height = '750px';
   image.width = '100%';
   image.src = 'img/doc.png';
+
+  const ref = useRef();
   const [citizenNumber, setCitizenNumber] = useState(0);
   const [name, setName] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +19,8 @@ export default function SigningDocument() {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
-  console.log(image);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
@@ -139,7 +143,7 @@ export default function SigningDocument() {
     ctx.clearRect(174, 351, 120, 120);
   };
 
-  const saveCanvasData = () => {
+  const saveCanvasData = async () => {
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
     ctx.fillText(name, 135, 415, 30);
@@ -151,6 +155,12 @@ export default function SigningDocument() {
     doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
     const pdfURI = doc.output('datauristring');
     doc.save('contract.pdf');
+
+    await useAxios('/users/user/contract', 'post', {
+      contract: pdfURI,
+    });
+
+    navigate('/');
   };
 
   return (
@@ -184,7 +194,7 @@ export default function SigningDocument() {
             width: 80,
             fontSize: '4px',
           }}
-          onClick={saveCanvasData}>
+          onClick={() => setShowModal(true)}>
           제출하기
         </button>
         <input
