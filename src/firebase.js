@@ -19,13 +19,13 @@ export const requestForToken = async () => {
       vapidKey: process.env.REACT_APP_FIREBASE_API_VAPID_KEY_HERE,
     });
 
-    if (token) {
-      console.log('current token for client: ', token);
-    } else {
+    if (!token) {
       console.log(
         'No registration token available. Request permission to generate one.',
       );
     }
+
+    return token;
   } catch (error) {
     console.log('An error occurred while retrieving token. ', error);
   }
