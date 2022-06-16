@@ -1,6 +1,6 @@
 import SubmitModal from './SubmitModal';
 import useCanvas from '../hooks/useCanvas';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function Canvas() {
   const ref = useRef();
