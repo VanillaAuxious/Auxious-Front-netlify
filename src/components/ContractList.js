@@ -7,7 +7,6 @@ export default function ContractList() {
   useEffect(() => {
     (async () => {
       const contractArray = await useAxios('/users/user/contract', 'get');
-      console.log(contractArray.contract);
       setContract(contractArray.contract);
     })();
   }, []);
@@ -17,6 +16,7 @@ export default function ContractList() {
     const iframe =
       "<iframe width='100%' height='100%' src='" + url + "'></iframe>";
     const newTap = window.open();
+
     newTap.document.open();
     newTap.document.write(iframe);
     newTap.document.close();

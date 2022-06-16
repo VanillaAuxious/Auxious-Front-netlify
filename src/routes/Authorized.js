@@ -17,7 +17,8 @@ export default function Authorized() {
       <Route path='/search/:place' element={<SearchPlace />} />
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/favoriteregion' element={<MyFavoriteRegion />} />
-      <Route path='/sign' element={<SigningDocument />} />
+      <Route path='/sign/' element={<SigningDocument />} />
+      <Route path='/sign/:agent' element={<SigningDocument />} />
     </Routes>
   );
 }
