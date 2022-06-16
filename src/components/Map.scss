@@ -36,21 +36,31 @@
   margin-top: 0.5rem;
 
   & input {
-    width: 40vw;
+    width: 60vw;
     border: 2px solid #2d3d72;
     border-radius: 5px;
     padding: 1vw 0 1vw 2vw;
     box-sizing: border-box;
     outline: none;
+    overflow-x: visible;
   }
 
   & button {
-    background-color: #2d3d72;
-    color: white;
+    background-color: white;
+    color: #2d3d72;
     border: none;
     border-radius: 5px;
     height: 3.8vh;
     width: 13vw;
+  }
+
+  & div {
+    border: 2px solid #2d3d72;
+    border-radius: 5px;
+    height: 3.8vh;
+    width: 20vw;
+    text-align: center;
+    line-height: 3.8vh;
   }
 }
 
@@ -83,4 +93,11 @@
   border-style: solid;
   border-width: medium;
   border-color: #d8ecff;
+}
+
+.favorite-region-message {
+  color: #fc67b7;
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-position: under;
 }

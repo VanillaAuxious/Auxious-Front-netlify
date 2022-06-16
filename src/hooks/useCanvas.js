@@ -138,7 +138,6 @@ export default function useCanvas(ref) {
 
     const doc = new jsPDF('landscape');
     doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
-    console;
     const pdfURI = doc.output('datauristring');
     doc.save('contract.pdf');
 

@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import './DetailSlides.scss';
 
 export default function DetailSlides({ images }) {
   const [slideNumber, setSlideNumber] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const rightButton = useRef();
+  const leftButton = useRef();
 
   const handleSlideMove = (num) => {
     const isLeftEnd = !slideNumber && num < 0;
@@ -18,14 +21,29 @@ export default function DetailSlides({ images }) {
     setSlideNumber(index);
   };
 
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.changedTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX - event.changedTouches[0].clientX > 30) {
+      handleSlideMove(1);
+    } else if (event.changedTouches[0].clientX - touchStartX > 30) {
+      handleSlideMove(-1);
+    }
+  };
+
   return (
     <div className='detail-slides-container'>
       <button
         className='detail-slide-btn prev'
-        onClick={handleSlideMove.bind(null, -1)}>
+        onClick={handleSlideMove.bind(null, -1)}
+        ref={leftButton}>
         <p>&lt;</p>
       </button>
       <div
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         className='detail-slides'
         style={{
           transform: `translateX(-${slideNumber * 100}vw)`,
@@ -55,7 +73,8 @@ export default function DetailSlides({ images }) {
       </div>
       <button
         className='detail-slide-btn next'
-        onClick={handleSlideMove.bind(null, 1)}>
+        onClick={handleSlideMove.bind(null, 1)}
+        ref={rightButton}>
         <p>&gt;</p>
       </button>
     </div>
