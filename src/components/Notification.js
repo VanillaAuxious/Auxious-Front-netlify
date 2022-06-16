@@ -3,19 +3,19 @@ import toast, { Toaster } from 'react-hot-toast';
 import { onMessageListener } from '../firebase';
 
 function Notification() {
-  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [notification, setNotification] = useState({ title: '', body: '', buildingId: '' });
   const notify = () => toast(<ToastDisplay />);
 
-  function ToastDisplay() {
+  const ToastDisplay = () => {
     return (
-      <div>
+      <div onClick={() => toast.remove()}>
         <p>
           <b>{notification?.title}</b>
         </p>
         <p>{notification?.body}</p>
       </div>
     );
-  }
+  };
 
   useEffect(() => {
     if (notification?.title) {
@@ -28,8 +28,9 @@ function Notification() {
       const payload = await onMessageListener();
 
       setNotification({
-        title: payload?.notification?.title,
-        body: payload?.notification?.body,
+        title: payload?.data?.title,
+        body: payload?.data?.body,
+        buildingId: payload?.data?.buildingId,
       });
     } catch (error) {
       console.log('failed: ', error);
