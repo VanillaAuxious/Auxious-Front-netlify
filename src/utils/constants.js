@@ -6,6 +6,16 @@ export const DEV = 'dev';
 export const PROD = 'prod';
 export const TEST = 'test';
 
+export const Agent = [
+  '한경훈',
+  '정세현',
+  '임유빈',
+  '이윤학',
+  'KEN',
+  '유동하',
+  'JIN',
+];
+
 export const Regions = [
   '신사동',
   '압구정동',
