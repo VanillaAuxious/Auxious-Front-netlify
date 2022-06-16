@@ -101,7 +101,7 @@ export default function Map() {
       </div>
       <div className='background-container'>
         <div className='graph-container'>
-          <div>VP avg graph(1,000,000Won)</div>
+          <div>Graph(백만)</div>
           <PriceGraph data={graphData}></PriceGraph>
         </div>
       </div>
