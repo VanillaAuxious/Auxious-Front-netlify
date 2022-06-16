@@ -4,8 +4,6 @@ import { addUserFavoriteRegion } from '../store/userSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 
-import { getLocation } from '../utils/location';
-
 import useInput from '../hooks/useInput';
 import useMap from '../hooks/useMap';
 import useAxios from '../hooks/useAxios';
