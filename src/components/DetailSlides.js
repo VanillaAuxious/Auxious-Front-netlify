@@ -22,17 +22,17 @@ export default function DetailSlides({ images }) {
   };
 
   const handleTouchStart = (event) => {
-    console.log(event);
     setTouchStartX(event.changedTouches[0].clientX);
   };
 
   const handleTouchEnd = (event) => {
     if (touchStartX - event.changedTouches[0].clientX > 30) {
-      rightButton.current.click();
+      handleSlideMove(1);
     } else if (event.changedTouches[0].clientX - touchStartX > 30) {
-      leftButton.current.click();
+      handleSlideMove(-1);
     }
   };
+
   return (
     <div className='detail-slides-container'>
       <button

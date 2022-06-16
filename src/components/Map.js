@@ -37,10 +37,10 @@ export default function Map() {
 
   const handleUserFavorites = async () => {
     if (user.favoriteRegions.length > 2) {
-      setMessage('이미 3개의 관심지역이 있습니다.');
+      setMessage('이미 선택된 관심지역입니다.');
       return;
     } else if (user.favoriteRegions.includes(currentAddress)) {
-      setMessage('이미 이 지역이 관심지역에 있습니다.');
+      setMessage('관심지역의 갯수를 초과하였습니다.');
       return;
     }
 
