@@ -7,6 +7,7 @@ export default function SearchPlace() {
     <>
       <Map />
       <NavBar />
+      <BottomSheet />
     </>
   );
 }
