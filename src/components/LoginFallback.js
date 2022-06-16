@@ -6,6 +6,7 @@ import useAxios from '../hooks/useAxios';
 import LoadingSpinner from '../common/LoadingSpinner';
 
 import { saveUserInfo } from '../store/userSlice';
+import { requestForToken } from '../firebase';
 
 export default function LoginFallback() {
   const location = useLocation();
@@ -16,7 +17,13 @@ export default function LoginFallback() {
 
   useEffect(() => {
     const getUserInformation = async () => {
-      const userData = await useAxios(`users/login`, 'post', { code });
+      const deviceToken = await requestForToken();
+
+      const userData = await useAxios(`users/login`, 'post', {
+        code,
+        deviceToken,
+      });
+
       if (!userData.ok) {
         localStorage.removeItem('isLoggedIn');
 
