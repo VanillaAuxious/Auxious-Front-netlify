@@ -1,26 +1,36 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+
+import { jsPDF } from 'jspdf';
+import SubmitModal from '../components/SubmitModal';
 
 export default function SigningDocument() {
-  const ref = useRef(null);
+  const ref = useRef();
   const image = new Image();
-
   image.height = '750px';
   image.width = '100%';
-  image.src =
-    'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAzMTdfOTgg%2FMDAxNjE1OTcyMzM0MDE0.P1nvKfXOCW_XKpIpVZuJ6RpICT8M2m-4-qbpMPBvhRcg.-27LrnlmDYJCEzucXFXsa3SFAT0Wse5KoxcDGRRI-3Eg.PNG.julian2020%2F%25B4%25EB%25B8%25AE%25C0%25CE_%25C0%25A7%25C0%25D3%25C0%25E5_%25283%2529.png&type=sc960_832';
-
+  image.src = 'img/doc.png';
+  const [citizenNumber, setCitizenNumber] = useState(0);
+  const [name, setName] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  console.log(image);
   useEffect(() => {
-    if (!ref) return;
-
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
-    const color = '#000000';
     ctx.drawImage(image, 0, 0, 350, 750);
-    ctx.strokeRect(170, 351, 130, 130);
-    const input = document.createElement('input');
-    // input.createTextNode('한경훈');
+    ctx.strokeRect(174, 351, 120, 120);
+    const color = '#000000';
 
     let touchesArray = [];
+
+    ctx.fillText('한경훈', 140, 199, 30);
+    ctx.fillText('960105', 140, 218, 30);
+    ctx.fillText(year, 110, 582, 30);
+    ctx.fillText(month, 160, 582, 30);
+    ctx.fillText(day, 187, 582, 30);
 
     const handleTouchStart = (event) => {
       event.preventDefault();
@@ -28,9 +38,9 @@ export default function SigningDocument() {
 
       for (let i = 0; i < touches.length; i++) {
         if (
-          touches[i].clientX < 300 &&
-          170 < touches[i].clientX &&
-          touches[i].clientY < 481 &&
+          touches[i].clientX < 294 &&
+          174 < touches[i].clientX &&
+          touches[i].clientY < 471 &&
           351 < touches[i].clientY
         ) {
           touchesArray.push(touches[i]);
@@ -48,9 +58,9 @@ export default function SigningDocument() {
 
       for (let i = 0; i < touches.length; i++) {
         if (
-          touches[i].clientX < 300 &&
-          170 < touches[i].clientX &&
-          touches[i].clientY < 481 &&
+          touches[i].clientX < 294 &&
+          174 < touches[i].clientX &&
+          touches[i].clientY < 471 &&
           351 < touches[i].clientY
         ) {
           const index = ongoingTouchIndexById(touches[i].identifier);
@@ -59,7 +69,7 @@ export default function SigningDocument() {
             ctx.beginPath();
             ctx.moveTo(touchesArray[index].pageX, touchesArray[index].pageY);
             ctx.lineTo(touches[i].pageX, touches[i].pageY);
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 1;
             ctx.strokeStyle = color;
             ctx.stroke();
 
@@ -77,7 +87,7 @@ export default function SigningDocument() {
         let index = ongoingTouchIndexById(touches[i].identifier);
 
         if (index >= 0) {
-          ctx.lineWidth = 4;
+          ctx.lineWidth = 2;
           ctx.fillStyle = color;
           ctx.beginPath();
           ctx.moveTo(touchesArray[index].pageX, touchesArray[index].pageY);
@@ -112,11 +122,94 @@ export default function SigningDocument() {
     canvas.addEventListener('touchend', handleTouchEnd);
     canvas.addEventListener('touchmove', handleTouchMove);
     canvas.addEventListener('touchcancel', handleTouchCancel);
-  }, [ref]);
+  }, [ref.current]);
+
+  const handleCitizenNumber = (event) => {
+    setCitizenNumber(event.target.value);
+  };
+
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleUndoCanvas = (event) => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+
+    ctx.clearRect(174, 351, 120, 120);
+  };
+
+  const saveCanvasData = () => {
+    const canvas = ref.current;
+    const ctx = canvas.getContext('2d');
+    ctx.fillText(name, 135, 415, 30);
+    ctx.fillText(citizenNumber, 135, 433, 30);
+
+    const canvasData = canvas.toDataURL('image/jpeg', 1.0);
+
+    const doc = new jsPDF('landscape');
+    doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
+    const pdfURI = doc.output('datauristring');
+    doc.save('contract.pdf');
+  };
 
   return (
     <>
-      <canvas ref={ref} width='350px' height='750px'></canvas>
+      {showModal && (
+        <SubmitModal
+          onCancelModal={() => setShowModal(false)}
+          handleSaveCanvas={saveCanvasData}
+        />
+      )}
+      <div style={{ position: 'relative' }} width='350px' height='750px'>
+        <canvas ref={ref} width='350px' height='750px'></canvas>
+        <button
+          style={{
+            position: 'absolute',
+            left: '260px',
+            top: '30px',
+            height: 20,
+            width: 80,
+            fontSize: '4px',
+          }}
+          onClick={handleUndoCanvas}>
+          되돌리기
+        </button>
+        <button
+          style={{
+            position: 'absolute',
+            left: '175px',
+            top: '30px',
+            height: 20,
+            width: 80,
+            fontSize: '4px',
+          }}
+          onClick={saveCanvasData}>
+          제출하기
+        </button>
+        <input
+          type='text'
+          style={{
+            position: 'absolute',
+            left: '135px',
+            top: '405px',
+            height: 10,
+            width: 30,
+            fontSize: '4px',
+          }}
+          onChange={handleName}></input>
+        <input
+          type='text'
+          style={{
+            position: 'absolute',
+            left: '135px',
+            top: '423px',
+            height: 10,
+            width: 30,
+            fontSize: '4px',
+          }}
+          onChange={handleCitizenNumber}></input>
+      </div>
     </>
   );
 }
