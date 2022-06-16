@@ -11,8 +11,8 @@ export default function Unauthorized() {
         <Route path='/' element={<Navigate replace to='/login' />} />
         <Route path='/login' element={<Login />}>
           <Route path='github' element={<LoginFallback />} />
-          <Route path='/sign' element={<SigningDocument />} />
         </Route>
+        <Route path='/sign' element={<SigningDocument />} />
       </Routes>
     </>
   );
