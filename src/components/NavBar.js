@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import useAixos from '../hooks/useAxios';
 import { deleteUserInfo } from '../store/userSlice';
 
 import './NavBar.scss';
@@ -10,10 +11,13 @@ function NavBar() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    document.cookie = `server_token=''; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    const response = await useAixos('users/user/device-token', 'delete');
 
-    dispatch(deleteUserInfo());
-    localStorage.removeItem('isLoggedIn');
+    if (response.ok) {
+      document.cookie = `server_token=''; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+      dispatch(deleteUserInfo());
+      localStorage.removeItem('isLoggedIn');
+    }
 
     navigate('/login');
   };
