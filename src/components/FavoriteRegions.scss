@@ -1,16 +1,20 @@
 .favorite-region-container {
   margin-top: 25px;
 
-  & input {
-    width: 229px;
-    height: 25px;
-    margin-right: 7px;
-  }
+  .favorite-region-search {
+    display: flex;
 
-  & button {
-    width: 20px;
-    height: 31px;
-    font-size: 5px;
+    & input {
+      width: 229px;
+      height: 25px;
+      margin-right: 7px;
+    }
+
+    & button {
+      width: 18vw;
+      height: 31px;
+      font-size: 4vw;
+    }
   }
 
   & div {

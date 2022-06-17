@@ -70,13 +70,15 @@ export default function SetFavoriteRegion() {
 
   return (
     <div className='favorite-region-container'>
-      <input
-        placeholder='동명으로 검색'
-        onChange={onChange}
-        onFocus={() => setMessage('')}
-        onBlur={() => setMessage('')}
-      />
-      <button onClick={handleAddRegion}>추가</button>
+      <div className='favorite-region-search'>
+        <input
+          placeholder='동명으로 검색'
+          onChange={onChange}
+          onFocus={() => setMessage('')}
+          onBlur={() => setMessage('')}
+        />
+        <button onClick={handleAddRegion}>추가</button>
+      </div>
       {message && <span className='favorite-region-message'>{message}</span>}
       {inputValue && (
         <ul>
