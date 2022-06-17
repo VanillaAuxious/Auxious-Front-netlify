@@ -13,6 +13,7 @@ export default function useMap(position, type, mapElement) {
   const [graphData, setGraphData] = useState({});
   const [isMap, setIsMap] = useState(false);
   const [newType, setNewType] = useState();
+  const [buildings, setBuildings] = useState(false);
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
@@ -113,6 +114,7 @@ export default function useMap(position, type, mapElement) {
       );
 
       setGraphData(getGraphData(buildings));
+      setBuildings(buildings);
       setCurrentCenter(centerPoint);
       setAuctionsMarker(map, buildings.auctions);
       forSalesArray.push(...buildings.forSales);
@@ -239,5 +241,5 @@ export default function useMap(position, type, mapElement) {
     return buildings;
   };
 
-  return [showAll, setShowAll, currentAddress, graphData];
+  return { showAll, setShowAll, currentAddress, graphData, buildings };
 }
