@@ -78,7 +78,7 @@ export default function Map() {
         <button id='search' onClick={handleSearchInput}>
           <BsSearch />
         </button>
-        <div className='search-addregion' onClick={handleUserFavorites}>
+        <div className='search-add-region' onClick={handleUserFavorites}>
           관심 지역+
         </div>
       </div>
