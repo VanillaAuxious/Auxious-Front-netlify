@@ -2,7 +2,7 @@ import useBottomSheet from '../hooks/useBottomSheet';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './BottomSheet.scss';
+import './BottomSheet.css';
 
 function BottomSheet({ data }) {
   const navigate = useNavigate();
