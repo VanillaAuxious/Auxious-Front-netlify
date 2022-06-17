@@ -35,33 +35,42 @@
   height: 5vh;
   margin-top: 0.5rem;
 
-  & input {
+  .map-search-input {
+    display: flex;
     width: 60vw;
-    border: 2px solid #2d3d72;
-    border-radius: 5px;
-    padding: 1vw 0 1vw 2vw;
-    box-sizing: border-box;
-    outline: none;
-    overflow-x: visible;
-  }
+    position: relative;
 
-  & button {
-    background-color: white;
-    color: #2d3d72;
-    border: none;
-    border-radius: 5px;
-    height: 3.8vh;
-    width: 13vw;
-  }
+    & input {
+      width: 60vw;
+      border: 2px solid #2d3d72;
+      border-radius: 5px;
+      padding: 0.3rem;
+      box-sizing: border-box;
+      outline: none;
+      overflow-x: visible;
+    }
 
-  & div {
-    border: 2px solid #2d3d72;
-    border-radius: 5px;
-    height: 3.8vh;
-    width: 20vw;
-    text-align: center;
-    line-height: 3.8vh;
+    & button {
+      position: absolute;
+      top: 0.2rem;
+      right: 0.1rem;
+      width: 13vw;
+      height: 3.8vh;
+      color: #2d3d72;
+      border: none;
+      border-radius: 5px;
+      background-color: transparent;
+    }
   }
+}
+
+.search-addregion {
+  border: 2px solid #2d3d72;
+  border-radius: 5px;
+  height: 3.8vh;
+  width: 20vw;
+  text-align: center;
+  line-height: 3.8vh;
 }
 
 .map-container {
