@@ -99,7 +99,7 @@ export default function Map() {
       </div>
       <div className='background-container'>
         <div className='graph-container'>
-          <div>Graph(백만)</div>
+          <div>Graph(단위: 백만원)</div>
           <PriceGraph data={graphData}></PriceGraph>
         </div>
       </div>
