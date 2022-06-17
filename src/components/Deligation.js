@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 
-import Backdrop from './Backdrop';
+import Backdrop from '../common/Backdrop';
 
 import { AGENTS } from '../utils/constants';
 
