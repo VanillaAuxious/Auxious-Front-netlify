@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { AiFillStepBackward } from 'react-icons/ai';
 
 import useAixos from '../hooks/useAxios';
 import { deleteUserInfo } from '../store/userSlice';
