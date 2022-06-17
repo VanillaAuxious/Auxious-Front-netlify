@@ -25,6 +25,12 @@ const userSlice = createSlice({
     addUserFavoriteRegion(state, action) {
       state.userInformation.favoriteRegions.push(action.payload);
     },
+    deleteUserFavoriteRegion(state, action) {
+      state.userInformation.favoriteRegions =
+        state.userInformation.favoriteRegions.filter(
+          (region) => region !== action.payload,
+        );
+    },
     deleteUserInfo(state) {
       state.userInformation = null;
     },
@@ -38,5 +44,6 @@ export const {
   deleteUserInfo,
   patchUserData,
   addUserFavoriteRegion,
+  deleteUserFavoriteRegion,
 } = userSlice.actions;
 export default userSlice.reducer;

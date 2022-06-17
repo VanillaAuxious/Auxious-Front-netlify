@@ -10,9 +10,10 @@
     justify-content: center;
     align-items: center;
     margin-left: 3vw;
-    width: 20vw;
+    width: 30vw;
     height: 5vh;
     margin-top: 1rem;
+    font-size: 0.7rem;
     background-color: #7ca4f4;
     color: #ffffff;
     font-weight: bold;
@@ -28,7 +29,7 @@
 .map-search-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   gap: 0.4rem;
   width: 100vw;
@@ -44,7 +45,7 @@
       width: 60vw;
       border: 2px solid #2d3d72;
       border-radius: 5px;
-      padding: 0.3rem;
+      padding: 0.5rem 0.5rem 0.3rem 0.5rem;
       box-sizing: border-box;
       outline: none;
       overflow-x: visible;
@@ -67,15 +68,35 @@
 .search-add-region {
   border: 2px solid #2d3d72;
   border-radius: 5px;
-  height: 3.8vh;
   width: 20vw;
+  height: 3.8vh;
+  padding: 0.5rem;
   text-align: center;
   line-height: 3.8vh;
+  transition: all 0.3s;
 }
 
 .map-container {
   margin-top: 0.5rem;
   border-radius: 15px 15px 15px 0;
+  position: relative;
+
+  & .for-sale {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+    color: #fff;
+    background-color: #345ee7;
+    opacity: 0.5;
+    border-radius: 5px;
+    width: 20vw;
+    height: 3.8vh;
+    padding: 0.5rem;
+    text-align: center;
+    line-height: 3.8vh;
+    transition: all 0.3s;
+    z-index: 3;
+  }
 }
 
 .graph-container {

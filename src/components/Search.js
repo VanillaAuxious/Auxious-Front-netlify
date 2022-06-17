@@ -66,7 +66,15 @@ export default function Search() {
             onBlur={handleShowNavBar}
             value={input}
           />
-          <button onClick={handleSearchRegion}>검색</button>
+          <button
+            onClick={handleSearchRegion}
+            disabled={!input.trim().length}
+            style={{
+              backgroundColor: !input.trim().length && '#ccc',
+              color: !input.trim().length && '#fff',
+            }}>
+            검색
+          </button>
         </div>
       </div>
       {!isHid && <NavBar />}
