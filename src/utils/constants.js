@@ -6,7 +6,7 @@ export const DEV = 'dev';
 export const PROD = 'prod';
 export const TEST = 'test';
 
-export const Agent = [
+export const AGENTS = [
   '한경훈',
   '정세현',
   '임유빈',
@@ -16,7 +16,7 @@ export const Agent = [
   'JIN',
 ];
 
-export const Regions = [
+export const REGIONS = [
   '사직동',
   '삼청동',
   '부암동',
