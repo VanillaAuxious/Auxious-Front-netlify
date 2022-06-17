@@ -4,7 +4,7 @@ import { getGraphData } from '../utils/graph';
 
 import useAxios from './useAxios';
 
-export default function useMap(position, type, mapElement) {
+export default function useMap(type, mapElement) {
   const { place } = useParams();
   const [showAll, setShowAll] = useState(false);
   const [currentAddress, setCurrentAddress] = useState('');
@@ -52,37 +52,20 @@ export default function useMap(position, type, mapElement) {
     cluster = clusterer;
     commonCluster = commonClusterer;
 
-    if (position) {
-      const coord = new kakao.maps.LatLng(position);
+    ps.keywordSearch(decodeURI(place), (data, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const bounds = new kakao.maps.LatLngBounds();
 
-      geocoder.coord2Address(
-        coord.getLng(),
-        coord.getLat(),
-        (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            const newCenter = result[0].address_name;
-            map.setCenter(newCenter);
-
-            getMaxDistance(map);
-          }
-        },
-      );
-    } else {
-      ps.keywordSearch(decodeURI(place), (data, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          const bounds = new kakao.maps.LatLngBounds();
-
-          for (let i = 0; i < data.length; i++) {
-            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-          }
-
-          if (newType !== type) {
-            map.setBounds(bounds);
-            setNewType(type);
-          }
+        for (let i = 0; i < data.length; i++) {
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
-      });
-    }
+
+        if (newType !== type) {
+          map.setBounds(bounds);
+          setNewType(type);
+        }
+      }
+    });
 
     if (showAll) {
       ShowForSaleMarkers(map);
