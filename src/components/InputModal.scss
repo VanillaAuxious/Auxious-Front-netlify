@@ -1,14 +1,13 @@
 .modal-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 3vh;
   align-items: center;
+  gap: 5vh;
   position: absolute;
   top: 50%;
   left: 50%;
   width: 80vw;
-  height: 30vh;
+  height: 45vh;
   padding: 3rem;
   box-sizing: border-box;
   background-color: #fff;
@@ -30,9 +29,10 @@
 
   & button {
     padding: 0.2rem 0.3rem;
-    color: #000000;
+    color: #fff;
     text-align: center;
-    background-color: #ffffff;
+    background-color: #0064ff;
+    padding: 0.5rem;
     border: none;
     font-size: small;
     border-radius: 0.3rem;

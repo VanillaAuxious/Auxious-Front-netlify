@@ -8,7 +8,7 @@ export default function Canvas() {
   const { saveCanvasData, handleUndoCanvas, handleCitizenNumber, handleName } =
     useCanvas(ref);
 
-  const handleHistoryBack = (event) => {
+  const handleHistoryBack = () => {
     window.history.back();
   };
 
