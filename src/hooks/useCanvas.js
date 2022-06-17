@@ -158,6 +158,8 @@ export default function useCanvas(ref) {
     doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
     const pdfURI = doc.output('datauristring');
     doc.save('contract.pdf');
+    const blob = pdf.output();
+    window.open(URL.createObjectURL(new Blob([blob])));
 
     navigate('/');
 
