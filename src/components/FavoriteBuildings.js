@@ -48,9 +48,9 @@ export default function FavoriteBuildings() {
       {favoriteBuildings &&
         favoriteBuildings.map((building, index) => {
           return (
-            <div key={index}>
+            <div key={index} className='select-real-estate-list'>
               <div
-                className='concon'
+                className='select-real-estate-list-element'
                 onClick={showBuildingDetailPage}
                 id={building._id}>
                 경매번호: {building.auctionNumber}

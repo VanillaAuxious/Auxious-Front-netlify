@@ -1,23 +1,23 @@
 .img-logo {
   padding-top: 0.4rem;
   padding-left: 0.4rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .user-profile-container {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
   box-sizing: border-box;
   margin-bottom: 1.6rem;
-  background-color: #eee;
+  background-color: #e7efff;
 
   .user-profile {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    margin-bottom: 2.6rem;
+    margin-bottom: 1rem;
 
     .user-profile-img {
       display: flex;
@@ -27,14 +27,14 @@
       border-radius: 500px;
 
       & > img {
-        width: 4rem;
-        height: 4rem;
+        width: 6rem;
+        height: 6rem;
         border-radius: 100px;
       }
 
       & .basic-profile-img {
-        width: 4rem;
-        height: 4rem;
+        width: 6rem;
+        height: 6rem;
       }
     }
 
@@ -43,29 +43,23 @@
       flex-direction: column;
       justify-content: center;
       gap: 10px;
-      width: 60vw;
+      width: 44vw;
       height: 15vh;
       color: #fff;
 
-      .username {
+      & span {
         padding: 0.5rem 0.3rem;
         background-color: #5274c5;
         border-radius: 0.3rem;
-      }
-
-      .description {
-        padding: 0.5rem 0.3rem;
-        background-color: #5274c5;
-        border-radius: 0.3rem;
-        margin-bottom: 1rem;
       }
 
       & button {
-        padding: 0.5rem;
-        color: #fff;
+        padding: 0.2rem 0.3rem;
+        color: #000000;
         text-align: center;
-        background-color: #2d3d72;
+        background-color: #ffffff;
         border: none;
+        font-size: small;
         border-radius: 0.3rem;
         transition: background-color 0.3s;
       }
@@ -77,7 +71,7 @@
   }
 
   .favorite-region-link {
-    width: 81vw;
+    width: 80vw;
     text-decoration: none;
     padding: 0.8rem;
     margin: 0 auto;
