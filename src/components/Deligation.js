@@ -10,7 +10,9 @@ export default function Deligation({ title, option, className }) {
   };
 
   const getSignPage = (event) => {
-    navigate(`/sign/${event.target.innerText}`);
+    navigate(
+      `/sign/${event.target.innerText}?auctionNumber=${props.auctionNumber}`,
+    );
   };
 
   return (

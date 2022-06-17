@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getGraphData } from '../utils/graph';
 
 import useAxios from './useAxios';
 
-export default function useMap(type, mapElement) {
-  const { place } = useParams();
+export default function useMap(place, type, mapElement) {
   const [showAll, setShowAll] = useState(false);
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
+  const [searchPlace, setSearchPlace] = useState(place);
   const [graphData, setGraphData] = useState({});
   const [isMap, setIsMap] = useState(false);
   const [newType, setNewType] = useState();
@@ -35,8 +35,10 @@ export default function useMap(type, mapElement) {
     const map = !isMap ? new kakao.maps.Map(mapContainer, mapOptions) : isMap;
     const geocoder = new kakao.maps.services.Geocoder();
     const ps = new kakao.maps.services.Places();
+
     map.setMinLevel(4);
     map.setMaxLevel(7);
+
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map,
       averageCenter: true,
@@ -52,18 +54,17 @@ export default function useMap(type, mapElement) {
     cluster = clusterer;
     commonCluster = commonClusterer;
 
-    ps.keywordSearch(decodeURI(place), (data, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const bounds = new kakao.maps.LatLngBounds();
+    ps.keywordSearch(decodeURI(searchPlace), (data, status) => {
+      const bounds = new kakao.maps.LatLngBounds();
 
-        for (let i = 0; i < data.length; i++) {
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
+      for (let i = 0; i < data.length; i++) {
+        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+      }
 
-        if (newType !== type) {
-          map.setBounds(bounds);
-          setNewType(type);
-        }
+      map.setBounds(bounds);
+      getMaxDistance(map, geocoder);
+      if (newType !== type) {
+        setNewType(type);
       }
     });
 
@@ -75,7 +76,7 @@ export default function useMap(type, mapElement) {
 
     setIsMap(map);
     mapContainer.ontouchend = getMaxDistance(map, geocoder);
-  }, [place, showAll]);
+  }, [type, showAll, searchPlace]);
 
   const getMaxDistance = (map, geocoder) => {
     kakao.maps.event.preventMap();
@@ -233,5 +234,12 @@ export default function useMap(type, mapElement) {
     return buildings;
   };
 
-  return { showAll, setShowAll, currentAddress, graphData, buildings };
+  return {
+    showAll,
+    setShowAll,
+    currentAddress,
+    graphData,
+    buildings,
+    setSearchPlace,
+  };
 }
