@@ -16,7 +16,6 @@ export default function Map() {
   const newQuery = new URLSearchParams(location.search);
   const type = newQuery.get('type');
   const [input, onChange] = useInput();
-  const [position, setPosition] = useState('');
   const [message, setMessage] = useState('');
   const mapElement = useRef(null);
   const user = useSelector((state) => state.user.userInformation);
