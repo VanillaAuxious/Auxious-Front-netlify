@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import Backdrop from './Backdrop';
+import Backdrop from '../common/Backdrop';
 
 import useInput from '../hooks/useInput';
 
@@ -11,6 +11,7 @@ export default function InputModal({ onCancelModal, onUpdateData }) {
   const handleUpdateDescription = async (event) => {
     event.preventDefault();
     const updateData = await onUpdateData(inputValue);
+
     if (updateData.ok) {
       onCancelModal();
     }

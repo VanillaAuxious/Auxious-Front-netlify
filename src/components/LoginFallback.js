@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import useAxios from '../hooks/useAxios';
-import Backdrop from '../components/Backdrop';
+import Backdrop from '../common/Backdrop';
 import LoadingSpinner from '../common/LoadingSpinner';
 
 import { saveUserInfo } from '../store/userSlice';
