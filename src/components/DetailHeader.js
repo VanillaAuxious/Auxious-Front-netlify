@@ -7,10 +7,10 @@ import {
   deleteUserFavoriteBuilding,
 } from '../store/userSlice';
 
-import { Agent } from '../utils/constants';
-
 import useAxios from '../hooks/useAxios';
-import DropDown from './DropDown';
+import Deligation from './Deligation';
+
+import './DetailHeader.scss';
 
 export default function DetailHeader() {
   const dispatch = useDispatch();
@@ -67,19 +67,15 @@ export default function DetailHeader() {
           </div>
           {userFavorite ? (
             <button onClick={handleUserFavoriteRegion}>
-              <BsHeartFill></BsHeartFill>
+              <BsHeartFill />
             </button>
           ) : (
             <button onClick={handleUserFavoriteRegion}>
-              <BsHeart></BsHeart>
+              <BsHeart />
             </button>
           )}
-          <DropDown
-            title={'권한위임'}
-            option={Agent}
-            auctionNumber={auctionNumber}
-          />
         </div>
+        <Deligation auctionNumber={auctionNumber} />
       </div>
     </>
   );

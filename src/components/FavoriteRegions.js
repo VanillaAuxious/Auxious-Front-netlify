@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useAxios from '../hooks/useAxios';
 import useInput from '../hooks/useInput';
 
-import { Regions } from '../utils/constants';
+import { REGIONS } from '../utils/constants';
 import { addUserFavoriteRegion } from '../store/userSlice';
 import './FavoriteRegions.scss';
 import FavoriteRegionList from './FavoriteRegionsList';
@@ -14,14 +14,14 @@ export default function SetFavoriteRegion() {
   const [inputValue, onChange] = useInput('');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userInformation);
-  const searchedRegions = Regions.filter((region) =>
+  const searchedRegions = REGIONS.filter((region) =>
     region.includes(inputValue),
   );
 
   const handleAddRegion = async () => {
     const enteredRegion = inputValue;
 
-    if (!Regions.includes(enteredRegion)) {
+    if (!REGIONS.includes(enteredRegion)) {
       setMessage(
         '서울시의 행정동이 아닙니다. 동명으로 검색해주세요. Ex. 삼성동',
       );

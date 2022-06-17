@@ -4,7 +4,6 @@
   width: 100vw;
   height: 30vh;
   position: relative;
-  overflow-y: scroll;
   overflow-x: hidden;
   background-color: #bcc7eb;
   margin-bottom: 20px;
@@ -15,26 +14,34 @@
     z-index: 1;
     width: 30px;
     height: 30px;
+    margin: 0;
     padding: 0;
+    color: #112a46;
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid #112a46;
     border-radius: 50%;
     outline: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 
     & p {
       margin: 0;
+    }
+
+    &:active {
+      color: #fff;
+      background-color: #112a46;
     }
   }
 
   .prev {
     left: 0;
+    margin-left: 2vw;
     transform: translateY(-50%);
   }
 
   .next {
     right: 0;
+    margin-right: 2vw;
     transform: translateY(-50%);
   }
 
@@ -50,7 +57,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: rgb(208, 227, 253);
+      background-color: #d0e3fd;
 
       img {
         width: 100%;
@@ -59,16 +66,16 @@
     }
 
     .slide-img-area {
-      width: 80%;
-      height: 80%;
+      width: 75%;
+      height: 75%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       background-color: rgb(255, 255, 255);
       border-radius: 5px;
-      padding: 20px;
+      padding: 1rem;
       box-sizing: border-box;
-      margin-bottom: 10px;
+      margin-bottom: 0.7rem;
       position: relative;
     }
 

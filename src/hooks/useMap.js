@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getGraphData } from '../utils/graph';
-import _ from 'lodash';
 
 import useAxios from './useAxios';
 
