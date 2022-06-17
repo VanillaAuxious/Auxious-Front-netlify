@@ -99,7 +99,7 @@ function useBottomSheet() {
 
         if (touchMove.movingDirection === 'up') {
           sheetArea.current.style.transform = `translateY(${
-            MIN_BACKGROUND_Y - innerHeight
+            MIN_BACKGROUND_Y - innerHeight + 50
           }px)`;
         }
       }
@@ -120,26 +120,7 @@ function useBottomSheet() {
     sheetArea.current.addEventListener('touchstart', handleTouchStart);
     sheetArea.current.addEventListener('touchmove', handleTouchMove);
     sheetArea.current.addEventListener('touchend', handleTouchEnd);
-
-    // return () => {
-    //   sheetArea.current.removeEventListener('touchstart', handleTouchStart);
-    //   sheetArea.current.removeEventListener('touchmove', handleTouchMove);
-    //   sheetArea.current.removeEventListener('touchend', handleTouchEnd);
-    // };
   }, []);
-
-  // useEffect(() => {
-  //   const handleTouchStart = (event) => {
-  //     event.preventDefault();
-  //     metrics.current.isContentAreaTouched = true;
-  //   };
-
-  //   contentArea.current.addEventListener('touchstart', handleTouchStart);
-
-  //   return () => {
-  //     contentArea.current.removeEventListener('touchstart', handleTouchStart);
-  //   };
-  // }, []);
 
   return {
     sheetArea,

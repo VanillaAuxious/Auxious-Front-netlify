@@ -2,9 +2,9 @@ import useBottomSheet from '../hooks/useBottomSheet';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './BottomSheet.css';
+import './BottomSheet.scss';
 
-function BottomSheet({ data }) {
+function BottomSheet(props) {
   const navigate = useNavigate();
   const { sheetArea, contentArea } = useBottomSheet();
   const [touchY, setTouchY] = useState(0);
@@ -29,26 +29,25 @@ function BottomSheet({ data }) {
   };
 
   return (
-    <div className='bottomsheet' ref={sheetArea}>
-      <div className='bottomsheet-header'>
+    <div className='bottomSheet' ref={sheetArea}>
+      <div className='bottomSheet-header'>
         <div className='handle' />
       </div>
-
-      <div>이 지역 경매 매물</div>
-      {data && (
+      <h3 className='hading'>지역 경매 매물</h3>
+      {props.data && (
         <ul
-          className='bottomsheet-content'
+          className='bottomSheet-content'
           ref={contentArea}
           onTouchMove={handleTouchMove}>
-          {data.auctions.map((building, index) => {
+          {props.data.auctions.map((building, index) => {
             return (
               <div
                 key={index}
                 className='building-container'
                 id={building._id}
                 onClick={handleNavigateToDetail}>
-                <img src={building.picture} height='50px' width='30px'></img>
-                <div>
+                <img src={building.picture} height='50px' width='45px'></img>
+                <div className='building-info'>
                   <div>주소:{building.address}</div>
                   <div>감정가:{building.connoisseur}</div>
                 </div>

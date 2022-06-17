@@ -1,7 +1,7 @@
+import { useState, useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
-import { useState, useLayoutEffect } from 'react';
 
 import useAxios from '../hooks/useAxios';
 import './FavoriteBuildings.scss';
