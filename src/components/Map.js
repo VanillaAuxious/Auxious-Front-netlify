@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserFavoriteRegion } from '../store/userSlice';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 
 import useInput from '../hooks/useInput';
@@ -14,21 +14,24 @@ import './Map.scss';
 
 export default function Map() {
   const location = useLocation();
+  const { place } = useParams();
   const newQuery = new URLSearchParams(location.search);
   const type = newQuery.get('type');
   const [input, onChange] = useInput();
-  const [position, setPosition] = useState('');
   const [message, setMessage] = useState('');
   const mapElement = useRef(null);
   const user = useSelector((state) => state.user.userInformation);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { showAll, setShowAll, currentAddress, graphData, buildings } = useMap(
-    position,
-    type,
-    mapElement,
-  );
+  const {
+    showAll,
+    setShowAll,
+    currentAddress,
+    graphData,
+    buildings,
+    setSearchPlace,
+  } = useMap(place, type, mapElement);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
@@ -62,6 +65,7 @@ export default function Map() {
   };
 
   const handleSearchInput = () => {
+    setSearchPlace(input);
     navigate(`/search/${input}?type=${type}`);
   };
 

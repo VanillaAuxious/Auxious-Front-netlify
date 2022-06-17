@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { jsPDF } from 'jspdf';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import useAxios from '../hooks/useAxios';
 
@@ -13,6 +13,10 @@ export default function useCanvas(ref) {
   const month = date.getMonth();
   const day = date.getDate();
   const navigate = useNavigate();
+
+  const auctionNumber = decodeURI(
+    useLocation().search.replace('?auctionNumber=', ''),
+  );
 
   useEffect(() => {
     const image = new Image();
@@ -33,7 +37,12 @@ export default function useCanvas(ref) {
       ctx.fillText(year, 110, 582, 30);
       ctx.fillText(month, 160, 582, 30);
       ctx.fillText(day, 187, 582, 30);
-      ctx.fillText(agent + '에게 경매 권한을 위임합니다.', 100, 298, 150);
+      ctx.fillText(
+        agent + '에게' + auctionNumber + '경매 권한을 위임합니다.',
+        100,
+        298,
+        150,
+      );
     };
 
     const handleTouchStart = (event) => {
@@ -129,6 +138,14 @@ export default function useCanvas(ref) {
   }, []);
 
   const saveCanvasData = async () => {
+    const namePattern = /([^가-힣\x20])/i;
+    const citizenNumberPattern = /^\d{6}$/g;
+
+    if (citizenNumberPattern.test(citizenNumber))
+      return alert('주민등록 번호가 올바르지 않습니다');
+
+    if (namePattern.test(name)) return alert('이름이 올바르지 않습니다');
+
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
     ctx.fillText(name, 135, 415, 30);
@@ -141,11 +158,11 @@ export default function useCanvas(ref) {
     const pdfURI = doc.output('datauristring');
     doc.save('contract.pdf');
 
+    navigate('/');
+
     await useAxios('/users/user/contract', 'post', {
       contract: pdfURI,
     });
-
-    navigate('/');
   };
 
   const handleUndoCanvas = () => {
