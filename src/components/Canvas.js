@@ -8,6 +8,10 @@ export default function Canvas() {
   const { saveCanvasData, handleUndoCanvas, handleCitizenNumber, handleName } =
     useCanvas(ref);
 
+  const handleHistoryBack = (event) => {
+    window.history.back();
+  };
+
   return (
     <>
       {showModal && (
@@ -18,6 +22,18 @@ export default function Canvas() {
       )}
       <div style={{ position: 'relative' }} width='350px' height='750px'>
         <canvas ref={ref} width='350px' height='750px'></canvas>
+        <button
+          style={{
+            position: 'absolute',
+            left: '90px',
+            top: '30px',
+            height: 20,
+            width: 80,
+            fontSize: '4px',
+          }}
+          onClick={handleHistoryBack}>
+          뒤로가기
+        </button>
         <button
           style={{
             position: 'absolute',
