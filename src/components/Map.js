@@ -26,10 +26,10 @@ export default function Map() {
 
   const {
     showAll,
-    setShowAll,
     currentAddress,
     graphData,
     buildings,
+    setShowAll,
     setSearchPlace,
   } = useMap(place, type, mapElement);
 

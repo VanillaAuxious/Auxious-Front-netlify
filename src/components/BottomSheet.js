@@ -22,8 +22,10 @@ function BottomSheet(props) {
   };
 
   const handleNavigateToDetail = (event) => {
-    const uri = event.target.id;
-    navigate('/buildings/' + uri);
+    const target = event.target.closest('.building-container');
+    const uri = '/detail/' + target.id;
+
+    navigate(uri);
   };
 
   return (
