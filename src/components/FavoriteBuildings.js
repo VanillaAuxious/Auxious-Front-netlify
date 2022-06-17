@@ -19,51 +19,40 @@ export default function FavoriteBuildings() {
     })();
   }, []);
 
-  const showBuildingDetailPage = (event) => {
-    navigate(`/detail/${event.target.id}`);
+  const showBuildingDetailPage = (id) => {
+    navigate(`/detail/${id}`);
   };
 
-  const deleteFavoriteBuilding = async (event) => {
-    const id = event.target.id;
-
+  const deleteFavoriteBuilding = async (id) => {
     const newBuildingsArray = favoriteBuildings.filter(
       (building) => building._id !== id,
     );
 
-    const newUser = await useAxios(
-      `/users/user/favorites/buildings/${id}`,
-      'delete',
-    );
+    await useAxios(`/users/user/favorites/buildings/${id}`, 'delete');
 
     const fieldName = 'favoriteBuildings';
     const data = newBuildingsArray;
 
     dispatch(patchUserData({ fieldName, data }));
-    setFavoriteBuildings(newUser.user.favoriteBuildings);
+    setFavoriteBuildings(newBuildingsArray);
   };
 
   return (
-    <div className='select-real-estate-container'>
-      <div className='select-real-estate'>찜한 매물</div>
+    <div className='favorite-buildings-container'>
+      <div className='favorite-buildings-heading'>찜한 매물</div>
       {favoriteBuildings &&
         favoriteBuildings.map((building, index) => {
           return (
-            <div key={index} className='select-real-estate-list'>
-              <div
-                className='select-real-estate-list-element'
-                onClick={showBuildingDetailPage}
-                id={building._id}>
-                경매번호: {building.auctionNumber}
-                <br />
-                주소: {building.address}
-                <br />
-                현재 감정가: {building.connoisseur}
-                <br />
-              </div>
-              <button id={building._id} onClick={deleteFavoriteBuilding}>
-                X
+            <ul key={index} className='favorite-buildings-list'>
+              <li onClick={showBuildingDetailPage.bind(null, building._id)}>
+                <span>{`경매번호: ${building.auctionNumber}`}</span>
+                <span>{`주소: ${building.address}`}</span>
+                <span>{`현재 감정가: ${building.connoisseur}`}</span>
+              </li>
+              <button onClick={() => deleteFavoriteBuilding(building._id)}>
+                &#10005;
               </button>
-            </div>
+            </ul>
           );
         })}
     </div>
