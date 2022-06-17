@@ -4,12 +4,11 @@ import { addUserFavoriteRegion } from '../store/userSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 
-import { getLocation } from '../utils/location';
-
 import useInput from '../hooks/useInput';
 import useMap from '../hooks/useMap';
 import useAxios from '../hooks/useAxios';
 import PriceGraph from '../components/PriceGraph';
+import BottomSheet from '../components/BottomSheet';
 
 import './Map.scss';
 
@@ -25,7 +24,7 @@ export default function Map() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showAll, setShowAll, currentAddress, graphData] = useMap(
+  const { showAll, setShowAll, currentAddress, graphData, buildings } = useMap(
     position,
     type,
     mapElement,
@@ -105,6 +104,7 @@ export default function Map() {
           <PriceGraph data={graphData}></PriceGraph>
         </div>
       </div>
+      <BottomSheet data={buildings} />
     </>
   );
 }

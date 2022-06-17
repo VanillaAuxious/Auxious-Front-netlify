@@ -6,6 +6,8 @@ export function getGraphData(data) {
   let lowestPriceSum = 0;
   let averagePriceSum = 0;
 
+  if (!data.auctions) return;
+
   for (let i = 0; i < data.auctions.length; i++) {
     tempConnoisseur = data.auctions[i].connoisseur.replaceAll(',', '');
     tempConnoisseur = data.auctions[i].connoisseur.replaceAll('원', '');
@@ -33,7 +35,10 @@ export function getGraphData(data) {
 
 export function getMinMaxData(data) {
   let max = 0;
-  let min = 0;
+  let min = Infinity;
+
+  if (!data.data) return [min, max];
+  if (data.data == []) return [min, max];
 
   for (let i = 0; i < data.data.length; i++) {
     if (isNaN(data.data[i].value)) break;

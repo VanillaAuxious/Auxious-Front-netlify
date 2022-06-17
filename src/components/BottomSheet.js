@@ -3,10 +3,9 @@ import { useState } from 'react';
 
 import './BottomSheet.css';
 
-function BottomSheet() {
+function BottomSheet(props) {
   const { sheetArea, contentArea } = useBottomSheet();
   const [touchY, setTouchY] = useState(0);
-  const test = new Array(70).fill(1);
 
   const handleTouchMove = (event) => {
     for (let i = 0; i < event.touches.length; i++) {
@@ -25,14 +24,18 @@ function BottomSheet() {
       <div className='bottomsheet-header'>
         <div className='handle' />
       </div>
-      <ul
-        className='bottomsheet-content'
-        ref={contentArea}
-        onTouchMove={handleTouchMove}>
-        {test.map((e, i) => {
-          return <li key={i}>{i}</li>;
-        })}
-      </ul>
+
+      <div>이 지역 경매 매물</div>
+      {props.data && (
+        <ul
+          className='bottomsheet-content'
+          ref={contentArea}
+          onTouchMove={handleTouchMove}>
+          {props.data.auctions.map((e, i) => {
+            return <li key={i}>{i}</li>;
+          })}
+        </ul>
+      )}
     </div>
   );
 }
