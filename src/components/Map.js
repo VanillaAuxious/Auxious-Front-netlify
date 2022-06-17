@@ -10,7 +10,6 @@ import { BsSearch } from 'react-icons/bs';
 import useInput from '../hooks/useInput';
 import useMap from '../hooks/useMap';
 import useAxios from '../hooks/useAxios';
-import PriceGraph from '../components/PriceGraph';
 import BottomSheet from '../components/BottomSheet';
 
 import './Map.scss';
@@ -147,7 +146,7 @@ export default function Map() {
   };
 
   return (
-    <>
+    <div className='search-container'>
       <img src='/img/logo.png' alt='logo' sizes='small' />
       <div className='map-search-container'>
         {message && <span className='favorite-region-message'>{message}</span>}
@@ -212,13 +211,8 @@ export default function Map() {
           일반매물
         </div>
       </div>
-      <div className='background-container'>
-        <div className='graph-container'>
-          <div>매물 가격 그래프 (단위: 억)</div>
-          <PriceGraph data={graphData}></PriceGraph>
-        </div>
-      </div>
+
       <BottomSheet data={buildings} />
-    </>
+    </div>
   );
 }
