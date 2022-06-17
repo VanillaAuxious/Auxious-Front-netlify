@@ -2,9 +2,9 @@ import useBottomSheet from '../hooks/useBottomSheet';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './BottomSheet.css';
+import './BottomSheet.scss';
 
-function BottomSheet(props) {
+function BottomSheet({ data }) {
   const navigate = useNavigate();
   const { sheetArea, contentArea } = useBottomSheet();
   const [touchY, setTouchY] = useState(0);
@@ -35,12 +35,12 @@ function BottomSheet(props) {
       </div>
 
       <div>이 지역 경매 매물</div>
-      {props.data && (
+      {data && (
         <ul
           className='bottomsheet-content'
           ref={contentArea}
           onTouchMove={handleTouchMove}>
-          {props.data.auctions.map((building, index) => {
+          {data.auctions.map((building, index) => {
             return (
               <div
                 key={index}
