@@ -31,3 +31,8 @@
   height: 90%;
   overflow-y: scroll;
 }
+.building-container {
+  display:flex;
+  flex-direction: row;
+  overflow-y: scroll;
+}

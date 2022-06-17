@@ -29,8 +29,8 @@ export default function ContractList() {
         contract.map((doc, index) => {
           return (
             <>
-              <div key={index} id={doc} onClick={handleOpenPdf}>
-                {index}번째 계약서
+              <div key={index} id={doc.contract.pdfURI} onClick={handleOpenPdf}>
+                {doc.contract.auctionNumber}계약서
               </div>
               <br></br>
             </>

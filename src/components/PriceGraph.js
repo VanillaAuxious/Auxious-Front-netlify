@@ -57,7 +57,7 @@ export default function PriceGraph(data) {
       })
       .attr('height', barHeight - 10)
       .attr('margin', '20')
-      .attr('transform', 'translate(10, 0)');
+      .attr('transform', 'translate(10, 5)');
 
     bar
       .append('text')
@@ -66,7 +66,6 @@ export default function PriceGraph(data) {
         return scale(parseInt(d.value)) + 15;
       })
       .attr('y', barHeight / 2)
-      .attr('dy', '.35em')
       .attr('z-index', '100')
       .text((data) => {
         if (isNaN(data.value)) return;
@@ -77,6 +76,7 @@ export default function PriceGraph(data) {
       .append('text')
       .attr('style', 'color: white;')
       .attr('y', barHeight / 2)
+      .attr('x', -50)
       .attr('dy', '.35em')
       .text((d) => {
         if (isNaN(d.value)) return;
