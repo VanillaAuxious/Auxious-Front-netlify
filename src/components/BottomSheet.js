@@ -1,9 +1,11 @@
 import useBottomSheet from '../hooks/useBottomSheet';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './BottomSheet.css';
 
 function BottomSheet(props) {
+  const navigate = useNavigate();
   const { sheetArea, contentArea } = useBottomSheet();
   const [touchY, setTouchY] = useState(0);
 
@@ -19,6 +21,11 @@ function BottomSheet(props) {
     }
   };
 
+  const handleNavigateToDetail = (event) => {
+    const uri = event.target.id;
+    navigate('/buildings/' + uri);
+  };
+
   return (
     <div className='bottomsheet' ref={sheetArea}>
       <div className='bottomsheet-header'>
@@ -31,8 +38,20 @@ function BottomSheet(props) {
           className='bottomsheet-content'
           ref={contentArea}
           onTouchMove={handleTouchMove}>
-          {props.data.auctions.map((e, i) => {
-            return <li key={i}>{i}</li>;
+          {props.data.auctions.map((building, index) => {
+            return (
+              <div
+                key={index}
+                className='building-container'
+                id={building._id}
+                onClick={handleNavigateToDetail}>
+                <img src={building.picture} height='50px' width='30px'></img>
+                <div>
+                  <div>주소:{building.address}</div>
+                  <div>감정가:{building.connoisseur}</div>
+                </div>
+              </div>
+            );
           })}
         </ul>
       )}

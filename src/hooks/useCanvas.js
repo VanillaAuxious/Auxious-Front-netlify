@@ -30,7 +30,7 @@ export default function useCanvas(ref) {
 
     image.onload = () => {
       ctx.drawImage(image, 0, 0, 350, 750);
-      ctx.strokeRect(174, 351, 120, 120);
+      ctx.strokeRect(184, 361, 110, 110);
 
       ctx.fillText(agent, 140, 199, 30);
       ctx.fillText('960105', 140, 218, 30);
@@ -52,9 +52,9 @@ export default function useCanvas(ref) {
       for (let i = 0; i < touches.length; i++) {
         if (
           touches[i].clientX < 294 &&
-          174 < touches[i].clientX &&
+          184 < touches[i].clientX &&
           touches[i].clientY < 471 &&
-          351 < touches[i].clientY
+          361 < touches[i].clientY
         ) {
           touchesArray.push(touches[i]);
         }
@@ -72,9 +72,9 @@ export default function useCanvas(ref) {
       for (let i = 0; i < touches.length; i++) {
         if (
           touches[i].clientX < 294 &&
-          174 < touches[i].clientX &&
+          184 < touches[i].clientX &&
           touches[i].clientY < 471 &&
-          351 < touches[i].clientY
+          361 < touches[i].clientY
         ) {
           const index = ongoingTouchIndexById(touches[i].identifier);
 
@@ -149,6 +149,7 @@ export default function useCanvas(ref) {
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
     ctx.fillText(name, 135, 415, 30);
+    ctx.fillText(name, 150, 620, 30);
     ctx.fillText(citizenNumber, 135, 433, 30);
 
     const canvasData = canvas.toDataURL('image/jpeg');
@@ -160,8 +161,13 @@ export default function useCanvas(ref) {
 
     navigate('/');
 
+    const contract = {
+      pdfURI: pdfURI,
+      auctionNumber: auctionNumber,
+    };
+
     await useAxios('/users/user/contract', 'post', {
-      contract: pdfURI,
+      contract: contract,
     });
   };
 
@@ -169,7 +175,7 @@ export default function useCanvas(ref) {
     const canvas = ref.current;
     const ctx = canvas.getContext('2d');
 
-    ctx.clearRect(174, 351, 120, 120);
+    ctx.clearRect(184, 361, 110, 110);
   };
 
   const handleCitizenNumber = (event) => {
