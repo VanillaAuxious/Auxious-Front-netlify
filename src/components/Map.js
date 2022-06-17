@@ -21,6 +21,11 @@ export default function Map() {
   const type = newQuery.get('type');
   const [input, onChange] = useInput();
   const [message, setMessage] = useState('');
+  const [newType, setNewType] = useState([]);
+  const mapElement = useRef(null);
+  const user = useSelector((state) => state.user.userInformation);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState({
     apartment: false,
     studio: false,
@@ -28,50 +33,12 @@ export default function Map() {
     house: false,
     forSale: false,
   });
-  const mapElement = useRef(null);
-  const user = useSelector((state) => state.user.userInformation);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { showAll, graphData, buildings, setShowAll, setSearchPlace } = useMap(
     place,
     type,
     mapElement,
   );
-
-  useEffect(() => {
-    if (type) {
-      const typeArray = type.split(',');
-
-      if (typeArray.includes('아파트')) {
-        setIsChecked(
-          (prevState) =>
-            (prevState = { ...prevState, apartment: !prevState.apartment }),
-        );
-      }
-
-      if (typeArray.includes('주택')) {
-        setIsChecked(
-          (prevState) =>
-            (prevState = { ...prevState, house: !prevState.house }),
-        );
-      }
-
-      if (typeArray.includes('오피스텔/원룸')) {
-        setIsChecked(
-          (prevState) =>
-            (prevState = { ...prevState, studio: !prevState.studio }),
-        );
-      }
-
-      if (typeArray.includes('다세대/다가구')) {
-        setIsChecked(
-          (prevState) =>
-            (prevState = { ...prevState, multiUnit: !prevState.multiUnit }),
-        );
-      }
-    }
-  }, []);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
@@ -103,13 +70,13 @@ export default function Map() {
   const handleFilter = (event) => {
     const targetDivText = event.target.innerText;
 
-    if (type.includes(targetDivText)) {
-      const query = type.replace(targetDivText, '');
-      navigate(`/search/${place}?type=${query}`);
+    if (newType.includes(targetDivText)) {
+      setNewType(
+        (prevState) =>
+          (prevState = prevState.filter((type) => targetDivText !== type)),
+      );
     } else {
-      const newFilterType = [...type];
-      newFilterType.push(targetDivText);
-      navigate(`/search/${place}?type=${newFilterType.join('')}`);
+      setNewType((prevState) => (prevState = [...prevState, targetDivText]));
     }
 
     if (targetDivText === '아파트') {
@@ -141,8 +108,7 @@ export default function Map() {
   };
 
   const handleSearchInput = () => {
-    setSearchPlace(input);
-    navigate(`/search/${input}?type=${type}`);
+    navigate(`/search/${input}?type=${newType.join('')}`);
   };
 
   return (
