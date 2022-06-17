@@ -43,12 +43,36 @@ export default function useMap(place, type, mapElement) {
       map: map,
       averageCenter: true,
       minLevel: 7,
+      styles: [
+        {
+          width: '30px',
+          height: '30px',
+          background: 'rgba(255, 80, 80, .8)',
+          borderRadius: '15px',
+          color: '#000',
+          textAlign: 'center',
+          fontWeight: 'bold',
+          lineHeight: '31px',
+        },
+      ],
     });
 
     const commonClusterer = new kakao.maps.MarkerClusterer({
       map: map,
       averageCenter: true,
       minLevel: 7,
+      styles: [
+        {
+          width: '30px',
+          height: '30px',
+          background: 'rgba(51, 204, 255, .8)',
+          borderRadius: '15px',
+          color: '#000',
+          textAlign: 'center',
+          fontWeight: 'bold',
+          lineHeight: '31px',
+        },
+      ],
     });
 
     cluster = clusterer;
@@ -56,15 +80,16 @@ export default function useMap(place, type, mapElement) {
 
     ps.keywordSearch(decodeURI(searchPlace), (data, status) => {
       const bounds = new kakao.maps.LatLngBounds();
+      if (status === kakao.maps.services.Status.OK) {
+        for (let i = 0; i < data.length; i++) {
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        }
 
-      for (let i = 0; i < data.length; i++) {
-        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-      }
-
-      map.setBounds(bounds);
-      getMaxDistance(map, geocoder);
-      if (newType !== type) {
-        setNewType(type);
+        map.setBounds(bounds);
+        getMaxDistance(map, geocoder);
+        if (newType !== type) {
+          setNewType(type);
+        }
       }
     });
 
@@ -124,9 +149,9 @@ export default function useMap(place, type, mapElement) {
 
     const buildings = auctionsFilter(allBuildings);
     const imageSrc =
-      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
-    const imageSize = new kakao.maps.Size(64, 69);
-    const imageOption = { offset: new kakao.maps.Point(27, 69) };
+      'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
+    const imageSize = new kakao.maps.Size(50, 50);
+    const imageOption = { offset: new kakao.maps.Point(17, 40) };
 
     for (let i = 0; i < auctionMarkers.length; i++) {
       cluster.removeMarker(auctionMarkers[i]);
@@ -165,6 +190,11 @@ export default function useMap(place, type, mapElement) {
   };
 
   const ShowForSaleMarkers = (map) => {
+    for (let i = 0; i < forSalesMarkersArray.length; i++) {
+      commonCluster.removeMarker(forSalesMarkersArray[i]);
+      forSalesMarkersArray[i].setMap(null);
+    }
+
     for (let i = 0; i < forSalesArray.length; i++) {
       const markerPosition = new kakao.maps.LatLng(
         forSalesArray[i].coords.coordinates[1],
