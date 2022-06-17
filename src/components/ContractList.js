@@ -13,8 +13,7 @@ export default function ContractList() {
     })();
   }, []);
 
-  const handleOpenPdf = (event) => {
-    const url = event.target.id;
+  const handleOpenPdf = (url) => {
     const iframe =
       "<iframe width='100%' height='100%' src='" + url + "'></iframe>";
     const newTap = window.open();
@@ -33,8 +32,7 @@ export default function ContractList() {
             <div
               key={index}
               className='contract-list'
-              id={doc.contract.pdfURI}
-              onClick={handleOpenPdf}>
+              onClick={handleOpenPdf.bind(null, doc.contract.pdfURI)}>
               {doc.contract.auctionNumber} 계약서
             </div>
           );
