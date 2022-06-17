@@ -12,6 +12,7 @@ export default function useMap(position, type, mapElement) {
   const [graphData, setGraphData] = useState({});
   const [isMap, setIsMap] = useState(false);
   const [newType, setNewType] = useState();
+  const [buildings, setBuildings] = useState(false);
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
@@ -19,6 +20,7 @@ export default function useMap(position, type, mapElement) {
   const kakao = window.kakao;
   const navigate = useNavigate();
   let cluster;
+  let commonCluster;
 
   useEffect(() => {
     const mapContainer = mapElement.current;
@@ -33,14 +35,22 @@ export default function useMap(position, type, mapElement) {
     const map = !isMap ? new kakao.maps.Map(mapContainer, mapOptions) : isMap;
     const geocoder = new kakao.maps.services.Geocoder();
     const ps = new kakao.maps.services.Places();
-
+    map.setMinLevel(4);
+    map.setMaxLevel(7);
     const clusterer = new kakao.maps.MarkerClusterer({
       map: map,
       averageCenter: true,
       minLevel: 7,
     });
 
+    const commonClusterer = new kakao.maps.MarkerClusterer({
+      map: map,
+      averageCenter: true,
+      minLevel: 7,
+    });
+
     cluster = clusterer;
+    commonCluster = commonClusterer;
 
     if (position) {
       const coord = new kakao.maps.LatLng(position);
@@ -112,6 +122,7 @@ export default function useMap(position, type, mapElement) {
       );
 
       setGraphData(getGraphData(buildings));
+      setBuildings(buildings);
       setCurrentCenter(centerPoint);
       setAuctionsMarker(map, buildings.auctions);
       forSalesArray.push(...buildings.forSales);
@@ -192,6 +203,7 @@ export default function useMap(position, type, mapElement) {
       infoWindowArray.push(infoWindow);
       forSalesMarkersArray.push(forSalesMarker);
       forSalesMarker.setMap(map);
+      commonCluster.addMarker(forSalesMarker);
 
       kakao.maps.event.addListener(forSalesMarker, 'click', () => {
         closeInfoWindow();
@@ -238,5 +250,5 @@ export default function useMap(position, type, mapElement) {
     return buildings;
   };
 
-  return [showAll, setShowAll, currentAddress, graphData];
+  return { showAll, setShowAll, currentAddress, graphData, buildings };
 }
