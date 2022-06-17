@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function DropDown(props) {
+export default function Deligation({ title, option, className }) {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
@@ -14,12 +14,11 @@ export default function DropDown(props) {
   };
 
   return (
-    <>
-      <div onClick={handleDropDown}>{props.title}</div>
-      <br></br>
+    <div className={className}>
+      <div onClick={handleDropDown}>{title}</div>
       <ul>
         {showMenu &&
-          props.option.map((option, index) => {
+          option.map((option, index) => {
             return (
               <li key={index} onClick={getSignPage}>
                 {option}
@@ -27,6 +26,6 @@ export default function DropDown(props) {
             );
           })}
       </ul>
-    </>
+    </div>
   );
 }

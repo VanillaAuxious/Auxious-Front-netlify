@@ -10,7 +10,7 @@ import {
 import { Agent } from '../utils/constants';
 
 import useAxios from '../hooks/useAxios';
-import DropDown from './DropDown';
+import Deligation from './Deligation';
 
 export default function DetailHeader() {
   const dispatch = useDispatch();
@@ -74,8 +74,8 @@ export default function DetailHeader() {
               <BsHeart></BsHeart>
             </button>
           )}
-          <DropDown
-            title={'권한위임'}
+          <Deligation
+            title='권한위임'
             option={Agent}
             auctionNumber={auctionNumber}
           />

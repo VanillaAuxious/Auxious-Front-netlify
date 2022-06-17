@@ -64,7 +64,7 @@ export default function Map() {
   };
 
   const handleSearchInput = () => {
-    navigate(`/search/${input}?type=${filterType.join('&')}`);
+    navigate(`/search/${input}?type=${filterType.join('&type=')}`);
   };
 
   return (
