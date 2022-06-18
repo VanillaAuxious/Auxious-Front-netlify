@@ -152,14 +152,26 @@ export default function useCanvas(ref) {
     ctx.fillText(name, 150, 620, 30);
     ctx.fillText(citizenNumber, 135, 433, 30);
 
-    const canvasData = canvas.toDataURL('image/jpeg');
+    const canvasData = canvas.toDataURL('image/svg');
 
-    const doc = new jsPDF('landscape');
-    doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
-    const pdfURI = doc.output('datauristring');
-    doc.save('contract.pdf');
-    const blob = pdf.output();
-    window.open(URL.createObjectURL(new Blob([blob])));
+    // const doc = new jsPDF('landscape');
+    // doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
+    // const pdfURI = doc.output('datauristring');
+    // doc.save('contract.pdf');
+
+    if (screen.width < 1024) {
+      document
+        .getElementById('viewport')
+        .setAttribute('content', 'width=1024px');
+    }
+    const pdf = new jsPDF('landscape', 'mm', 'a4');
+    pdf.addImage(canvasData, 'svg', 10, 10, 180, 0);
+    pdf.save(myfile.pdf);
+    if (screen.width < 1024) {
+      document
+        .getElementById('viewport')
+        .setAttribute('content', 'width=device-width, initial-scale=1');
+    }
 
     navigate('/');
 
