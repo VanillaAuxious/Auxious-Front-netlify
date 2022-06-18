@@ -22,6 +22,7 @@ export default function Map() {
   const [input, onChange] = useInput();
   const [message, setMessage] = useState('');
   const [newType, setNewType] = useState([]);
+  const [isHid, setIsHid] = useState(false);
   const mapElement = useRef(null);
   const user = useSelector((state) => state.user.userInformation);
   const dispatch = useDispatch();
@@ -111,13 +112,25 @@ export default function Map() {
     navigate(`/search/${input}?type=${newType.join('')}`);
   };
 
+  const handleHideBottomSheet = () => {
+    setIsHid(true);
+  };
+
+  const handleShowBottomSheet = () => {
+    setIsHid(false);
+  };
+
   return (
     <div className='search-container'>
       <img src='/img/logo.png' alt='logo' sizes='small' />
       <div className='map-search-container'>
         {message && <span className='favorite-region-message'>{message}</span>}
         <div className='map-search-input'>
-          <input placeholder='지역을 입력하세요' onChange={onChange}></input>
+          <input
+            placeholder='지역을 입력하세요'
+            onChange={onChange}
+            onFocus={handleHideBottomSheet}
+            onBlur={handleShowBottomSheet}></input>
           <button id='search' onClick={handleSearchInput}>
             <BsSearch />
           </button>
@@ -178,7 +191,7 @@ export default function Map() {
         </div>
       </div>
 
-      <BottomSheet data={buildings} />
+      {!isHid && <BottomSheet data={buildings} />}
     </div>
   );
 }

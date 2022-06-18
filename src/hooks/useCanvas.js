@@ -152,7 +152,7 @@ export default function useCanvas(ref) {
     ctx.fillText(name, 150, 620, 30);
     ctx.fillText(citizenNumber, 135, 433, 30);
 
-    const canvasData = canvas.toDataURL('image/svg');
+    const canvasData = canvas.toDataURL('image/jpeg');
 
     const doc = new jsPDF('landscape');
     doc.addImage(canvasData, 'JPEG', 0, 0, 200, 200);
