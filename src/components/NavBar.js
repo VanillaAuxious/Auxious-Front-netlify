@@ -33,6 +33,10 @@ function NavBar() {
           <img src='/img/icons/mypage.svg' alt='mypage' />
           <span>My Page</span>
         </li>
+        <li onClick={() => navigate(-1)}>
+          <img src='/img/icons/back.svg' alt='mypage' />
+          <span>Back</span>
+        </li>
         <li onClick={handleLogout}>
           <img src='/img/icons/logout.svg' alt='logout' />
           <span>Logout</span>
