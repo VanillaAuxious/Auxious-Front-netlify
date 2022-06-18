@@ -4,7 +4,7 @@ import useAxios from '../hooks/useAxios';
 import './ContractList.scss';
 
 export default function ContractList() {
-  const [contract, setContract] = useState();
+  const [contract, setContract] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -29,9 +29,12 @@ export default function ContractList() {
       {contract &&
         contract.map((doc, index) => {
           return (
-            <a key={index} className='contract-list' href={doc.contract.pdfURI}>
+            <div
+              key={index}
+              className='contract-list'
+              onClick={handleOpenPdf.bind(null, doc.contract.pdfURI)}>
               {doc.contract.auctionNumber} 계약서
-            </a>
+            </div>
           );
         })}
     </div>
