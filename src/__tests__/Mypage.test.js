@@ -1,24 +1,40 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import MyPage from '../components/FavoriteBuildings';
+
+import MyPage from '../pages/MyPage';
+import MyFavoriteRegion from '../pages/FavoriteRegion';
 import store from '../store';
 
-const MockMyPage = () => {
-  return (
-    <BrowserRouter>
+const mock = (
+  <Provider store={store}>
+    <Router>
+      <Routes>
+        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/favoriteregion' element={<MyFavoriteRegion />} />
+      </Routes>
+    </Router>
+  </Provider>
+);
+
+describe('MyPage', () => {
+  beforeEach(() => {
+    //API
+
+    render(
       <Provider store={store}>
-        <MyPage />
-      </Provider>
-    </BrowserRouter>
-  );
-};
+        <Router>
+          <MyPage />
+        </Router>
+      </Provider>,
+    );
+  });
 
-describe('<MyPage />', () => {
+
   it('render MyPage page text', () => {
-    render(<MockMyPage />);
-
-    const preferenceSale = screen.getByText('찜한 매물');
-    expect(preferenceSale).toHaveTextContent('찜한 매물');
+    const IntroduceYourself = screen.getByText('관심지역 설정');
+    expect(IntroduceYourself).toHaveTextContent('관심지역 설정');
   });
 });

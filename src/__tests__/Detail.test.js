@@ -1,23 +1,23 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import Detail from '../components/DetailAccordion';
 import store from '../store';
 
-const MockDetail = () => {
-  return (
-    <BrowserRouter>
+describe('Detail', () => {
+  beforeEach(() => {
+    render(
       <Provider store={store}>
-        <Detail />
-      </Provider>
-    </BrowserRouter>
-  );
-};
+        <Router>
+          <Detail />
+        </Router>
+      </Provider>,
+    );
+  });
 
-describe('<Detail />', () => {
   it('render Detail page text', () => {
-    render(<MockDetail />);
-
     const basicInformation = screen.getByText('기본정보');
     const auctionProperty = screen.getByText('경매 부동산 정보');
     const mattersRegistered = screen.getByText('등기현황');
