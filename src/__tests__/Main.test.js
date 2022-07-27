@@ -1,9 +1,12 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import Search from '../components/Search';
+import Main from '../pages/Main';
+// import SearchPlace from '../pages/SearchPlace';
+// import MyFavoriteRegion from '../components/FavoriteRegions';
 import store from '../store';
 
 describe('Main', () => {
@@ -11,7 +14,11 @@ describe('Main', () => {
     render(
       <Provider store={store}>
         <Router>
-          <Search />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            {/* <Route path='/search/:place' element={<SearchPlace />} /> */}
+            {/* <Route path='/favoriteregion' element={<MyFavoriteRegion />} /> */}
+          </Routes>
         </Router>
       </Provider>,
     );
@@ -35,5 +42,20 @@ describe('Main', () => {
     expect(mainDescriptions).toHaveTextContent(
       'Enter the administrative district of Seoul.',
     );
+  });
+
+  it('Once entered, the button is activated.', async () => {
+    const user = userEvent.setup();
+    const inputText = screen.getByRole('textbox');
+    const button = screen.getByText('검색');
+
+    expect(button).toBeDisabled();
+    await user.type(inputText, '삼성동');
+
+    expect(button).toBeEnabled();
+    await user.click(button);
+
+    // const apartmentFilter = screen.getByRole('textbox');
+    // expect(apartmentFilter).toHaveTextContent('지역을 입력하세요');
   });
 });
