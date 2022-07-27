@@ -7,7 +7,7 @@ import {
   deleteUserFavoriteBuilding,
 } from '../store/userSlice';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import Deligation from './Deligation';
 
 import './DetailHeader.scss';
@@ -29,7 +29,7 @@ export default function DetailHeader() {
 
   useLayoutEffect(() => {
     const getBuildingDetail = async () => {
-      const buildings = await useAxios(`/buildings/${buildingId}`, 'get');
+      const buildings = await sendAPI(`/buildings/${buildingId}`, 'get');
       setDetail(buildings);
     };
 
@@ -38,12 +38,12 @@ export default function DetailHeader() {
 
   const handleUserFavoriteRegion = async () => {
     if (userFavorite) {
-      await useAxios(`users/user/favorites/buildings/${buildingId}`, 'delete');
+      await sendAPI(`users/user/favorites/buildings/${buildingId}`, 'delete');
 
       setUserFavorite(false);
       dispatch(deleteUserFavoriteBuilding(buildingId));
     } else {
-      await useAxios(`users/user/favorites/buildings`, 'post', {
+      await sendAPI(`users/user/favorites/buildings`, 'post', {
         buildingId: buildingId,
       });
 

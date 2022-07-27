@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getGraphData } from '../utils/graph';
 
-import useAxios from './useAxios';
+import sendAPI from '../utils/sendAPI';
 
 export default function useMap(place, type, mapElement) {
   const [showAll, setShowAll] = useState(false);
@@ -124,7 +124,7 @@ export default function useMap(place, type, mapElement) {
       const length = polyLine.getLength();
       const center = map.getCenter();
       const centerPoint = [center.Ma, center.La];
-      const buildings = await useAxios(
+      const buildings = await sendAPI(
         `/buildings/?coords=${centerPoint}&max-distance=${length}`,
         'get',
       );

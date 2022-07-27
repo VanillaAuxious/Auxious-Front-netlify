@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import './ContractList.scss';
 
 export default function ContractList() {
@@ -8,7 +8,7 @@ export default function ContractList() {
 
   useEffect(() => {
     (async () => {
-      const contractArray = await useAxios('/users/user/contract', 'get');
+      const contractArray = await sendAPI('/users/user/contract', 'get');
       setContract(contractArray.contract);
     })();
   }, []);

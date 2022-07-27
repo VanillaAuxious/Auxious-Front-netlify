@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { patchUserData } from '../store/userSlice';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import './FavoriteBuildings.scss';
 
 export default function FavoriteBuildings() {
@@ -13,7 +13,7 @@ export default function FavoriteBuildings() {
 
   useLayoutEffect(() => {
     (async () => {
-      const result = await useAxios('/users/user/favorites/buildings', 'get');
+      const result = await sendAPI('/users/user/favorites/buildings', 'get');
       const buildingArray = result.favoriteBuildingsInfoArray;
       setFavoriteBuildings(buildingArray);
     })();
@@ -28,7 +28,7 @@ export default function FavoriteBuildings() {
       (building) => building._id !== id,
     );
 
-    await useAxios(`/users/user/favorites/buildings/${id}`, 'delete');
+    await sendAPI(`/users/user/favorites/buildings/${id}`, 'delete');
 
     const fieldName = 'favoriteBuildings';
     const data = newBuildingsArray;

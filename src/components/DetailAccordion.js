@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import DetailSlides from './DetailSlides';
 import Accordion from '../common/Accordion';
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 
-import './DetailAccordion.scss'
+import './DetailAccordion.scss';
 
 export default function DetailArcodian() {
   const { buildingId } = useParams();
@@ -26,7 +26,7 @@ export default function DetailArcodian() {
 
   useLayoutEffect(() => {
     const getBuildingDetail = async () => {
-      const buildings = await useAxios(`/buildings/${buildingId}`, 'get');
+      const buildings = await sendAPI(`/buildings/${buildingId}`, 'get');
       setDetail(buildings);
     };
 

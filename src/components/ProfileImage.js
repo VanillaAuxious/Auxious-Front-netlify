@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from './utils/sendAPI';
 
 export default function PrifileImage() {
   const inputRef = useRef(null);
@@ -14,7 +14,7 @@ export default function PrifileImage() {
     const image = e.target.files[0];
     formData.append('img', image);
 
-    await useAxios('/users/user/image', 'post', formData);
+    await sendAPI('/users/user/image', 'post', formData);
   };
 
   const uploadProfileImage = () => {

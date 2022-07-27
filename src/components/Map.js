@@ -1,15 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addUserFavoriteRegion,
-  deleteUserFavoriteRegion,
-} from '../store/userSlice';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 
 import useInput from '../hooks/useInput';
 import useMap from '../hooks/useMap';
-import useAxios from '../hooks/useAxios';
 import BottomSheet from '../components/BottomSheet';
 
 import './Map.scss';

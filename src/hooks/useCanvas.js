@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { jsPDF } from 'jspdf';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 
 export default function useCanvas(ref) {
   const [citizenNumber, setCitizenNumber] = useState(0);
@@ -166,7 +166,7 @@ export default function useCanvas(ref) {
       auctionNumber: auctionNumber,
     };
 
-    await useAxios('/users/user/contract', 'post', {
+    await sendAPI('/users/user/contract', 'post', {
       contract: contract,
     });
   };

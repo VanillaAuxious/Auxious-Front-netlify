@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import useInput from '../hooks/useInput';
 
 import { REGIONS } from '../utils/constants';
@@ -38,7 +38,7 @@ export default function SetFavoriteRegion() {
       return;
     }
 
-    await useAxios('/users/user/favorites/regions', 'post', {
+    await sendAPI('/users/user/favorites/regions', 'post', {
       region: enteredRegion,
     });
 
@@ -61,7 +61,7 @@ export default function SetFavoriteRegion() {
       return;
     }
 
-    await useAxios('/users/user/favorites/regions', 'post', {
+    await sendAPI('/users/user/favorites/regions', 'post', {
       region: event.target.innerText,
     });
 
