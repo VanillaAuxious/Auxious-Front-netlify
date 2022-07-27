@@ -1,15 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addUserFavoriteRegion,
-  deleteUserFavoriteRegion,
-} from '../store/userSlice';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 
 import useInput from '../hooks/useInput';
 import useMap from '../hooks/useMap';
-import useAxios from '../hooks/useAxios';
 import BottomSheet from '../components/BottomSheet';
 
 import './Map.scss';
@@ -20,7 +15,6 @@ export default function Map() {
   const newQuery = new URLSearchParams(location.search);
   const type = newQuery.get('type');
   const [input, onChange] = useInput();
-  const [message, setMessage] = useState('');
   const [newType, setNewType] = useState([]);
   const [isHid, setIsHid] = useState(false);
   const mapElement = useRef(null);
@@ -35,14 +29,11 @@ export default function Map() {
     forSale: false,
   });
 
-  const {
-    showAll,
-    graphData,
-    buildings,
-    setShowAll,
-    setSearchPlace,
-    currentAddress,
-  } = useMap(place, type, mapElement);
+  const { showAll, graphData, buildings, setShowAll, currentAddress } = useMap(
+    place,
+    type,
+    mapElement,
+  );
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
@@ -50,28 +41,6 @@ export default function Map() {
       (prevState) =>
         (prevState = { ...prevState, forSale: !prevState.forSale }),
     );
-  };
-
-  const handleUserFavorites = async () => {
-    if (user.favoriteRegions.length > 2) {
-      setMessage('관심지역의 갯수를 초과하였습니다.');
-      return;
-    }
-
-    if (!user.favoriteRegions.includes(currentAddress)) {
-      await useAxios('/users/user/favorites/regions', 'post', {
-        region: currentAddress,
-      });
-
-      dispatch(addUserFavoriteRegion(currentAddress));
-    } else {
-      await useAxios(
-        `/users/user/favorites/regions/${currentAddress}`,
-        'delete',
-      );
-
-      dispatch(deleteUserFavoriteRegion(currentAddress));
-    }
   };
 
   const handleFilter = (event) => {
@@ -130,7 +99,6 @@ export default function Map() {
     <div className='search-container'>
       <img src='/img/logo.png' alt='logo' sizes='small' />
       <div className='map-search-container'>
-        {message && <span className='favorite-region-message'>{message}</span>}
         <div className='map-search-input'>
           <input
             placeholder='지역을 입력하세요'
@@ -140,15 +108,6 @@ export default function Map() {
           <button id='search' onClick={handleSearchInput}>
             <BsSearch />
           </button>
-        </div>
-        <div
-          className='search-add-region'
-          style={{
-            color: user.favoriteRegions.includes(place) && '#fff',
-            backgroundColor: user.favoriteRegions.includes(place) && '#2d3d72',
-          }}
-          onClick={handleUserFavorites}>
-          관심 지역+
         </div>
       </div>
       <div className='search-types'>

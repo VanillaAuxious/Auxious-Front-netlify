@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import useAixos from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import { deleteUserInfo } from '../store/userSlice';
 
 import './NavBar.scss';
@@ -11,7 +11,7 @@ function NavBar() {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    const response = await useAixos('users/user/device-token', 'delete');
+    const response = await sendAPI('users/user/device-token', 'delete');
 
     if (response.ok) {
       document.cookie = `server_token=''; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;

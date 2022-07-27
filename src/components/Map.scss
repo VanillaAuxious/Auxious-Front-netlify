@@ -71,17 +71,6 @@
   }
 }
 
-.search-add-region {
-  border: 2px solid #2d3d72;
-  border-radius: 5px;
-  width: 20vw;
-  height: 3.8vh;
-  padding: 0.5rem;
-  text-align: center;
-  line-height: 3.8vh;
-  transition: all 0.3s;
-}
-
 .map-container {
   margin-top: 0.5rem;
   border-radius: 15px 15px 15px 0;
@@ -129,11 +118,4 @@
   border-style: solid;
   border-width: medium;
   border-color: #d8ecff;
-}
-
-.favorite-region-message {
-  color: #fc67b7;
-  font-weight: bold;
-  text-decoration: underline;
-  text-underline-position: under;
 }

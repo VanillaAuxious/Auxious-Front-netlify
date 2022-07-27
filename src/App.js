@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useAxios from './hooks/useAxios';
+import sendAPI from './utils/sendAPI';
 import Authorized from './routes/Authorized';
 import Unauthorized from './routes/Unauthorized';
 import Notification from './components/Notification';
@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const setUserInformation = async () => {
-      const response = await useAxios(`users/user`);
+      const response = await sendAPI(`users/user`);
       if (!response.ok) {
         localStorage.removeItem('isLoggedIn');
         //에러 모달로 처리 예정

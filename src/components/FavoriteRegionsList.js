@@ -1,4 +1,4 @@
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import { patchUserData } from '../store/userSlice';
 
@@ -18,7 +18,7 @@ export default function FavoriteRegionList() {
       }
     }
 
-    await useAxios(`/users/user/favorites/regions/${region}`, 'delete');
+    await sendAPI(`/users/user/favorites/regions/${region}`, 'delete');
 
     const fieldName = 'favoriteRegions';
     const data = newRegionArray;
