@@ -8,7 +8,6 @@ export default function useMap(place, type, mapElement) {
   const [showAll, setShowAll] = useState(false);
   const [currentAddress, setCurrentAddress] = useState('');
   const [currentCenter, setCurrentCenter] = useState([37.5, 127.0]);
-  const [searchPlace, setSearchPlace] = useState(place);
   const [graphData, setGraphData] = useState({});
   const [isMap, setIsMap] = useState(false);
   const [newType, setNewType] = useState();
@@ -78,7 +77,7 @@ export default function useMap(place, type, mapElement) {
     cluster = clusterer;
     commonCluster = commonClusterer;
 
-    ps.keywordSearch(decodeURI(searchPlace), (data, status) => {
+    ps.keywordSearch(decodeURI(place), (data, status) => {
       const bounds = new kakao.maps.LatLngBounds();
       if (status === kakao.maps.services.Status.OK) {
         for (let i = 0; i < data.length; i++) {
@@ -101,7 +100,7 @@ export default function useMap(place, type, mapElement) {
 
     setIsMap(map);
     mapContainer.ontouchend = getMaxDistance(map, geocoder);
-  }, [type, showAll, searchPlace]);
+  }, [type, showAll, place]);
 
   const getMaxDistance = (map, geocoder) => {
     kakao.maps.event.preventMap();
@@ -281,6 +280,5 @@ export default function useMap(place, type, mapElement) {
     currentAddress,
     graphData,
     buildings,
-    setSearchPlace,
   };
 }
