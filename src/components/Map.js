@@ -155,7 +155,6 @@ export default function Map() {
           일반매물
         </div>
       </div>
-
       {!isHid && <BottomSheet data={buildings} />}
     </div>
   );

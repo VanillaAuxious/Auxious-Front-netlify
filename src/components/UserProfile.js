@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BsPerson } from 'react-icons/bs';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import InputModal from './InputModal';
 
 import { patchUserData } from '../store/userSlice';
@@ -18,7 +18,7 @@ export default function UserProfile() {
   );
 
   const updateUserDescription = async (newFieldData) => {
-    const response = await useAxios('/users/user', 'patch', {
+    const response = await sendAPI('/users/user', 'patch', {
       fieldName: 'description',
       newFieldData,
     });

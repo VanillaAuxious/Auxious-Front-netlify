@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import useAxios from '../hooks/useAxios';
+import sendAPI from '../utils/sendAPI';
 import Backdrop from '../common/Backdrop';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -20,7 +20,7 @@ export default function LoginFallback() {
   useEffect(() => {
     const getUserInformation = async () => {
       const deviceToken = await requestForToken();
-      const userData = await useAxios(`users/login`, 'post', {
+      const userData = await sendAPI(`users/login`, 'post', {
         code,
         deviceToken,
       });
