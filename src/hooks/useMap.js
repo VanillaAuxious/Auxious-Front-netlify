@@ -17,7 +17,6 @@ export default function useMap(place, type, mapElement) {
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
-  // const forSalesMarkersArray = [];
   const kakao = window.kakao;
   const navigate = useNavigate();
   let cluster;
@@ -197,7 +196,7 @@ export default function useMap(place, type, mapElement) {
     if (forSalesMarkersArray && Array.isArray(forSalesMarkersArray)) {
       forSalesMarkersArray.forEach((marker) => {
         commonCluster.removeMarker(marker);
-        element.setMap(null);
+        marker.setMap(null);
       });
     }
 
@@ -220,7 +219,7 @@ export default function useMap(place, type, mapElement) {
         const forSalesMarker = new kakao.maps.Marker({
           position: markerPosition,
         });
-        console.log(forSalesMarkersArray);
+
         setForSalesMarkersArray((prevState) =>
           prevState.concat(forSalesMarker),
         );
