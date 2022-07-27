@@ -35,11 +35,14 @@ export default function Map() {
     forSale: false,
   });
 
-  const { showAll, graphData, buildings, setShowAll, setSearchPlace } = useMap(
-    place,
-    type,
-    mapElement,
-  );
+  const {
+    showAll,
+    graphData,
+    buildings,
+    setShowAll,
+    setSearchPlace,
+    currentAddress,
+  } = useMap(place, type, mapElement);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
@@ -55,16 +58,19 @@ export default function Map() {
       return;
     }
 
-    if (!user.favoriteRegions.includes(place)) {
+    if (!user.favoriteRegions.includes(currentAddress)) {
       await useAxios('/users/user/favorites/regions', 'post', {
-        region: place,
+        region: currentAddress,
       });
 
-      dispatch(addUserFavoriteRegion(place));
+      dispatch(addUserFavoriteRegion(currentAddress));
     } else {
-      await useAxios(`/users/user/favorites/regions/${place}`, 'delete');
+      await useAxios(
+        `/users/user/favorites/regions/${currentAddress}`,
+        'delete',
+      );
 
-      dispatch(deleteUserFavoriteRegion(place));
+      dispatch(deleteUserFavoriteRegion(currentAddress));
     }
   };
 

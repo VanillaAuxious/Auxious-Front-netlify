@@ -13,10 +13,10 @@ export default function useMap(place, type, mapElement) {
   const [isMap, setIsMap] = useState(false);
   const [newType, setNewType] = useState();
   const [buildings, setBuildings] = useState(false);
+  const [forSalesMarkersArray, setForSalesMarkersArray] = useState([]);
   const infoWindowArray = [];
   const auctionMarkers = [];
   const forSalesArray = [];
-  const forSalesMarkersArray = [];
   const kakao = window.kakao;
   const navigate = useNavigate();
   let cluster;
@@ -134,9 +134,12 @@ export default function useMap(place, type, mapElement) {
       setBuildings(buildings);
       setCurrentCenter(centerPoint);
       setAuctionsMarker(map, buildings.auctions);
-      forSalesArray.push(...buildings.forSales);
 
       if (showAll) {
+        buildings.forSales.forEach((element) => {
+          forSalesArray.push(element);
+        });
+
         ShowForSaleMarkers(map);
       } else {
         deleteForSaleMarkers(map);
@@ -190,50 +193,58 @@ export default function useMap(place, type, mapElement) {
   };
 
   const ShowForSaleMarkers = (map) => {
-    for (let i = 0; i < forSalesMarkersArray.length; i++) {
-      commonCluster.removeMarker(forSalesMarkersArray[i]);
-      forSalesMarkersArray[i].setMap(null);
-    }
-
-    for (let i = 0; i < forSalesArray.length; i++) {
-      const markerPosition = new kakao.maps.LatLng(
-        forSalesArray[i].coords.coordinates[1],
-        forSalesArray[i].coords.coordinates[0],
-      );
-
-      const infoWindow = new kakao.maps.InfoWindow({
-        position: markerPosition,
-        content:
-          forSalesArray[i].name +
-          forSalesArray[i].squareMeters +
-          forSalesArray[i].price,
-        removable: true,
-      });
-
-      const forSalesMarker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-
-      infoWindowArray.push(infoWindow);
-      forSalesMarkersArray.push(forSalesMarker);
-      forSalesMarker.setMap(map);
-      commonCluster.addMarker(forSalesMarker);
-
-      kakao.maps.event.addListener(forSalesMarker, 'click', () => {
-        closeInfoWindow();
-        infoWindow.open(map, forSalesMarker);
+    if (forSalesMarkersArray && Array.isArray(forSalesMarkersArray)) {
+      forSalesMarkersArray.forEach((marker) => {
+        commonCluster.removeMarker(marker);
+        marker.setMap(null);
       });
     }
 
-    forSalesArray.splice(0, forSalesArray.length);
+    if (showAll) {
+      for (let i = 0; i < forSalesArray.length; i++) {
+        const markerPosition = new kakao.maps.LatLng(
+          forSalesArray[i].coords.coordinates[1],
+          forSalesArray[i].coords.coordinates[0],
+        );
+
+        const infoWindow = new kakao.maps.InfoWindow({
+          position: markerPosition,
+          content:
+            forSalesArray[i].name +
+            forSalesArray[i].squareMeters +
+            forSalesArray[i].price,
+          removable: true,
+        });
+
+        const forSalesMarker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+
+        setForSalesMarkersArray((prevState) =>
+          prevState.concat(forSalesMarker),
+        );
+
+        infoWindowArray.push(infoWindow);
+        forSalesMarker.setMap(map);
+        commonCluster.addMarker(forSalesMarker);
+
+        kakao.maps.event.addListener(forSalesMarker, 'click', () => {
+          closeInfoWindow();
+          infoWindow.open(map, forSalesMarker);
+        });
+      }
+
+      forSalesArray.splice(0, forSalesArray.length);
+    }
   };
 
-  const deleteForSaleMarkers = () => {
-    for (let i = 0; i < forSalesMarkersArray.length; i++) {
-      forSalesMarkersArray[i].setMap(null);
-    }
+  const deleteForSaleMarkers = (map) => {
+    forSalesMarkersArray.forEach((marker) => {
+      marker.setMap(null);
+      commonCluster.removeMarker(marker);
+    });
 
-    forSalesMarkersArray.splice(0, forSalesMarkersArray.length);
+    setForSalesMarkersArray([]);
     infoWindowArray.splice(0, infoWindowArray.length);
   };
 
