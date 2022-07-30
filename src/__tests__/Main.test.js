@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Main from '../pages/Main';
-// import SearchPlace from '../pages/SearchPlace';
-// import MyFavoriteRegion from '../components/FavoriteRegions';
 import store from '../store';
 
 describe('Main', () => {
@@ -16,8 +14,6 @@ describe('Main', () => {
         <Router>
           <Routes>
             <Route path='/' element={<Main />} />
-            {/* <Route path='/search/:place' element={<SearchPlace />} /> */}
-            {/* <Route path='/favoriteregion' element={<MyFavoriteRegion />} /> */}
           </Routes>
         </Router>
       </Provider>,
@@ -54,8 +50,5 @@ describe('Main', () => {
 
     expect(button).toBeEnabled();
     await user.click(button);
-
-    // const apartmentFilter = screen.getByRole('textbox');
-    // expect(apartmentFilter).toHaveTextContent('지역을 입력하세요');
   });
 });

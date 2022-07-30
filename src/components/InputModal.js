@@ -23,20 +23,17 @@ export default function InputModal({ onCancelModal, onUpdateData }) {
         <Backdrop onClick={onCancelModal} />,
         document.querySelector('#backdrop-root'),
       )}
-      {createPortal(
-        <form className='modal-container' onSubmit={handleUpdateDescription}>
-          <span>변경할 정보를 입력해 주세요 (최대 15자)</span>
-          <input
-            type='text'
-            maxLength='15'
-            value={inputValue}
-            onChange={onChange}
-          />
-          <button>제출하기</button>
-          <div onClick={onCancelModal}>&#10005;</div>
-        </form>,
-        document.querySelector('#overlay-root'),
-      )}
+      <form className='modal-container' onSubmit={handleUpdateDescription}>
+        <span>변경할 정보를 입력해 주세요 (최대 15자)</span>
+        <input
+          type='text'
+          maxLength='15'
+          value={inputValue}
+          onChange={onChange}
+        />
+        <button>제출하기</button>
+        <div onClick={onCancelModal}>&#10005;</div>
+      </form>
     </>
   );
 }
