@@ -150,8 +150,7 @@ export default function useMap(place, type, mapElement) {
     if (!allBuildings) return;
 
     const buildings = auctionsFilter(allBuildings);
-    const imageSrc =
-      'https://cdn.icon-icons.com/icons2/317/PNG/512/map-marker-icon_34392.png';
+    const imageSrc = '/img/marker.png';
     const imageSize = new kakao.maps.Size(50, 50);
     const imageOption = { offset: new kakao.maps.Point(17, 40) };
 
