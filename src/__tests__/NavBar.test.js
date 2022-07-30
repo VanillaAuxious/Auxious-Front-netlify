@@ -19,12 +19,13 @@ describe('NavBar', () => {
 
   it('render NavBar page text', () => {
     const homeButton = screen.getByText('Home');
-    expect(homeButton).toHaveTextContent('Home');
     const myPageButton = screen.getByText('My Page');
-    expect(myPageButton).toHaveTextContent('My Page');
     const backButton = screen.getByText('Back');
-    expect(backButton).toHaveTextContent('Back');
     const logoutButton = screen.getByText('Logout');
+
+    expect(homeButton).toHaveTextContent('Home');
+    expect(myPageButton).toHaveTextContent('My Page');
+    expect(backButton).toHaveTextContent('Back');
     expect(logoutButton).toHaveTextContent('Logout');
   });
 });
