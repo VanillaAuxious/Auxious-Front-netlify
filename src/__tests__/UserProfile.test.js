@@ -10,16 +10,21 @@ import { saveUserInfo } from '../mocks/userSliceMock';
 import UserProfile from '../components/UserProfile';
 import sendAPI from '../utils/sendAPI';
 
-const modalRoot = document.createElement('div');
-modalRoot.setAttribute('id', 'backdrop-root');
-document.body.appendChild(modalRoot);
-
 describe('Profile', () => {
-  beforeEach(async () => {
-    const store = configureStore({
-      reducer: { user: userSliceMock },
-    });
+  const store = configureStore({
+    reducer: { user: userSliceMock },
+  });
 
+  beforeAll(() => {
+    const rootMarkup = `
+      <div id="backdrop-root"></div>
+      <div id="overlay-root"></div>
+    `;
+
+    document.body.insertAdjacentHTML('afterbegin', rootMarkup);
+  });
+
+  beforeEach(async () => {
     const dispatch = jest.spyOn(store, 'dispatch');
     const data = await sendAPI('/users/user');
     dispatch(saveUserInfo(data.userInfo));
@@ -45,10 +50,22 @@ describe('Profile', () => {
     const user = userEvent.setup();
     const setButton = screen.getByText('자기소개 변경하기');
 
-    user.click(setButton);
+    await user.click(setButton);
 
-    expect(
-      await screen.findByText('변경할 정보를 입력해 주세요 (최대 15자)'),
-    ).toBeInTheDocument();
+    const inputModalTitle = screen.getByText(
+      '변경할 정보를 입력해 주세요 (최대 15자)',
+    );
+
+    const selfIntroductionInput = screen.getByRole('textbox');
+    const submitButton = screen.getByRole('button', { name: '제출하기' });
+    const selfIntroductionForm = screen.getByRole('form');
+
+    expect(inputModalTitle).toBeInTheDocument();
+    expect(selfIntroductionInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+    expect(selfIntroductionForm).toBeInTheDocument();
+
+    await user.type(selfIntroductionInput, '안녕하세요');
+    await user.click(submitButton);
   });
 });
