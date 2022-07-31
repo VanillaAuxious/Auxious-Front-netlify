@@ -25,8 +25,8 @@ describe('Profile', () => {
   });
 
   beforeEach(async () => {
-    const dispatch = jest.spyOn(store, 'dispatch');
     const data = await sendAPI('/users/user');
+    const dispatch = jest.spyOn(store, 'dispatch');
     dispatch(saveUserInfo(data.userInfo));
 
     render(
@@ -46,26 +46,23 @@ describe('Profile', () => {
     expect(setButton).toHaveTextContent('관심지역 설정');
   });
 
-  it('Register for self-introduction', async () => {
+  it('open modal for self-introduction', async () => {
     const user = userEvent.setup();
     const setButton = screen.getByText('자기소개 변경하기');
 
     await user.click(setButton);
 
-    const inputModalTitle = screen.getByText(
-      '변경할 정보를 입력해 주세요 (최대 15자)',
-    );
-
     const selfIntroductionInput = screen.getByRole('textbox');
     const submitButton = screen.getByRole('button', { name: '제출하기' });
     const selfIntroductionForm = screen.getByRole('form');
+
+    const inputModalTitle = screen.getByText(
+      '변경할 정보를 입력해 주세요 (최대 15자)',
+    );
 
     expect(inputModalTitle).toBeInTheDocument();
     expect(selfIntroductionInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
     expect(selfIntroductionForm).toBeInTheDocument();
-
-    await user.type(selfIntroductionInput, '안녕하세요');
-    await user.click(submitButton);
   });
 });

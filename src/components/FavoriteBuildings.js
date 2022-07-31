@@ -41,10 +41,10 @@ export default function FavoriteBuildings() {
     <div className='favorite-buildings-container'>
       <div className='favorite-buildings-heading'>찜한 매물</div>
       {favoriteBuildings &&
-        favoriteBuildings.map((building, index) => {
+        favoriteBuildings.map((building) => {
           return (
-            <ul key={index} className='favorite-buildings-list'>
-              <li onClick={showBuildingDetailPage.bind(null, building._id)}>
+            <ul key={building._id} className='favorite-buildings-list'>
+              <li onClick={() => showBuildingDetailPage(building._id)}>
                 <span>{`경매번호: ${building.auctionNumber}`}</span>
                 <span>{`주소: ${building.address}`}</span>
                 <span>{`현재 감정가: ${building.connoisseur}`}</span>
