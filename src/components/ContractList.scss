@@ -1,0 +1,28 @@
+.contract-container {
+  width: 80vw;
+  margin: 0 auto;
+
+  .contract-heading {
+    width: 74vw;
+    color: #eee;
+    padding: 0.7rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    background-color: #345ee7;
+    text-align: center;
+  }
+
+  .contract-list {
+    margin: auto 0;
+    margin-bottom: 1vh;
+    background-color: #eee;
+    color: #000;
+    border-radius: 0.3rem;
+    font-size: small;
+    display: flex;
+    padding: 0.2rem;
+    transition: background-color 0.3s;
+  }
+}

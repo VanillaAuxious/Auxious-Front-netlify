@@ -1,0 +1,27 @@
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100vw;
+  height: 30vh;
+  box-sizing: border-box;
+  background-color: #eee;
+  margin: 0 0 10px 0;
+  list-style: none;
+  padding: 20px;
+
+  & .process {
+    display: flex;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid black;
+
+    & h5 {
+      width: 10vw;
+      margin: 0;
+    }
+
+    & .process-item {
+      width: 30vw;
+    }
+  }
+}

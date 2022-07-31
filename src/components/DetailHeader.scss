@@ -1,0 +1,51 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+
+  & button {
+    margin-right: 10px;
+    background-color: #fff;
+    border: 0px;
+    font-size: larger;
+  }
+
+  & img {
+    margin-bottom: 10px;
+  }
+
+  .detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 5vw;
+    width: 100vw;
+    position: relative;
+
+    & div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35vw;
+      height: 30vh;
+      padding: 0 10px;
+      background-color: #eee;
+    }
+
+    & button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 2vw;
+      width: 10vw;
+      height: 10vw;
+      color: #d43232;
+      border: 1px solid #d43232;
+      transition: all, 0.3s;
+
+      &:active {
+        color: #fff;
+        background-color: #d43232;
+      }
+    }
+  }
+}

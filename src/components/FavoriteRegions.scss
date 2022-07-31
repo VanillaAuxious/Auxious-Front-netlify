@@ -1,0 +1,45 @@
+.favorite-region-container {
+  margin-top: 25px;
+
+  .favorite-region-search {
+    display: flex;
+
+    & input {
+      width: 229px;
+      height: 25px;
+      margin-right: 7px;
+    }
+
+    & button {
+      width: 18vw;
+      height: 31px;
+      font-size: 4vw;
+    }
+  }
+
+  & div {
+    margin-top: 10px;
+  }
+
+  .favorite-region-message {
+    color: #fc67b7;
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    list-style: none;
+
+    li {
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.3rem;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}
